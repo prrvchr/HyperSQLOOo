@@ -44,28 +44,17 @@ Dans LibreOffice / OpenOffice aller à: Fichier -> Nouveau -> Base de données..
 ![HsqlDBembeddedOOo screenshot 1](HsqlDBembeddedOOo-1.png)
 
 A l'étape: Sélectionner une base de données:
-- selectionner: Connecter une base de données existante
-- choisir: Pilote HsqlDB
+- selectionner: Créer une nouvelle base de données
+- Dans: Base de données intégrée: choisir: Pilote HsqlDB intégré
 - cliquer sur le bouton: Suivant
 
 ![HsqlDBembeddedOOo screenshot 2](HsqlDBembeddedOOo-2.png)
 
-A l'étape: Paramètres de connexion:
-- dans URL de la source de données saisir:
-    - pour Linux: file:///tmp/testdb;default_schema=true;shutdown=true;hsqldb.default_table_type=cached;get_column_name=false
-    - pour Windows: file:///c:/tmp/testdb;default_schema=true;shutdown=true;hsqldb.default_table_type=cached;get_column_name=false
-- cliquer sur le bouton: Suivant
+A l'étape: Enregistrer et continuer:
+- ajuster les paramètres selon vos besoins...
+- cliquer sur le bouton: Terminer
 
 ![HsqlDBembeddedOOo screenshot 3](HsqlDBembeddedOOo-3.png)
-
-A l'étape: Paramétrer l'authentification de l'utilisateur:
-- cliquer sur le bouton: Tester la connexion
-
-![HsqlDBembeddedOOo screenshot 4](HsqlDBembeddedOOo-4.png)
-
-Si la connexion a réussi, vous devriez voir cette fenêtre de dialogue:
-
-![HsqlDBembeddedOOo screenshot 5](HsqlDBembeddedOOo-5.png)
 
 Maintenant à vous d'en profiter...
 

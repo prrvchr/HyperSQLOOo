@@ -44,28 +44,17 @@ In LibreOffice / OpenOffice go to File -> New -> Database...:
 ![HsqlDBembeddedOOo screenshot 1](HsqlDBembeddedOOo-1.png)
 
 In step: Select database:
-- select: Connect to an existing database
-- choose: HsqlDB Driver
+- select: Create a new database
+- in: Emdedded database: choose: Embedded HsqlDB Driver
 - click on button: Next
 
 ![HsqlDBembeddedOOo screenshot 2](HsqlDBembeddedOOo-2.png)
 
-In step: Connection settings:
-- in Datasource URL put:
-    - for Linux: file:///tmp/testdb;default_schema=true;shutdown=true;hsqldb.default_table_type=cached;get_column_name=false
-    - for Windows: file:///c:/tmp/testdb;default_schema=true;shutdown=true;hsqldb.default_table_type=cached;get_column_name=false
-- click on button: Next
+In step: Save and proceed:
+- adjust the parameters according to your needs...
+- click on button: Finish
 
 ![HsqlDBembeddedOOo screenshot 3](HsqlDBembeddedOOo-3.png)
-
-In step: Set up user authentication:
-- click on button: Test connection
-
-![HsqlDBembeddedOOo screenshot 4](HsqlDBembeddedOOo-4.png)
-
-If the connection was successful, you should see this dialog window:
-
-![HsqlDBembeddedOOo screenshot 5](HsqlDBembeddedOOo-5.png)
 
 Have fun...
 
