@@ -1,18 +1,16 @@
-## Conditions d'utilisation pour [HsqlDBembeddedOOo](https://github.com/prrvchr/HsqlDBembeddedOOo)
+Concernant l'installation, la configuration et l'utilisation, veuillez consulter la [documentation](https://prrvchr.github.io/HsqlDBembeddedOOo/README_fr).
 
+# Conditions d'utilisation pour [HsqlDBembeddedOOo](https://github.com/prrvchr/HsqlDBembeddedOOo)
 
-### Introduction:
+## Introduction:
 
 La bibliothèque HsqlDBembeddedOOo fait partie d'un projet personnel.
-La documentation complète est disponible [sur cette page](https://prrvchr.github.io/HsqlDBembeddedOOo).
 
-
-### Responsabilités:
+## Responsabilités:
 
 HsqlDBembeddedOOo est distribué dans l'espoir qu'il sera utile, mais **SANS AUCUNE GARANTIE**; sans même la garantie implicite de **QUALITÉ MARCHANDE** ou **ADAPTATION À UN USAGE PARTICULIER**.
 
-
-### Licence:
+## Licence:
 
 HsqlDBembeddedOOo est un logiciel gratuit; Vous pouvez le redistribuer et/ou le modifier selon les termes (à votre choix):
 
