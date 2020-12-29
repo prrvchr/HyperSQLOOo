@@ -41,6 +41,7 @@ from com.sun.star.logging.LogLevel import SEVERE
 from unolib import getFileSequence
 from unolib import getStringResource
 from unolib import getResourceLocation
+from unolib import getPropertyValueSet
 from unolib import getDialog
 from unolib import getSimpleFile
 from unolib import createService
@@ -59,6 +60,7 @@ g_message = 'OptionsDialog'
 
 from hsqldbembedded import g_extension
 from hsqldbembedded import g_identifier
+from hsqldbembedded import g_class
 from hsqldbembedded import g_path
 from hsqldbembedded import g_jar
 
@@ -128,18 +130,47 @@ class OptionsDialog(unohelper.Base,
     def _loadVersion(self, dialog):
         dialog.getControl('Label3').Text = self._getDriverVersion()
 
+    def _reloadVersion(self, dialog):
+        msg = getMessage(self.ctx, g_message, 121)
+        dialog.getControl('Label3').Text = msg
+
     def _getDriverVersion(self):
         try:
             service = '%s.Driver' % g_identifier
             driver = createService(self.ctx, service)
-            self._index += 1
-            url = 'sdbc:hsqldb:mem:///test%sdb' % self._index
-            connection = driver.connect(url, ())
+            url = 'sdbc:embedded:hsqldb'
+            infos = getPropertyValueSet({'URL': self._getUrl()})
+            connection = driver.connect(url, infos)
             version = connection.getMetaData().getDriverVersion()
             connection.close()
             return version
         except Exception as e:
             print("OptionsDialog._getDriverVersion() ERROR: %s - %s" % (e, traceback.print_exc()))
+
+
+    def _getUrl(self):
+        path = getResourceLocation(self.ctx, g_identifier, g_path)
+        url = '%s/dbversion.odb' % path
+        if not getSimpleFile(self.ctx).exists(url):
+            service = 'com.sun.star.sdb.DatabaseContext'
+            datasource = createService(self.ctx, service).createInstance()
+            datasource.URL = self._getDataSourceUrl(path)
+            datasource.Settings.JavaDriverClass = g_class
+            datasource.Settings.JavaDriverClassPath = self._getDataSourceClassPath(path)
+            datasource.DatabaseDocument.storeAsURL(url, ())
+        return url
+
+    def _getDataSourceUrl(self, path):
+        url = 'jdbc:hsqldb:%s/dbversion'  % path
+        options = ('default_schema=true',
+                   'shutdown=true',
+                   'hsqldb.default_table_type=cached',
+                   'get_column_name=false')
+        url += ';%s' % ';'.join(options)
+        return url
+
+    def _getDataSourceClassPath(self, path):
+        return '%s/%s' % (path, g_jar)
 
     def _reloadSetting(self, dialog):
         self._loadLoggerSetting(dialog)
@@ -221,8 +252,8 @@ class OptionsDialog(unohelper.Base,
             if url.Name == g_jar:
                 jar = '%s/%s' % (g_path, g_jar)
                 target = getResourceLocation(self.ctx, g_identifier, jar)
-                getSimpleFile(self.ctx).copy(url.Complete, target)
-                self._loadVersion(dialog)
+                getSimpleFile(self.ctx).copy(url.Main, target)
+                self._reloadVersion(dialog)
 
     # XServiceInfo
     def supportsService(self, service):

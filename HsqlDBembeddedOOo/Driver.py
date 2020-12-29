@@ -75,10 +75,8 @@ class Driver(unohelper.Base,
 
     def __init__(self, ctx):
         self.ctx = ctx
-        self._supportedProtocol = 'sdbc:embedded:hsqldb:'
-        self._supportedSubProtocols = ('*',)
-        self._subProtocolIndex = 3
-        #self._supportedSubProtocols = ('hsql', 'hsqls', 'http', 'https','mem', 'file', 'res')
+        self._supportedProtocol = 'sdbc:embedded:hsqldb'
+        self._defaultUser = 'SA'
         print("Driver.__init__()")
 
     def __del__(self):
@@ -116,9 +114,9 @@ class Driver(unohelper.Base,
             connection = datasource.getConnection('', '')
             version = connection.getMetaData().getDriverVersion()
             print("Driver.connect() 4 %s" % version)
-            url = '%s%s' % (self._supportedProtocol, datasource.URL)
+            #url = '%s%s' % (self._supportedProtocol, '*')
             print("Driver.connect() 5 %s" % url)
-            return Connection(self.ctx, connection, url, user)
+            return Connection(self.ctx, connection, url, self._defaultUser)
         except SQLException as e:
             raise e
         except Exception as e:
@@ -159,21 +157,12 @@ class Driver(unohelper.Base,
             print("Driver._getInfo() %s - %s" % (info.Name, info.Value))
             if info.Name == 'URL':
                 url = info.Value.strip()
-                break
+                #break
         return url
 
     def _getUrl(self, infos):
         url = self._getInfo(infos)
         return getUrl(self.ctx, url)
-
-    def _getSubProtocol(self, protocols):
-        return protocols[self._subProtocolIndex]
-
-    def _getSupportedSubProtocols(self):
-        return ', '.join(self._supportedSubProtocols).title()
-
-    def _isSupportedSubProtocols(self, protocols):
-        return self._getSubProtocol(protocols).lower() in self._supportedSubProtocols
 
     def _getException(self, state, code, message, context=None, exception=None):
         error = SQLException()
@@ -207,7 +196,8 @@ class Driver(unohelper.Base,
         datasource.Settings.JavaDriverClassPath = self._getDataSourceClassPath()
 
     def _getDataSourceUrl(self, url, options):
-        location = 'jdbc:hsqldb:%s'  % url.Main
+        dbname, sep, extension = url.Name.rpartition('.')
+        location = 'jdbc:hsqldb:%s%s'  % (url.Path, dbname)
         if options is not None:
             location += ';%s' % ';'.join(options)
         return location
