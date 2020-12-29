@@ -7,7 +7,7 @@
 ## Introduction:
 
 **HsqlDBembeddedOOo** is part of a [Suite](https://prrvchr.github.io/) of [LibreOffice](https://www.libreoffice.org/download/download/) and/or [OpenOffice](https://www.openoffice.org/download/index.html) extensions allowing to offer you innovative services in these office suites.  
-This extension allows you to use the HsqlDB driver of your choice directly in Base.
+This extension gives you access to the Embedded HsqlDB database while being able to take advantage of an advanced HsqlDB driver.
 
 Being free software I encourage you:
 - To duplicate its [source code](https://github.com/prrvchr/HsqlDBembeddedOOo).
