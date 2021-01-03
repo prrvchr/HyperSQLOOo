@@ -112,9 +112,9 @@ class Driver(unohelper.Base,
             location = self._getUrl(infos)
             path, name = self._getDataSourceLocation(location)
             print("Driver.connect() 2 %s - %s" % (path, name))
-            fs = getSimpleFile(self.ctx)
-            if not fs.isFolder('%s%s' % (path, name)):
-                self._splitDataBase(fs, location, name)
+            sf = getSimpleFile(self.ctx)
+            if not sf.isFolder('%s%s' % (path, name)):
+                self._splitDataBase(sf, location, name)
             datasource = self._getDataSource(path, name)
             print("Driver.connect() 3: %s\n%s" % (datasource.URL, datasource.Settings.JavaDriverClassPath))
             connection = datasource.getConnection('', '')
@@ -157,7 +157,7 @@ class Driver(unohelper.Base,
         print("Driver.getMinorVersion()")
         return 0
 
-    def _splitDataBase(self, fs, location, dbname):
+    def _splitDataBase(self, sf, location, dbname):
         service = 'com.sun.star.packages.zip.ZipFileAccess'
         args = (location.Main, )
         zip = createService(self.ctx, service, *args)
@@ -165,9 +165,9 @@ class Driver(unohelper.Base,
             path = '%s%s' % (self._dbdir, name)
             if zip.hasByName(path):
                 url = self._getDataBaseUrl(location, dbname, name)
-                if not fs.exists(url):
+                if not sf.exists(url):
                     input = zip.getStreamByPattern(path)
-                    fs.writeFile(url, input)
+                    sf.writeFile(url, input)
                     input.closeInput()
                     print("Driver._splitDataBase() %s - %s" % (path, url))
 
