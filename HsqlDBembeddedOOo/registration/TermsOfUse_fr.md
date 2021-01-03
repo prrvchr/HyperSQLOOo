@@ -1,6 +1,6 @@
 Concernant l'installation, la configuration et l'utilisation, veuillez consulter la [documentation](https://prrvchr.github.io/HsqlDBembeddedOOo/README_fr).
 
-# Conditions d'utilisation pour [HsqlDBembeddedOOo](https://github.com/prrvchr/HsqlDBembeddedOOo)
+# Conditions d'utilisation
 
 ## Introduction:
 

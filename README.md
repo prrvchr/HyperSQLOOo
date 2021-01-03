@@ -10,18 +10,17 @@
 This extension gives you access to the Embedded HsqlDB database while being able to take advantage of an advanced HsqlDB driver.
 
 Being free software I encourage you:
-- To duplicate its [source code](https://github.com/prrvchr/HsqlDBembeddedOOo).
+- To duplicate its [source code](https://github.com/prrvchr/HsqlDBembeddedOOo/).
 - To make changes, corrections, improvements.
 - To open [issue](https://github.com/prrvchr/HsqlDBembeddedOOo/issues/new) if needed.
 
-In short, to participate in the development of this extension.
+In short, to participate in the development of this extension.  
 Because it is together that we can make Free Software smarter.
 
 ## Requirement:
 
-HsqlDB is a database written in Java.  
-The use of HsqlDB requires the installation and configuration within  
-LibreOffice / OpenOffice of a **JRE version 1.8 minimum** (ie: Java version 8)
+[HsqlDB](http://hsqldb.org/) is a database written in Java.  
+The use of HsqlDB requires the installation and configuration within LibreOffice / OpenOffice of a **JRE version 1.8 minimum** (ie: Java version 8)
 
 Sometimes it may be necessary for LibreOffice users must have no HsqlDB driver installed with LibreOffice  
 (check your Installed Application under Windows or your Packet Manager under Linux).  
@@ -76,7 +75,9 @@ I will try to solve it ;-)
 
 - The writing of this driver was facilitated by a [discussion with Villeroy](https://forum.openoffice.org/en/forum/viewtopic.php?f=13&t=103912), on the OpenOffice forum, which I would like to thank, because knowledge is only worth if it is shared...
 
-- Using the new version of HsqlDB 2.5.1.
+- Using the old version of HsqlDB 1.8.0 (can be easily updated).
+
+- Added a dialog box allowing to update the driver (hsqldb.jar) in: Tools -> Options -> Base drivers -> HsqlDB driver
 
 - Many other fix...
 
