@@ -77,7 +77,7 @@ I will try to solve it ;-)
 
 - Using the old version of HsqlDB 1.8.0 (can be easily updated).
 
-- Added a dialog box allowing to update the driver (hsqldb.jar) in: Tools -> Options -> Base drivers -> HsqlDB driver
+- Added a dialog box allowing to update the driver (hsqldb.jar) in: Tools -> Options -> Base drivers -> Embedded HsqlDB driver
 
 - Many other fix...
 
