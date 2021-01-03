@@ -147,7 +147,6 @@ class OptionsDialog(unohelper.Base,
         except Exception as e:
             print("OptionsDialog._getDriverVersion() ERROR: %s - %s" % (e, traceback.print_exc()))
 
-
     def _getUrl(self):
         path = getResourceLocation(self.ctx, g_identifier, g_path)
         url = '%s/dbversion.odb' % path

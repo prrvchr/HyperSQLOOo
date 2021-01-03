@@ -2,7 +2,7 @@
 
 **The use of this software subjects you to our** [**Terms Of Use**](https://prrvchr.github.io/HsqlDBembeddedOOo/HsqlDBembeddedOOo/registration/TermsOfUse_en)
 
-# version [0.0.1](https://prrvchr.github.io/HsqlDBembeddedOOo#historical)
+# version [0.0.2](https://prrvchr.github.io/HsqlDBembeddedOOo#historical)
 
 ## Introduction:
 
@@ -34,7 +34,7 @@ OpenOffice doesn't seem to need this workaround.
 It seems important that the file was not renamed when it was downloaded.
 If necessary, rename it before installing it.
 
-- Install [HsqlDBembeddedOOo.oxt](https://github.com/prrvchr/HsqlDBembeddedOOo/raw/master/HsqlDBembeddedOOo.oxt) extension version 0.0.1.
+- Install [HsqlDBembeddedOOo.oxt](https://github.com/prrvchr/HsqlDBembeddedOOo/raw/master/HsqlDBembeddedOOo.oxt) extension version 0.0.2.
 
 Restart LibreOffice / OpenOffice after installation.
 
@@ -81,7 +81,13 @@ I will try to solve it ;-)
 
 - Many other fix...
 
-### What remains to be done for version 0.0.1:
+### What has been done for version 0.0.2:
+
+- Now the driver automatically splits an odb when opened... This makes the driver backward compatible with the build-in LibreOffice HsqlDB Embedded Driver ;-)
+
+- Many other fix...
+
+### What remains to be done for version 0.0.2:
 
 - Add new language for internationalization...
 

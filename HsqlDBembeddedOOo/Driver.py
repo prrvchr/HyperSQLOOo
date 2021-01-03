@@ -47,13 +47,17 @@ from unolib import getResourceLocation
 from unolib import createService
 from unolib import getSimpleFile
 from unolib import getUrl
+from unolib import getNamedValueSet
 
+from hsqldbembedded import Connection
+from hsqldbembedded import getDataBaseInfo
 from hsqldbembedded import g_identifier
+from hsqldbembedded import g_protocol
 from hsqldbembedded import g_path
 from hsqldbembedded import g_jar
 from hsqldbembedded import g_class
-from hsqldbembedded import Connection
-from hsqldbembedded import getDataBaseInfo
+from hsqldbembedded import g_options
+from hsqldbembedded import g_shutdown
 
 from hsqldbembedded import logMessage
 from hsqldbembedded import getMessage
@@ -76,6 +80,8 @@ class Driver(unohelper.Base,
     def __init__(self, ctx):
         self.ctx = ctx
         self._supportedProtocol = 'sdbc:embedded:hsqldb'
+        self._dbdir = 'database/'
+        self._dbfiles = ('script', 'properties', 'data', 'backup', 'log')
         self._defaultUser = 'SA'
         print("Driver.__init__()")
 
@@ -104,17 +110,16 @@ class Driver(unohelper.Base,
         try:
             print("Driver.connect() 1 %s" % (url, ))
             location = self._getUrl(infos)
-            options = ('default_schema=true',
-                       'shutdown=true',
-                       'hsqldb.default_table_type=cached',
-                       'get_column_name=false')
-            print("Driver.connect() 2 %s - %s" % (location.Path, location.Name))
-            datasource = self._getDataSource(location, options)
+            path, name = self._getDataSourceLocation(location)
+            print("Driver.connect() 2 %s - %s" % (path, name))
+            fs = getSimpleFile(self.ctx)
+            if not fs.isFolder('%s%s' % (path, name)):
+                self._splitDataBase(fs, location, name)
+            datasource = self._getDataSource(path, name)
             print("Driver.connect() 3: %s\n%s" % (datasource.URL, datasource.Settings.JavaDriverClassPath))
             connection = datasource.getConnection('', '')
             version = connection.getMetaData().getDriverVersion()
             print("Driver.connect() 4 %s" % version)
-            #url = '%s%s' % (self._supportedProtocol, '*')
             print("Driver.connect() 5 %s" % url)
             return Connection(self.ctx, connection, url, self._defaultUser)
         except SQLException as e:
@@ -152,12 +157,29 @@ class Driver(unohelper.Base,
         print("Driver.getMinorVersion()")
         return 0
 
+    def _splitDataBase(self, fs, location, dbname):
+        service = 'com.sun.star.packages.zip.ZipFileAccess'
+        args = (location.Main, )
+        zip = createService(self.ctx, service, *args)
+        for name in self._dbfiles:
+            path = '%s%s' % (self._dbdir, name)
+            if zip.hasByName(path):
+                url = self._getDataBaseUrl(location, dbname, name)
+                if not fs.exists(url):
+                    input = zip.getStreamByPattern(path)
+                    fs.writeFile(url, input)
+                    input.closeInput()
+                    print("Driver._splitDataBase() %s - %s" % (path, url))
+
+    def _getDataBaseUrl(self, location, dbname, name):
+        return '%s%s/%s.%s' % (location.Path, dbname, dbname, name)
+
     def _getInfo(self, infos):
         for info in infos:
             print("Driver._getInfo() %s - %s" % (info.Name, info.Value))
             if info.Name == 'URL':
                 url = info.Value.strip()
-                #break
+                break
         return url
 
     def _getUrl(self, infos):
@@ -184,23 +206,24 @@ class Driver(unohelper.Base,
         info.Choices = ()
         return info
 
-    def _getDataSource(self, url, options):
+    def _getDataSource(self, path, name):
         service = 'com.sun.star.sdb.DatabaseContext'
         datasource = createService(self.ctx, service).createInstance()
-        self._setDataSource(datasource, url, options)
+        self._setDataSource(datasource, path, name)
         return datasource
 
-    def _setDataSource(self, datasource, url, options):
-        datasource.URL = self._getDataSourceUrl(url, options)
+    def _setDataSource(self, datasource, path, name):
+        datasource.URL = self._getDataSourceUrl(path, name)
         datasource.Settings.JavaDriverClass = g_class
         datasource.Settings.JavaDriverClassPath = self._getDataSourceClassPath()
 
-    def _getDataSourceUrl(self, url, options):
-        dbname, sep, extension = url.Name.rpartition('.')
-        location = 'jdbc:hsqldb:%s%s'  % (url.Path, dbname)
-        if options is not None:
-            location += ';%s' % ';'.join(options)
-        return location
+    def _getDataSourceLocation(self, url):
+        name, sep, extension = url.Name.rpartition('.')
+        return url.Path, name
+
+    def _getDataSourceUrl(self, path, name):
+        url = '%s%s%s/%s%s%s' % (g_protocol, path, name, name, g_options, g_shutdown)
+        return url
 
     def _getDataSourceClassPath(self):
         path = getResourceLocation(self.ctx, g_identifier, g_path)

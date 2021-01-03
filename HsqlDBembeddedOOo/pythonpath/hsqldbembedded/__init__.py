@@ -32,9 +32,13 @@ from .connection import Connection
 from .configuration import g_extension
 from .configuration import g_identifier
 
+from .dbconfig import g_protocol
 from .dbconfig import g_path
 from .dbconfig import g_class
 from .dbconfig import g_jar
+from .dbconfig import g_options
+from .dbconfig import g_shutdown
+
 
 from .dbtools import getDataSourceConnection
 from .dbtools import getDataBaseInfo

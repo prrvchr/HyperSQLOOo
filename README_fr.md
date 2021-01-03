@@ -2,7 +2,7 @@
 
 **L'utilisation de ce logiciel vous soumet à nos** [**Conditions d'utilisation**](https://prrvchr.github.io/HsqlDBembeddedOOo/HsqlDBembeddedOOo/registration/TermsOfUse_fr)
 
-# version [0.0.1](https://prrvchr.github.io/HsqlDBembeddedOOo/README_fr#historique)
+# version [0.0.2](https://prrvchr.github.io/HsqlDBembeddedOOo/README_fr#historique)
 
 ## Introduction:
 
@@ -34,7 +34,7 @@ OpenOffice ne semble pas avoir besoin de cette solution de contournement.
 Il semble important que le fichier n'ait pas été renommé lors de son téléchargement.  
 Si nécessaire, renommez-le avant de l'installer.
 
-- Installer l'extension [HsqlDBembeddedOOo.oxt](https://github.com/prrvchr/HsqlDBembeddedOOo/raw/master/HsqlDBembeddedOOo.oxt) version 0.0.1.
+- Installer l'extension [HsqlDBembeddedOOo.oxt](https://github.com/prrvchr/HsqlDBembeddedOOo/raw/master/HsqlDBembeddedOOo.oxt) version 0.0.2.
 
 Redémarrez LibreOffice / OpenOffice après l'installation.
 
@@ -81,7 +81,13 @@ J'essaierai de le résoudre ;-)
 
 - Beaucoup d'autres correctifs...
 
-### Que reste-t-il à faire pour la version 0.0.1:
+### Ce qui a été fait pour la version 0.0.2:
+
+- Maintenant, le pilote divise automatiquement un odb lorsqu'il est ouvert... Cela rend le pilote rétrocompatible avec le pilote LibreOffice Embedded HsqlDB intégré ;-)
+
+- Beaucoup d'autres correctifs...
+
+### Que reste-t-il à faire pour la version 0.0.2:
 
 - Ajouter de nouvelles langue pour l'internationalisation...
 
