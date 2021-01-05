@@ -110,12 +110,12 @@ class Driver(unohelper.Base,
         try:
             print("Driver.connect() 1 %s" % (url, ))
             location = self._getUrl(infos)
-            path, name = self._getDataSourceLocation(location)
-            print("Driver.connect() 2 %s - %s" % (path, name))
+            name = self._getDataSourceName(location)
+            print("Driver.connect() 2 %s - %s" % (location.Path, name))
             sf = getSimpleFile(self.ctx)
-            if not sf.isFolder('%s%s' % (path, name)):
+            if not sf.isFolder('%s%s' % (location.Path, name)):
                 self._splitDataBase(sf, location, name)
-            datasource = self._getDataSource(path, name)
+            datasource = self._getDataSource(location, name)
             print("Driver.connect() 3: %s\n%s" % (datasource.URL, datasource.Settings.JavaDriverClassPath))
             connection = datasource.getConnection('', '')
             version = connection.getMetaData().getDriverVersion()
@@ -206,24 +206,25 @@ class Driver(unohelper.Base,
         info.Choices = ()
         return info
 
-    def _getDataSource(self, path, name):
+    def _getDataSource(self, url, name):
         service = 'com.sun.star.sdb.DatabaseContext'
         datasource = createService(self.ctx, service).createInstance()
-        self._setDataSource(datasource, path, name)
+        self._setDataSource(datasource, url, name)
         return datasource
 
-    def _setDataSource(self, datasource, path, name):
-        datasource.URL = self._getDataSourceUrl(path, name)
+    def _setDataSource(self, datasource, url, name):
+        datasource.URL = self._getDataSourceUrl(url, name)
         datasource.Settings.JavaDriverClass = g_class
         datasource.Settings.JavaDriverClassPath = self._getDataSourceClassPath()
 
-    def _getDataSourceLocation(self, url):
+    def _getDataSourceName(self, url):
         name, sep, extension = url.Name.rpartition('.')
-        return url.Path, name
+        return name
 
-    def _getDataSourceUrl(self, path, name):
-        url = '%s%s%s/%s%s%s' % (g_protocol, path, name, name, g_options, g_shutdown)
-        return url
+    def _getDataSourceUrl(self, url, name):
+        path = uno.fileUrlToSystemPath('%s%s%s/%s' % (url.Protocol, url.Path, name, name))
+        location = '%s%s%s%s%s' % (g_protocol, url.Protocol, path, g_options, g_shutdown)
+        return location
 
     def _getDataSourceClassPath(self):
         path = getResourceLocation(self.ctx, g_identifier, g_path)
