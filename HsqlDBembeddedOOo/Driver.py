@@ -222,8 +222,8 @@ class Driver(unohelper.Base,
         return name
 
     def _getDataSourceUrl(self, url, name):
-        path = uno.fileUrlToSystemPath('%s%s%s/%s' % (url.Protocol, url.Path, name, name))
-        location = '%s%s%s%s%s' % (g_protocol, url.Protocol, path, g_options, g_shutdown)
+        format = (g_protocol, url.Protocol, url.Path, name, name, g_options, g_shutdown)
+        location = '%s%s%s%s/%s%s%s' % format
         return location
 
     def _getDataSourceClassPath(self):
