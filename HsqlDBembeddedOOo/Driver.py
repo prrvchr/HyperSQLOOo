@@ -47,7 +47,6 @@ from unolib import getResourceLocation
 from unolib import createService
 from unolib import getSimpleFile
 from unolib import getUrl
-from unolib import getNamedValueSet
 
 from hsqldbembedded import Connection
 from hsqldbembedded import getDataBaseInfo
@@ -82,60 +81,52 @@ class Driver(unohelper.Base,
         self._supportedProtocol = 'sdbc:embedded:hsqldb'
         self._dbdir = 'database/'
         self._dbfiles = ('script', 'properties', 'data', 'backup', 'log')
-        self._defaultUser = 'SA'
-        print("Driver.__init__()")
-
-    def __del__(self):
-        print("Driver.__del__()")
-
-    # XDataDefinitionSupplier
-    def getDataDefinitionByConnection(self, connection):
-        print("Driver.getDataDefinitionByConnection()")
-        return connection
-    def getDataDefinitionByURL(self, url, infos):
-        print("Driver.getDataDefinitionByURL()")
-        connection = self.connect(url, infos)
-        return self.getDataDefinitionByConnection(connection)
-
-    # XCreateCatalog
-    def createCatalog(self, info):
-        print("Driver.createCatalog()")
-
-    # XDropCatalog
-    def dropCatalog(self, name, info):
-        print("Driver.dropCatalog()")
+        self._user = 'SA'
+        self._password = ''
+        msg = getMessage(self.ctx, g_message, 101)
+        logMessage(self.ctx, INFO, msg, 'Driver', '__init__()')
 
     # XDriver
     def connect(self, url, infos):
         try:
-            print("Driver.connect() 1 %s" % (url, ))
             location = self._getUrl(infos)
+            msg = getMessage(self.ctx, g_message, 111, location.Main)
+            logMessage(self.ctx, INFO, msg, 'Driver', 'connect()')
             name = self._getDataSourceName(location)
-            print("Driver.connect() 2 %s - %s" % (location.Path, name))
             sf = getSimpleFile(self.ctx)
-            if not sf.isFolder('%s%s' % (location.Path, name)):
+            split = '%s%s' % (location.Path, name)
+            if not sf.isFolder(split):
+                if sf.exists(split):
+                    code = getMessage(self.ctx, 112)
+                    msg = getMessage(self.ctx, 113, name)
+                    msg += getMessage(self.ctx, 114, location.Path)
+                    raise self._getException(code, 1001, msg, self)
                 self._splitDataBase(sf, location, name)
             datasource = self._getDataSource(location, name)
-            print("Driver.connect() 3: %s\n%s" % (datasource.URL, datasource.Settings.JavaDriverClassPath))
-            connection = datasource.getConnection('', '')
+            connection = Connection(self.ctx, datasource, url, self._user, self._password)
             version = connection.getMetaData().getDriverVersion()
-            print("Driver.connect() 4 %s" % version)
-            print("Driver.connect() 5 %s" % url)
-            return Connection(self.ctx, connection, url, self._defaultUser)
+            msg = getMessage(self.ctx, g_message, 115, (version, self._user))
+            logMessage(self.ctx, INFO, msg, 'Driver', 'connect()')
+            return connection
         except SQLException as e:
             raise e
         except Exception as e:
-            print("Driver.connect() ERROR: %s - %s" % (e, traceback.print_exc()))
+            msg = getMessage(self.ctx, g_message, 116, (e, traceback.print_exc()))
+            logMessage(self.ctx, SEVERE, msg, 'Driver', 'connect()')
 
     def acceptsURL(self, url):
-        print("Driver.acceptsURL() %s" % url)
-        return url.startswith(self._supportedProtocol)
+        accept = url.startswith(self._supportedProtocol)
+        msg = getMessage(self.ctx, g_message, 121, (url, accept))
+        logMessage(self.ctx, INFO, msg, 'Driver', 'acceptsURL()')
+        return accept
 
     def getPropertyInfo(self, url, infos):
         try:
-            print("Driver.getPropertyInfo() %s" % url)
+            msg = getMessage(self.ctx, g_message, 131, url)
+            logMessage(self.ctx, INFO, msg, 'Driver', 'getPropertyInfo()')
             for info in infos:
-                print("Driver.getPropertyInfo():   %s - '%s'" % (info.Name, info.Value))
+                msg = getMessage(self.ctx, g_message, 132, (info.Name, info.Value))
+                logMessage(self.ctx, INFO, msg, 'Driver', 'getPropertyInfo()')
             drvinfo = []
             dbinfo = getDataBaseInfo()
             for info in dbinfo:
@@ -143,19 +134,39 @@ class Driver(unohelper.Base,
             for info in infos:
                 if info.Name not in dbinfo:
                     drvinfo.append(self._getDriverPropertyInfo(info.Name, info.Value))
-            print("Driver.getPropertyInfo():\n")
             for info in drvinfo:
-                print("Driver.getPropertyInfo():   %s - %s" % (info.Name, info.Value))
+                msg = getMessage(self.ctx, g_message, 133, (info.Name, info.Value))
+                logMessage(self.ctx, INFO, msg, 'Driver', 'getPropertyInfo()')
             return tuple(drvinfo)
         except Exception as e:
-            print("Driver.getPropertyInfo() ERROR: %s - %s" % (e, traceback.print_exc()))
+            msg = getMessage(self.ctx, g_message, 134, (e, traceback.print_exc()))
+            logMessage(self.ctx, SEVERE, msg, 'Driver', 'getPropertyInfo()')
 
     def getMajorVersion(self):
-        print("Driver.getMajorVersion()")
         return 1
     def getMinorVersion(self):
-        print("Driver.getMinorVersion()")
         return 0
+
+    # XDataDefinitionSupplier
+    def getDataDefinitionByConnection(self, connection):
+        msg = getMessage(self.ctx, g_message, 141)
+        logMessage(self.ctx, INFO, msg, 'Driver', 'getDataDefinitionByConnection()')
+        return connection
+    def getDataDefinitionByURL(self, url, infos):
+        msg = getMessage(self.ctx, g_message, 151, url)
+        logMessage(self.ctx, INFO, msg, 'Driver', 'getDataDefinitionByURL()')
+        connection = self.connect(url, infos)
+        return self.getDataDefinitionByConnection(connection)
+
+    # XCreateCatalog
+    def createCatalog(self, info):
+        msg = getMessage(self.ctx, g_message, 161)
+        logMessage(self.ctx, INFO, msg, 'Driver', 'createCatalog()')
+
+    # XDropCatalog
+    def dropCatalog(self, name, info):
+        msg = getMessage(self.ctx, g_message, 171, name)
+        logMessage(self.ctx, INFO, msg, 'Driver', 'dropCatalog()')
 
     def _splitDataBase(self, sf, location, dbname):
         service = 'com.sun.star.packages.zip.ZipFileAccess'
@@ -169,14 +180,12 @@ class Driver(unohelper.Base,
                     input = zip.getStreamByPattern(path)
                     sf.writeFile(url, input)
                     input.closeInput()
-                    print("Driver._splitDataBase() %s - %s" % (path, url))
 
     def _getDataBaseUrl(self, location, dbname, name):
         return '%s%s/%s.%s' % (location.Path, dbname, dbname, name)
 
     def _getInfo(self, infos):
         for info in infos:
-            print("Driver._getInfo() %s - %s" % (info.Name, info.Value))
             if info.Name == 'URL':
                 url = info.Value.strip()
                 break
@@ -197,7 +206,6 @@ class Driver(unohelper.Base,
 
     def _getDriverPropertyInfo(self, name, value):
         info = uno.createUnoStruct('com.sun.star.sdbc.DriverPropertyInfo')
-        print("Driver._getDriverPropertyInfo() %s - %s - %s" % (name, value, type(value)))
         info.Name = name
         required = value is not None and not isinstance(value, tuple)
         info.IsRequired = required
