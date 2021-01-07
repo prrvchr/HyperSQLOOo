@@ -97,9 +97,9 @@ class Driver(unohelper.Base,
             split = '%s%s' % (location.Path, name)
             if not sf.isFolder(split):
                 if sf.exists(split):
-                    code = getMessage(self.ctx, 112)
-                    msg = getMessage(self.ctx, 113, name)
-                    msg += getMessage(self.ctx, 114, location.Path)
+                    code = getMessage(self.ctx, g_message, 112)
+                    msg = getMessage(self.ctx, g_message, 113, name)
+                    msg += getMessage(self.ctx, g_message, 114, location.Path)
                     raise self._getException(code, 1001, msg, self)
                 self._splitDataBase(sf, location, name)
             datasource = self._getDataSource(location, name)
