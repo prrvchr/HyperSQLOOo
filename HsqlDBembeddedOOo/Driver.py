@@ -90,28 +90,31 @@ class Driver(unohelper.Base,
     def connect(self, url, infos):
         try:
             location = self._getUrl(infos)
-            msg = getMessage(self.ctx, g_message, 111, location.Main)
+            if location is None:
+                code = getMessage(self.ctx, g_message, 111)
+                msg = getMessage(self.ctx, g_message, 112, (url, self._getInfo(infos)))
+                raise self._getException(code, 1001, msg, self)
+            msg = getMessage(self.ctx, g_message, 113, location.Main)
             logMessage(self.ctx, INFO, msg, 'Driver', 'connect()')
             name = self._getDataSourceName(location)
             sf = getSimpleFile(self.ctx)
             split = '%s%s' % (location.Path, name)
             if not sf.isFolder(split):
                 if sf.exists(split):
-                    code = getMessage(self.ctx, g_message, 112)
-                    msg = getMessage(self.ctx, g_message, 113, name)
-                    msg += getMessage(self.ctx, g_message, 114, location.Path)
-                    raise self._getException(code, 1001, msg, self)
+                    code = getMessage(self.ctx, g_message, 114)
+                    msg = getMessage(self.ctx, g_message, 115, (name, location.Path))
+                    raise self._getException(code, 1002, msg, self)
                 self._splitDataBase(sf, location, name)
             datasource = self._getDataSource(location, name)
             connection = Connection(self.ctx, datasource, url, self._user, self._password)
             version = connection.getMetaData().getDriverVersion()
-            msg = getMessage(self.ctx, g_message, 115, (version, self._user))
+            msg = getMessage(self.ctx, g_message, 116, (version, self._user))
             logMessage(self.ctx, INFO, msg, 'Driver', 'connect()')
             return connection
         except SQLException as e:
             raise e
         except Exception as e:
-            msg = getMessage(self.ctx, g_message, 116, (e, traceback.print_exc()))
+            msg = getMessage(self.ctx, g_message, 117, (e, traceback.print_exc()))
             logMessage(self.ctx, SEVERE, msg, 'Driver', 'connect()')
 
     def acceptsURL(self, url):
@@ -185,9 +188,10 @@ class Driver(unohelper.Base,
         return '%s%s/%s.%s' % (location.Path, dbname, dbname, name)
 
     def _getInfo(self, infos):
+        url = ''
         for info in infos:
             if info.Name == 'URL':
-                url = info.Value.strip()
+                #url = info.Value.strip()
                 break
         return url
 
