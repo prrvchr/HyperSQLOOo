@@ -191,7 +191,7 @@ class Driver(unohelper.Base,
         url = ''
         for info in infos:
             if info.Name == 'URL':
-                #url = info.Value.strip()
+                url = info.Value.strip()
                 break
         return url
 
