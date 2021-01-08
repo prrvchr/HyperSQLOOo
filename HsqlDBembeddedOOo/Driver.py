@@ -41,20 +41,16 @@ from com.sun.star.sdbc import SQLException
 from com.sun.star.logging.LogLevel import INFO
 from com.sun.star.logging.LogLevel import SEVERE
 
-from com.sun.star.uno import Exception as UnoException
-
 from unolib import createService
-from unolib import getResourceLocation
 from unolib import getSimpleFile
 from unolib import getUrlTransformer
 from unolib import parseUrl
 
 from hsqldbembedded import Connection
 from hsqldbembedded import getDataBaseInfo
+from hsqldbembedded import getDataSourceClassPath
 from hsqldbembedded import g_identifier
 from hsqldbembedded import g_protocol
-from hsqldbembedded import g_path
-from hsqldbembedded import g_jar
 from hsqldbembedded import g_class
 from hsqldbembedded import g_options
 from hsqldbembedded import g_shutdown
@@ -225,16 +221,13 @@ class Driver(unohelper.Base,
     def _setDataSource(self, datasource, transformer, url, name):
         datasource.URL = self._getDataSourceUrl(transformer, url, name)
         datasource.Settings.JavaDriverClass = g_class
-        datasource.Settings.JavaDriverClassPath = self._getDataSourceClassPath()
+        path = getDataSourceClassPath(self.ctx, g_identifier)
+        datasource.Settings.JavaDriverClassPath = path
 
     def _getDataSourceUrl(self, transformer, url, name):
         format = (g_protocol, url.Protocol, url.Path, name, name, g_options, g_shutdown)
         location = parseUrl(transformer, '%s%s%s%s/%s%s%s' % format)
         return transformer.getPresentation(location, False)
-
-    def _getDataSourceClassPath(self):
-        path = getResourceLocation(self.ctx, g_identifier, g_path)
-        return '%s/%s' % (path, g_jar)
 
     def _getDriverPropertyInfo(self, name, value):
         info = uno.createUnoStruct('com.sun.star.sdbc.DriverPropertyInfo')

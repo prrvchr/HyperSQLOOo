@@ -47,9 +47,6 @@ from unolib import getSimpleFile
 from unolib import createService
 from unolib import getUrl
 
-from hsqldbembedded import getDataSourceLocation
-from hsqldbembedded import getDataSourceJavaInfo
-
 from hsqldbembedded import getLoggerUrl
 from hsqldbembedded import getLoggerSetting
 from hsqldbembedded import setLoggerSetting

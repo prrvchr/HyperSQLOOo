@@ -39,11 +39,11 @@ from .dbconfig import g_jar
 from .dbconfig import g_options
 from .dbconfig import g_shutdown
 
-
 from .dbtools import getDataSourceConnection
 from .dbtools import getDataBaseInfo
 from .dbtools import getDataSourceLocation
 from .dbtools import getDataSourceJavaInfo
+from .dbtools import getDataSourceClassPath
 
 from .logger import getLoggerSetting
 from .logger import getLoggerUrl
