@@ -60,9 +60,12 @@ g_message = 'OptionsDialog'
 
 from hsqldbembedded import g_extension
 from hsqldbembedded import g_identifier
+from hsqldbembedded import g_protocol
 from hsqldbembedded import g_class
 from hsqldbembedded import g_path
 from hsqldbembedded import g_jar
+from hsqldbembedded import g_options
+from hsqldbembedded import g_shutdown
 
 import os
 import sys
@@ -81,7 +84,8 @@ class OptionsDialog(unohelper.Base,
         self.ctx = ctx
         self._index = 0
         self.stringResource = getStringResource(self.ctx, g_identifier, g_extension, 'OptionsDialog')
-        logMessage(self.ctx, INFO, "Loading ... Done", 'OptionsDialog', '__init__()')
+        msg = getMessage(self.ctx, g_message, 101)
+        logMessage(self.ctx, INFO, msg, 'OptionsDialog', '__init__()')
 
     # XContainerWindowEventHandler, XDialogEventHandler
     def callHandlerMethod(self, dialog, event, method):
@@ -112,16 +116,16 @@ class OptionsDialog(unohelper.Base,
         elif method == 'ClearLog':
             self._clearLog(dialog)
             handled = True
-        elif method == 'Upload':
-            self._upload(dialog)
-            handled = True
         elif method == 'LogInfo':
             self._logInfo(dialog)
+            handled = True
+        elif method == 'Upload':
+            self._upload(dialog)
             handled = True
         return handled
     def getSupportedMethodNames(self):
         return ('external_event', 'ToggleLogger', 'EnableViewer', 'DisableViewer',
-                'ViewLog', 'ClearLog', 'Upload', 'LogInfo')
+                'ViewLog', 'ClearLog', 'LogInfo', 'Upload')
 
     def _loadSetting(self, dialog):
         self._loadLoggerSetting(dialog)
@@ -129,47 +133,6 @@ class OptionsDialog(unohelper.Base,
 
     def _loadVersion(self, dialog):
         dialog.getControl('Label3').Text = self._getDriverVersion()
-
-    def _reloadVersion(self, dialog):
-        msg = getMessage(self.ctx, g_message, 121)
-        dialog.getControl('Label3').Text = msg
-
-    def _getDriverVersion(self):
-        try:
-            service = '%s.Driver' % g_identifier
-            driver = createService(self.ctx, service)
-            url = 'sdbc:embedded:hsqldb'
-            infos = getPropertyValueSet({'URL': self._getUrl()})
-            connection = driver.connect(url, infos)
-            version = connection.getMetaData().getDriverVersion()
-            connection.close()
-            return version
-        except Exception as e:
-            print("OptionsDialog._getDriverVersion() ERROR: %s - %s" % (e, traceback.print_exc()))
-
-    def _getUrl(self):
-        path = getResourceLocation(self.ctx, g_identifier, g_path)
-        url = '%s/dbversion.odb' % path
-        if not getSimpleFile(self.ctx).exists(url):
-            service = 'com.sun.star.sdb.DatabaseContext'
-            datasource = createService(self.ctx, service).createInstance()
-            datasource.URL = self._getDataSourceUrl(path)
-            datasource.Settings.JavaDriverClass = g_class
-            datasource.Settings.JavaDriverClassPath = self._getDataSourceClassPath(path)
-            datasource.DatabaseDocument.storeAsURL(url, ())
-        return url
-
-    def _getDataSourceUrl(self, path):
-        url = 'jdbc:hsqldb:%s/dbversion'  % path
-        options = ('default_schema=true',
-                   'shutdown=true',
-                   'hsqldb.default_table_type=cached',
-                   'get_column_name=false')
-        url += ';%s' % ';'.join(options)
-        return url
-
-    def _getDataSourceClassPath(self, path):
-        return '%s/%s' % (path, g_jar)
 
     def _reloadSetting(self, dialog):
         self._loadLoggerSetting(dialog)
@@ -197,22 +160,18 @@ class OptionsDialog(unohelper.Base,
         dialog.dispose()
 
     def _clearLog(self, dialog):
-        try:
-            clearLogger()
-            msg = getMessage(self.ctx, g_message, 101)
-            logMessage(self.ctx, INFO, msg, 'OptionsDialog', '_clearLog()')
-            url = getLoggerUrl(self.ctx)
-            self._setDialogText(dialog, url)
-        except Exception as e:
-            msg = "Error: %s - %s" % (e, traceback.print_exc())
-            logMessage(self.ctx, SEVERE, msg, "OptionsDialog", "_clearLog()")
+        clearLogger()
+        msg = getMessage(self.ctx, g_message, 111)
+        logMessage(self.ctx, INFO, msg, 'OptionsDialog', '_clearLog()')
+        url = getLoggerUrl(self.ctx)
+        self._setDialogText(dialog, url)
 
     def _logInfo(self, dialog):
         version  = ' '.join(sys.version.split())
-        msg = getMessage(self.ctx, g_message, 111, version)
+        msg = getMessage(self.ctx, g_message, 121, version)
         logMessage(self.ctx, INFO, msg, "OptionsDialog", "_logInfo()")
         path = os.pathsep.join(sys.path)
-        msg = getMessage(self.ctx, g_message, 112, path)
+        msg = getMessage(self.ctx, g_message, 122, path)
         logMessage(self.ctx, INFO, msg, "OptionsDialog", "_logInfo()")
         url = getLoggerUrl(self.ctx)
         self._setDialogText(dialog, url)
@@ -236,6 +195,46 @@ class OptionsDialog(unohelper.Base,
         index = dialog.getControl('ListBox1').getSelectedItemPos()
         handler = dialog.getControl('OptionButton1').State
         setLoggerSetting(self.ctx, enabled, index, handler)
+
+    def _reloadVersion(self, dialog):
+        msg = getMessage(self.ctx, g_message, 131)
+        dialog.getControl('Label3').Text = msg
+
+    def _getDriverVersion(self):
+        try:
+            service = '%s.Driver' % g_identifier
+            driver = createService(self.ctx, service)
+            url = 'sdbc:embedded:hsqldb'
+            infos = getPropertyValueSet({'URL': self._getUrl()})
+            connection = driver.connect(url, infos)
+            version = connection.getMetaData().getDriverVersion()
+            connection.close()
+            return version
+        except UnoException as e:
+            msg = getMessage(self.ctx, g_message, 141, e.Message)
+            logMessage(self.ctx, SEVERE, msg, 'OptionsDialog', '_getDriverVersion()')
+        except Exception as e:
+            msg = getMessage(self.ctx, g_message, 142, (e, traceback.print_exc()))
+            logMessage(self.ctx, SEVERE, msg, 'OptionsDialog', '_getDriverVersion()')
+
+    def _getUrl(self):
+        path = getResourceLocation(self.ctx, g_identifier, g_path)
+        url = '%s/dbversion.odb' % path
+        if not getSimpleFile(self.ctx).exists(url):
+            service = 'com.sun.star.sdb.DatabaseContext'
+            datasource = createService(self.ctx, service).createInstance()
+            datasource.URL = self._getDataSourceUrl(path)
+            datasource.Settings.JavaDriverClass = g_class
+            datasource.Settings.JavaDriverClassPath = self._getDataSourceClassPath(path)
+            datasource.DatabaseDocument.storeAsURL(url, ())
+        return url
+
+    def _getDataSourceUrl(self, path):
+        url = '%s%s/dbversion%s%s'  % (g_protocol, path, g_options, g_shutdown)
+        return url
+
+    def _getDataSourceClassPath(self, path):
+        return '%s/%s' % (path, g_jar)
 
     def _upload(self, dialog):
         service = 'com.sun.star.util.PathSubstitution'
