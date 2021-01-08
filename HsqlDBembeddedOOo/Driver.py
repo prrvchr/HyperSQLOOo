@@ -45,7 +45,9 @@ from com.sun.star.uno import Exception as UnoException
 
 from unolib import getResourceLocation
 from unolib import createService
+from unolib import getUrlTransformer
 from unolib import getSimpleFile
+from unolib import parseUrl
 from unolib import getUrl
 
 from hsqldbembedded import Connection
@@ -79,7 +81,7 @@ class Driver(unohelper.Base,
     def __init__(self, ctx):
         self.ctx = ctx
         self._supportedProtocol = 'sdbc:embedded:hsqldb'
-        self._dbdir = 'database/'
+        self._dbdir = 'database'
         self._dbfiles = ('script', 'properties', 'data', 'backup', 'log')
         self._user = 'SA'
         self._password = ''
@@ -89,7 +91,8 @@ class Driver(unohelper.Base,
     # XDriver
     def connect(self, url, infos):
         try:
-            location = self._getUrl(infos)
+            transformer = getUrlTransformer(self.ctx)
+            location = self._getUrl(transformer, infos)
             if location is None:
                 code = getMessage(self.ctx, g_message, 111)
                 msg = getMessage(self.ctx, g_message, 112, (url, self._getInfo(infos)))
@@ -98,14 +101,14 @@ class Driver(unohelper.Base,
             logMessage(self.ctx, INFO, msg, 'Driver', 'connect()')
             name = self._getDataSourceName(location)
             sf = getSimpleFile(self.ctx)
-            split = '%s%s' % (location.Path, name)
+            split = self._getSplitUrl(transformer, location, name)
             if not sf.isFolder(split):
                 if sf.exists(split):
                     code = getMessage(self.ctx, g_message, 114)
-                    msg = getMessage(self.ctx, g_message, 115, (name, location.Path))
+                    msg = getMessage(self.ctx, g_message, 115, split)
                     raise self._getException(code, 1002, msg, self)
-                self._splitDataBase(sf, location, name)
-            datasource = self._getDataSource(location, name)
+                self._splitDataBase(transformer, sf, location, split, name)
+            datasource = self._getDataSource(transformer, location, name)
             connection = Connection(self.ctx, datasource, url, self._user, self._password)
             version = connection.getMetaData().getDriverVersion()
             msg = getMessage(self.ctx, g_message, 116, (version, self._user))
@@ -171,21 +174,10 @@ class Driver(unohelper.Base,
         msg = getMessage(self.ctx, g_message, 171, name)
         logMessage(self.ctx, INFO, msg, 'Driver', 'dropCatalog()')
 
-    def _splitDataBase(self, sf, location, dbname):
-        service = 'com.sun.star.packages.zip.ZipFileAccess'
-        args = (location.Main, )
-        zip = createService(self.ctx, service, *args)
-        for name in self._dbfiles:
-            path = '%s%s' % (self._dbdir, name)
-            if zip.hasByName(path):
-                url = self._getDataBaseUrl(location, dbname, name)
-                if not sf.exists(url):
-                    input = zip.getStreamByPattern(path)
-                    sf.writeFile(url, input)
-                    input.closeInput()
-
-    def _getDataBaseUrl(self, location, dbname, name):
-        return '%s%s/%s.%s' % (location.Path, dbname, dbname, name)
+    #Private method
+    def _getUrl(self, transformer, infos):
+        url = self._getInfo(infos)
+        return parseUrl(transformer, url)
 
     def _getInfo(self, infos):
         url = ''
@@ -195,18 +187,55 @@ class Driver(unohelper.Base,
                 break
         return url
 
-    def _getUrl(self, infos):
-        url = self._getInfo(infos)
-        return getUrl(self.ctx, url)
+    def _getDataSourceName(self, url):
+        name, sep, extension = url.Name.rpartition('.')
+        return name
 
-    def _getException(self, state, code, message, context=None, exception=None):
-        error = SQLException()
-        error.SQLState = state
-        error.ErrorCode = code
-        error.NextException = exception
-        error.Message = message
-        error.Context = context
-        return error
+    def _getSplitUrl(self, transformer, url, name):
+        format = (url.Protocol, url.Path, name)
+        location = parseUrl(transformer, '%s%s%s' % format)
+        return transformer.getPresentation(location, False)
+
+    def _splitDataBase(self, transformer, sf, url, split, dbname):
+        service = 'com.sun.star.packages.zip.ZipFileAccess'
+        args = (url.Main, )
+        zip = createService(self.ctx, service, *args)
+        self._unzipDataBase(transformer, sf, zip, split, dbname)
+
+    def _unzipDataBase(self, transformer, sf, zip, location, dbname):
+        for name in self._dbfiles:
+            path = '%s/%s' % (self._dbdir, name)
+            if zip.hasByName(path):
+                url = self._getDataBaseUrl(transformer, location, dbname, name)
+                if not sf.exists(url):
+                    input = zip.getStreamByPattern(path)
+                    sf.writeFile(url, input)
+                    input.closeInput()
+
+    def _getDataBaseUrl(self, transformer, url, dbname, name):
+        format = (url, dbname, name)
+        location = parseUrl(transformer, '%s/%s.%s' % format)
+        return transformer.getPresentation(location, False)
+
+    def _getDataSource(self, transformer, url, name):
+        service = 'com.sun.star.sdb.DatabaseContext'
+        datasource = createService(self.ctx, service).createInstance()
+        self._setDataSource(datasource, transformer, url, name)
+        return datasource
+
+    def _setDataSource(self, datasource, transformer, url, name):
+        datasource.URL = self._getDataSourceUrl(transformer, url, name)
+        datasource.Settings.JavaDriverClass = g_class
+        datasource.Settings.JavaDriverClassPath = self._getDataSourceClassPath()
+
+    def _getDataSourceUrl(self, transformer, url, name):
+        format = (g_protocol, url.Protocol, url.Path, name, name, g_options, g_shutdown)
+        location = parseUrl(transformer, '%s%s%s%s/%s%s%s' % format)
+        return transformer.getPresentation(location, False)
+
+    def _getDataSourceClassPath(self):
+        path = getResourceLocation(self.ctx, g_identifier, g_path)
+        return '%s/%s' % (path, g_jar)
 
     def _getDriverPropertyInfo(self, name, value):
         info = uno.createUnoStruct('com.sun.star.sdbc.DriverPropertyInfo')
@@ -218,29 +247,14 @@ class Driver(unohelper.Base,
         info.Choices = ()
         return info
 
-    def _getDataSource(self, url, name):
-        service = 'com.sun.star.sdb.DatabaseContext'
-        datasource = createService(self.ctx, service).createInstance()
-        self._setDataSource(datasource, url, name)
-        return datasource
-
-    def _setDataSource(self, datasource, url, name):
-        datasource.URL = self._getDataSourceUrl(url, name)
-        datasource.Settings.JavaDriverClass = g_class
-        datasource.Settings.JavaDriverClassPath = self._getDataSourceClassPath()
-
-    def _getDataSourceName(self, url):
-        name, sep, extension = url.Name.rpartition('.')
-        return name
-
-    def _getDataSourceUrl(self, url, name):
-        format = (g_protocol, url.Protocol, url.Path, name, name, g_options, g_shutdown)
-        location = '%s%s%s%s/%s%s%s' % format
-        return location
-
-    def _getDataSourceClassPath(self):
-        path = getResourceLocation(self.ctx, g_identifier, g_path)
-        return '%s/%s' % (path, g_jar)
+    def _getException(self, state, code, message, context=None, exception=None):
+        error = SQLException()
+        error.SQLState = state
+        error.ErrorCode = code
+        error.NextException = exception
+        error.Message = message
+        error.Context = context
+        return error
 
     # XServiceInfo
     def supportsService(self, service):
