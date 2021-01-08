@@ -34,7 +34,7 @@ OpenOffice ne semble pas avoir besoin de cette solution de contournement.
 Il semble important que le fichier n'ait pas été renommé lors de son téléchargement.  
 Si nécessaire, renommez-le avant de l'installer.
 
-- Installer l'extension [HsqlDBembeddedOOo.oxt](https://github.com/prrvchr/HsqlDBembeddedOOo/raw/master/HsqlDBembeddedOOo.oxt) version 0.0.3.
+- Installer l'extension [HsqlDBembeddedOOo.oxt](https://github.com/prrvchr/HsqlDBembeddedOOo/releases/download/v0.0.3/HsqlDBembeddedOOo.oxt) version 0.0.3.
 
 Redémarrez LibreOffice / OpenOffice après l'installation.
 

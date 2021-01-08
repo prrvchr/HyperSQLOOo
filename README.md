@@ -34,7 +34,7 @@ OpenOffice doesn't seem to need this workaround.
 It seems important that the file was not renamed when it was downloaded.
 If necessary, rename it before installing it.
 
-- Install [HsqlDBembeddedOOo.oxt](https://github.com/prrvchr/HsqlDBembeddedOOo/raw/master/HsqlDBembeddedOOo.oxt) extension version 0.0.3.
+- Install [HsqlDBembeddedOOo.oxt](https://github.com/prrvchr/HsqlDBembeddedOOo/releases/download/v0.0.3/HsqlDBembeddedOOo.oxt) extension version 0.0.3.
 
 Restart LibreOffice / OpenOffice after installation.
 
