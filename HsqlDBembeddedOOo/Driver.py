@@ -43,12 +43,11 @@ from com.sun.star.logging.LogLevel import SEVERE
 
 from com.sun.star.uno import Exception as UnoException
 
-from unolib import getResourceLocation
 from unolib import createService
-from unolib import getUrlTransformer
+from unolib import getResourceLocation
 from unolib import getSimpleFile
+from unolib import getUrlTransformer
 from unolib import parseUrl
-from unolib import getUrl
 
 from hsqldbembedded import Connection
 from hsqldbembedded import getDataBaseInfo
