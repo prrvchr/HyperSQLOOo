@@ -7,12 +7,14 @@
 ## Introduction:
 
 **HsqlDBembeddedOOo** fait partie d'une [Suite](https://prrvchr.github.io/README_fr) d'extensions [LibreOffice](https://fr.libreoffice.org/download/telecharger-libreoffice/) et/ou [OpenOffice](https://www.openoffice.org/fr/Telecharger/) permettant de vous offrir des services inovants dans ces suites bureautique.  
-Cette extension vous donne accès à la base de données HsqlDB intégrée tout en pouvant profiter d'un pilote HsqlDB avancé.
+Cette extension vous permet:
+- De surmonter le [bug 139538](https://bugs.documentfoundation.org/show_bug.cgi?id=139538).
+- D'utiliser HsqlDB intégré en mode non compressé (fractionné) avec la version du pilote HsqlDB de votre choix.
 
 Etant un logiciel libre je vous encourage:
 - A dupliquer son [code source](https://github.com/prrvchr/HsqlDBembeddedOOo/).
 - A apporter des modifications, des corrections, des améliorations.
-- D'ouvrir un [disfonctionnement](https://github.com/prrvchr/HsqlDBembeddedOOo/issues/new) si nécessaire.
+- D'ouvrir un [dysfonctionnement](https://github.com/prrvchr/HsqlDBembeddedOOo/issues/new) si nécessaire.
 
 Bref, à participer au developpement de cette extension.  
 Car c'est ensemble que nous pouvons rendre le Logiciel Libre plus intelligent.
@@ -20,14 +22,14 @@ Car c'est ensemble que nous pouvons rendre le Logiciel Libre plus intelligent.
 ## Prérequis:
 
 [HsqlDB](http://hsqldb.org/) est une base de données écrite en Java.  
-L'utilisation de HsqlDB nécessite l'installation et la configuration dans LibreOffice / OpenOffice d'un **JRE version 1.8 minimum** (c'est-à-dire: Java version 8)
+L'utilisation de HsqlDB nécessite l'installation et la configuration dans LibreOffice / OpenOffice d'un **JRE version 1.8 minimum** (c'est-à-dire: Java version 8)  
+Je vous recommande [AdoptOpenJDK](https://adoptopenjdk.net/) comme source d'installation de Java.
 
-Parfois, il peut être nécessaire pour les utilisateurs de LibreOffice de ne pas avoir de pilote HsqlDB installé avec LibreOffice  
-(vérifiez vos applications installées sous Windows ou votre gestionnaire de paquets sous Linux)  
-~~Il semble que les versions 6.4.x et 7.x de LibreOffice aient résolu ce problème et sont capables de fonctionner simultanément avec différentes versions de pilote de HsqlDB.~~  
-Après de nombreux tests, il semble que LibreOffice (6.4.x et 7.x) ne puisse pas charger un pilote HsqlDB fourni (hsqldb.jar v2.5.1), si le pilote HsqlDB intégré est installé (et même la solution est parfois de renommer le fichier hsqldb.jar dans /usr/share/java, la désinstallation du paquet libreoffice-sdbc-hsqldb ne semble pas suffisante...)  
-Pour surmonter cette limitation et si vous souhaitez utiliser HsqlDB intégré, supprimez le pilote HsqlDB intégré (hsqldb.jar v1.8.0) et installez cette extension: [HsqlDBembeddedOOo](https://prrvchr.github.io/HsqlDBembeddedOOo/README_fr) pour remplacer le pilote HsqlDB intégré disfonctionnant de LibreOffice.  
-OpenOffice ne semble pas avoir besoin de cette solution de contournement.
+Si vous utilisez LibreOffice sous Linux, alors vous êtes sujet au [bug 139538](https://bugs.documentfoundation.org/show_bug.cgi?id=139538).  
+Pour contourner le problème, veuillez désinstaller les paquets:
+- libreoffice-sdbc-hsqldb
+- libhsqldb1.8.0-java
+OpenOffice et LibreOffice sous Windows ne sont pas soumis à ce dysfonctionnement.
 
 ## Installation:
 
@@ -66,7 +68,7 @@ Maintenant à vous d'en profiter...
 * LibreOffice 6.4.4.2 (x64) - Windows 7 SP1
 
 Je vous encourage en cas de problème :-(  
-de créer un [disfonctionnement](https://github.com/prrvchr/HsqlDBembeddedOOo/issues/new)  
+de créer un [dysfonctionnement](https://github.com/prrvchr/HsqlDBembeddedOOo/issues/new)  
 J'essaierai de le résoudre ;-)
 
 ## Historique:
@@ -88,6 +90,12 @@ J'essaierai de le résoudre ;-)
 - Beaucoup d'autres correctifs...
 
 ### Ce qui a été fait pour la version 0.0.3:
+
+- Je tiens particulièrement à remercier fredt à [hsqldb.org](http://hsqldb.org/) pour:
+
+    - Son accueil pour ce projet et sa permission d'utiliser le logo HsqlDB dans l'extension.
+
+    - La qualité de sa base de données HsqlDB.
 
 - Fonctionne désormais avec OpenOffice sous Windows.
 
