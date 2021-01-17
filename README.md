@@ -71,12 +71,14 @@ Have fun...
 ### How to migrate an embedded database:
 
 If you want to migrate an integrated database (HsqlDB version 1.8.0) to the latest version (for example 2.5.1), follow these steps:
-- 1 - Make a copy (backup) of your database (odb file).
-- 2 - After installing this extension, open this odb file in Base (double click on the odb).
-- 3 - In Base go to: Tools -> SQL and type the SQL command: `SHUTDOWN COMPACT` or `SHUTDOWN SCRIPT`.
-- 4 - Change the version of the HsqlDB driver in: Tools -> Options -> Base drivers -> Embedded HsqlDB driver by a version [2.4.0](https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.4.0/hsqldb-2.4.0.jar) or [2.4.1](https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.4.1/hsqldb-2.4.1.jar) or [2.5.0](https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.5.0/hsqldb-2.5.0.jar) (You must rename the jar file to hsqldb.jar for it to be taken into account).
-- 5 - Restart LibreOffice / OpenOffice after changing the driver (hsqldb.jar).
-- Repeat this procedure at step 2 using version [2.5.1](https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.5.1/hsqldb-2.5.1.jar).
+- 1 - If it is not already installed, install this extension.
+- 2 - Make a copy (backup) of your database (odb file).
+- 3 - Open the odb file in Base (double click on the odb file).
+- 4 - In Base go to: Tools -> SQL and type the SQL command: `SHUTDOWN COMPACT` or `SHUTDOWN SCRIPT`.
+- 5 - Change the version of the HsqlDB driver in: Tools -> Options -> Base drivers -> Embedded HsqlDB driver with a version [2.4.0](https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.4.0/hsqldb-2.4.0.jar) or [2.4.1](https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.4.1/hsqldb-2.4.1.jar) or [2.5.0](https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.5.0/hsqldb-2.5.0.jar) (You must rename the jar file to hsqldb.jar for it to be taken into account).
+- 6 - Restart LibreOffice / OpenOffice after changing the driver (hsqldb.jar).
+- Repeat this procedure at step 3 using version [2.5.1](https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.5.1/hsqldb-2.5.1.jar).
+- To finish, repeat step 3 then 4.
 
 Now you can use the full feature version of the driver [HsqlDBDriverOOo](https://prrvchr.github.io/HsqlDBDriverOOo/), your database is in a folder with the same name and location as your odb file.
 
@@ -108,7 +110,7 @@ I will try to solve it ;-)
 
 ### What has been done for version 0.0.2:
 
-- Now the driver automatically splits an odb when opened... This makes the driver backward compatible with the build-in LibreOffice HsqlDB Embedded Driver ;-)
+- Now the driver automatically splits an odb when opened... This allow conversion of odb files produced by the built-in LibreOffice / OpenOffice HsqlDB driver ;-)
 
 - Many other fix...
 

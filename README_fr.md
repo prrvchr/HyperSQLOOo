@@ -71,12 +71,14 @@ Maintenant à vous d'en profiter...
 ### Comment migrer une base de données intégrée:
 
 Si vous souhaitez migrer une base de données intégrée (HsqlDB version 1.8.0) vers la dernière version (par exemple 2.5.1), procédez comme suit:
-- 1 - Faite une copie (sauvegarde) de votre base de données (fichier odb).
-- 2 - Aprés avoir installer cette extension, ouvrir ce fichier odb dans Base (double cliquez sur l'odb).
-- 3 - Dans Base allez à: Outils -> SQL et tapez la commande SQL: `SHUTDOWN COMPACT` ou `SHUTDOWN SCRIPT`.
-- 4 - Changez la version du pilote HsqlDB dans: Outils -> Options -> Pilotes Base -> Pilote HsqlDB intégré par une version [2.4.0](https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.4.0/hsqldb-2.4.0.jar) ou [2.4.1](https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.4.1/hsqldb-2.4.1.jar) ou [2.5.0](https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.5.0/hsqldb-2.5.0.jar) (Vous devez renommer le fichier jar en hsqldb.jar pour qu'il soit pris en compte).
-- 5 - Redémarrer LibreOffice / OpenOffice aprés le changement du pilote (hsqldb.jar).
-- Recommencez cette procedure à l'étape 2 en utilisant la version [2.5.1](https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.5.1/hsqldb-2.5.1.jar).
+- 1 - Si elle n'est pas déjà installée, installez cette extension.
+- 2 - Faite une copie (sauvegarde) de votre base de données (fichier odb).
+- 3 - Ouvrir le fichier odb dans Base (double clique sur le fichier odb).
+- 4 - Dans Base allez à: Outils -> SQL et tapez la commande SQL: `SHUTDOWN COMPACT` ou `SHUTDOWN SCRIPT`.
+- 5 - Changez la version du pilote HsqlDB dans: Outils -> Options -> Pilotes Base -> Pilote HsqlDB intégré par une version [2.4.0](https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.4.0/hsqldb-2.4.0.jar) ou [2.4.1](https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.4.1/hsqldb-2.4.1.jar) ou [2.5.0](https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.5.0/hsqldb-2.5.0.jar) (Vous devez renommer le fichier jar en hsqldb.jar pour qu'il soit pris en compte).
+- 6 - Redémarrer LibreOffice / OpenOffice aprés le changement du pilote (hsqldb.jar).
+- Recommencez cette procedure à l'étape 3 en utilisant la version [2.5.1](https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.5.1/hsqldb-2.5.1.jar).
+- Pour finir, répétez l'étape 3 puis 4.
 
 Maintenant vous pouvez utiliser la version complète du pilote [HsqlDBDriverOOo](https://prrvchr.github.io/HsqlDBDriverOOo/README_fr), votre base de données est dans un dossier avec le même nom et emplacement que votre fichier odb.
 
@@ -108,7 +110,7 @@ J'essaierai de le résoudre ;-)
 
 ### Ce qui a été fait pour la version 0.0.2:
 
-- Maintenant, le pilote divise automatiquement un odb lorsqu'il est ouvert... Cela rend le pilote rétrocompatible avec le pilote LibreOffice Embedded HsqlDB intégré ;-)
+- Maintenant, le pilote divise automatiquement un odb lorsqu'il est ouvert... Cela permet la conversion des fichiers odb produits par le pilote LibreOffice / OpenOffice HsqlDB intégré ;-)
 
 - Beaucoup d'autres correctifs...
 
