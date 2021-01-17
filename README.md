@@ -7,6 +7,7 @@
 ## Introduction:
 
 **HsqlDBembeddedOOo** is part of a [Suite](https://prrvchr.github.io/) of [LibreOffice](https://www.libreoffice.org/download/download/) and/or [OpenOffice](https://www.openoffice.org/download/index.html) extensions allowing to offer you innovative services in these office suites.  
+
 This extension allows you:
 - To overcome [bug 139538](https://bugs.documentfoundation.org/show_bug.cgi?id=139538) for users of **LibreOffice on Linux**.
 - To use Embedded HsqlDB in uncompressed (split) mode, which is more robust, with the version of the HsqlDB driver of your choice.
