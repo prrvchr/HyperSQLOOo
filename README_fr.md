@@ -76,7 +76,7 @@ Si vous souhaitez migrer une base de données intégrée (HsqlDB version 1.8.0) 
 - 2 - Faite une copie (sauvegarde) de votre base de données (fichier odb).
 - 3 - Ouvrir le fichier odb dans Base (double clique sur le fichier odb).
 - 4 - Dans Base allez à: Outils -> SQL et tapez la commande SQL: `SHUTDOWN COMPACT` ou `SHUTDOWN SCRIPT`.
-- 5 - Changez la version du pilote HsqlDB dans: Outils -> Options -> Pilotes Base -> Pilote HsqlDB intégré par une version [2.4.0](https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.4.0/hsqldb-2.4.0.jar) ou [2.4.1](https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.4.1/hsqldb-2.4.1.jar) ou [2.5.0](https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.5.0/hsqldb-2.5.0.jar) (Vous devez renommer le fichier jar en hsqldb.jar pour qu'il soit pris en compte).
+- 5 - Changez la version du pilote HsqlDB dans: Outils -> Options -> Pilotes Base -> Pilote HsqlDB intégré, par une version [2.4.0](https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.4.0/hsqldb-2.4.0.jar) ou [2.4.1](https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.4.1/hsqldb-2.4.1.jar) ou [2.5.0](https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.5.0/hsqldb-2.5.0.jar) (Vous devez renommer le fichier jar en hsqldb.jar pour qu'il soit pris en compte).
 - 6 - Redémarrer LibreOffice / OpenOffice aprés le changement du pilote (hsqldb.jar).
 - Recommencez cette procedure à l'étape 3 en utilisant la version [2.5.1](https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.5.1/hsqldb-2.5.1.jar).
 - Pour finir, répétez l'étape 3 puis 4.
