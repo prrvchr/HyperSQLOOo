@@ -10,7 +10,7 @@
 This extension allows you:
 - To overcome [bug 139538](https://bugs.documentfoundation.org/show_bug.cgi?id=139538) for users of **LibreOffice on Linux**.
 - To use Embedded HsqlDB in uncompressed (split) mode, which is more robust, with the version of the HsqlDB driver of your choice.
-- To migrate data from an embedded database (odb file) to the full feature HsqlDB driver: [HsqlDBDriverOOo](https://prrvchr.github.io/HsqlDBDriverOOo/).
+- To migrate data from an embedded database (odb file) to the full feature HsqlDB driver: [HsqlDBDriverOOo](https://prrvchr.github.io/HsqlDBDriverOOo/), see: [How to migrate an embedded database](https://prrvchr.github.io/HsqlDBembeddedOOo/#how-to-migrate-an-embedded-database).
 
 If these possibilities do not concern you, then I recommend you to use the driver [HsqlDBDriverOOo](https://prrvchr.github.io/HsqlDBDriverOOo/) allowing to exploit all the functionalities offered by HsqlDB.
 
