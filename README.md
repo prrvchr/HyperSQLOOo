@@ -69,7 +69,7 @@ Have fun...
 
 ### How to migrate an embedded database:
 
-If you want to migrate an integrated database (HsqlDB version 1.8.O) to the latest version (for example 2.5.1), follow these steps:
+If you want to migrate an integrated database (HsqlDB version 1.8.0) to the latest version (for example 2.5.1), follow these steps:
 - 1 - Make a copy (backup) of your database (odb file).
 - 2 - After installing this extension, open this odb file in Base (double click on the odb).
 - 3 - In Base go to: Tools -> SQL and type the SQL command: `SHUTDOWN COMPACT` or `SHUTDOWN SCRIPT`
