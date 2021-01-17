@@ -46,7 +46,7 @@ Restart LibreOffice / OpenOffice after installation.
 
 ## Use:
 
-### Create a new database:
+### How to create a new database:
 
 In LibreOffice / OpenOffice go to File -> New -> Database...:
 
@@ -67,7 +67,7 @@ In step: Save and proceed:
 
 Have fun...
 
-### Migrate an embedded database:
+### How to migrate an embedded database:
 
 If you want to migrate from an integrated database (HsqlDB version 1.8.O) to the latest version (for example 2.5.1), follow these steps:
 - 1- Make a copy (backup) of your database (odb file).
@@ -76,6 +76,8 @@ If you want to migrate from an integrated database (HsqlDB version 1.8.O) to the
 - 4- Change the version of the HsqlDB driver in: Tools -> Options -> Base drivers -> Embedded HsqlDB driver by a version 2.4.x or 2.5.0
 - 5- Restart LibreOffice / OpenOffice after changing the driver (hsqldb.jar).
 - Repeat this procedure at step 2 until you reach version 2.5.1.
+
+Now you can use the full feature version of the driver [HsqlDBDriverOOo](https://prrvchr.github.io/HsqlDBDriverOOo/).
 
 ## Has been tested with:
 

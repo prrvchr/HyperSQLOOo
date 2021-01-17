@@ -46,7 +46,7 @@ Redémarrez LibreOffice / OpenOffice après l'installation.
 
 ## Utilisation:
 
-### Créer une nouvelle base de données:
+### Comment créer une nouvelle base de données:
 
 Dans LibreOffice / OpenOffice aller à: Fichier -> Nouveau -> Base de données...:
 
@@ -67,7 +67,7 @@ A l'étape: Enregistrer et continuer:
 
 Maintenant à vous d'en profiter...
 
-### Migrer une base de données intégrée:
+### Comment migrer une base de données intégrée:
 
 Si vous souhaitez migrer d'une base de données intégrée (HsqlDB version 1.8.O) vers la dernière version (par exemple 2.5.1), procédez comme suit:
 - 1- Faite une copie (sauvegarde) de votre base de donnée (fichier odb).
@@ -76,6 +76,8 @@ Si vous souhaitez migrer d'une base de données intégrée (HsqlDB version 1.8.O
 - 4- Changez la version du pilote HsqlDB dans:  Outils -> Options -> Pilotes Base -> Pilote HsqlDB intégré par une version 2.4.x ou 2.5.0
 - 5- Redémarrer LibreOffice / OpenOffice aprés le changement du driver (hsqldb.jar).
 - Recommencez cette procedure à l'étape 2 jusqu'à atteindre la version 2.5.1.
+
+Maintenant vous pouvez utiliser la version complète du pilote [HsqlDBDriverOOo](https://prrvchr.github.io/HsqlDBDriverOOo/README_fr).
 
 ## A été testé avec:
 
