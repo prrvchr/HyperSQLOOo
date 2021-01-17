@@ -70,11 +70,11 @@ Maintenant à vous d'en profiter...
 ### Comment migrer une base de données intégrée:
 
 Si vous souhaitez migrer une base de données intégrée (HsqlDB version 1.8.O) vers la dernière version (par exemple 2.5.1), procédez comme suit:
-- 1- Faite une copie (sauvegarde) de votre base de donnée (fichier odb).
-- 2- Aprés avoir installer cette extension, ouvrir ce fichier odb dans Base (double cliquez sur l'odb).
-- 3- Dans Base allez à: Outils -> SQL et tapez la commande SQL: `SHUTDOWN COMPACT` ou `SHUTDOWN SCRIPT`
-- 4- Changez la version du pilote HsqlDB dans:  Outils -> Options -> Pilotes Base -> Pilote HsqlDB intégré par une version 2.4.x ou 2.5.0
-- 5- Redémarrer LibreOffice / OpenOffice aprés le changement du driver (hsqldb.jar).
+- 1 - Faite une copie (sauvegarde) de votre base de donnée (fichier odb).
+- 2 - Aprés avoir installer cette extension, ouvrir ce fichier odb dans Base (double cliquez sur l'odb).
+- 3 - Dans Base allez à: Outils -> SQL et tapez la commande SQL: `SHUTDOWN COMPACT` ou `SHUTDOWN SCRIPT`
+- 4 - Changez la version du pilote HsqlDB dans:  Outils -> Options -> Pilotes Base -> Pilote HsqlDB intégré par une version 2.4.x ou 2.5.0
+- 5 - Redémarrer LibreOffice / OpenOffice aprés le changement du driver (hsqldb.jar).
 - Recommencez cette procedure à l'étape 2 en utilisant la version 2.5.1.
 
 Maintenant vous pouvez utiliser la version complète du pilote [HsqlDBDriverOOo](https://prrvchr.github.io/HsqlDBDriverOOo/README_fr), votre base de données est dans un dossier avec le même nom et emplacement que votre fichier odb.
