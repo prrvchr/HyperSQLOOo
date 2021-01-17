@@ -10,7 +10,8 @@
 This extension allows you:
 - To overcome [bug 139538](https://bugs.documentfoundation.org/show_bug.cgi?id=139538) for users of **LibreOffice on Linux**.
 - To use Embedded HsqlDB in uncompressed (split) mode, which is more robust, with the version of the HsqlDB driver of your choice.
-- To migrate data from an embedded database (odb file) to the full feature HsqlDB driver: [HsqlDBDriverOOo](https://prrvchr.github.io/HsqlDBDriverOOo/).
+- To migrate data from an embedded database (odb file) to the full feature HsqlDB driver: [HsqlDBDriverOOo](https://prrvchr.github.io/HsqlDBDriverOOo/).  
+If these possibilities do not concern you, then I recommend you to use the driver [HsqlDBDriverOOo](https://prrvchr.github.io/HsqlDBDriverOOo/) allowing to exploit all the functionalities offered by HsqlDB.
 
 Being free software I encourage you:
 - To duplicate its [source code](https://github.com/prrvchr/HsqlDBembeddedOOo/).
@@ -44,6 +45,8 @@ Restart LibreOffice / OpenOffice after installation.
 
 ## Use:
 
+### Create a new database:
+
 In LibreOffice / OpenOffice go to File -> New -> Database...:
 
 ![HsqlDBembeddedOOo screenshot 1](HsqlDBembeddedOOo-1.png)
@@ -62,6 +65,16 @@ In step: Save and proceed:
 ![HsqlDBembeddedOOo screenshot 3](HsqlDBembeddedOOo-3.png)
 
 Have fun...
+
+### Migrate an embedded database:
+
+If you want to migrate from an integrated database (HsqlDB version 1.8.O) to the latest version (for example 2.5.1), follow these steps:
+1- Make a copy (backup) of your database (odb file).
+2- After installing this extension, open this odb file in Base (double click on the odb).
+3- In Base go to: Tools -> SQL and type the SQL command: `SHUTDOWN COMPACT` or` SHUTDOWN SCRIPT`
+4- Change the version of the HsqlDB driver in: Tools -> Options -> Base drivers -> Embedded HsqlDB driver by a version 2.4.x or 2.5.0
+5- Restart LibreOffice / OpenOffice after changing the driver (hsqldb.jar).  
+Repeat this procedure at step 2 until you reach version 2.5.1.
 
 ## Has been tested with:
 
