@@ -72,7 +72,7 @@ Have fun...
 If you want to migrate from an integrated database (HsqlDB version 1.8.O) to the latest version (for example 2.5.1), follow these steps:
 - 1- Make a copy (backup) of your database (odb file).
 - 2- After installing this extension, open this odb file in Base (double click on the odb).
-- 3- In Base go to: Tools -> SQL and type the SQL command: `SHUTDOWN COMPACT` or` SHUTDOWN SCRIPT`
+- 3- In Base go to: Tools -> SQL and type the SQL command: `SHUTDOWN COMPACT` or `SHUTDOWN SCRIPT`
 - 4- Change the version of the HsqlDB driver in: Tools -> Options -> Base drivers -> Embedded HsqlDB driver by a version 2.4.x or 2.5.0
 - 5- Restart LibreOffice / OpenOffice after changing the driver (hsqldb.jar).
 - Repeat this procedure at step 2 until you reach version 2.5.1.
