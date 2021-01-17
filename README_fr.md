@@ -13,7 +13,8 @@ Cette extension vous permet:
 - D'utiliser HsqlDB intégré en mode non compressé (fractionné), qui est plus robuste, avec la version du pilote HsqlDB de votre choix.
 - De migrer les données d'une base de données intégrée (fichier odb) vers le pilote HsqlDB complet: [HsqlDBDriverOOo](https://prrvchr.github.io/HsqlDBDriverOOo/README_fr), voir: [Comment migrer une base de données intégrée](https://prrvchr.github.io/HsqlDBembeddedOOo/README_fr#comment-migrer-une-base-de-donn%C3%A9es-int%C3%A9gr%C3%A9e).
 
-Si ces possibilités ne vous concernent pas, alors je vous recommande d'utiliser le pilote [HsqlDBDriverOOo](https://prrvchr.github.io/HsqlDBDriverOOo/README_fr) permettant d'exploiter toutes les fonctionnalités offertes par HsqlDB.
+HsqlDBembeddedOOo ne fonctionne qu'en mode fractionné, avec la possibilité d'extraire (décompresser) les données contenues dans un fichier odb lors de la connexion si un dossier avec le même nom et emplacement que le fichier odb n'existe pas. Cela permet la conversion des fichiers odb produits par le pilote LibreOffice / OpenOffice intégré (Embedded HsqlDB).
+Si ces particularités ne vous concernent pas, alors je vous recommande d'utiliser le pilote [HsqlDBDriverOOo](https://prrvchr.github.io/HsqlDBDriverOOo/README_fr) permettant d'exploiter toutes les fonctionnalités offertes par HsqlDB.
 
 Etant un logiciel libre je vous encourage:
 - A dupliquer son [code source](https://github.com/prrvchr/HsqlDBembeddedOOo/).
