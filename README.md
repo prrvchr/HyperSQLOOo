@@ -13,7 +13,7 @@ This extension allows you:
 - To use Embedded HsqlDB in uncompressed (split) mode, which is more robust, with the version of the HsqlDB driver of your choice.
 - To migrate data from an embedded database (odb file) to the full feature HsqlDB driver: [HsqlDBDriverOOo](https://prrvchr.github.io/HsqlDBDriverOOo/), see: [How to migrate an embedded database](https://prrvchr.github.io/HsqlDBembeddedOOo/#how-to-migrate-an-embedded-database).
 
-HsqlDBembeddedOOo only works in split mode, with the ability to extract (decompress) the data contained in an odb file when connecting if a folder with the same name and location as the odb file does not exist. This allow conversion of odb files produced by the built-in LibreOffice / OpenOffice driver (Embedded HsqlDB).
+HsqlDBembeddedOOo only works in split mode, with the ability to extract (decompress) the data contained in an odb file when connecting if a folder with the same name and location as the odb file does not exist. This allow conversion of odb files produced by the built-in LibreOffice / OpenOffice driver (Embedded HsqlDB).  
 If these features do not concern you, then I recommend you to use the driver [HsqlDBDriverOOo](https://prrvchr.github.io/HsqlDBDriverOOo/) allowing to exploit all the functionalities offered by HsqlDB.
 
 Being free software I encourage you:
