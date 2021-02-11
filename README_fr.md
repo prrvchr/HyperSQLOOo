@@ -2,7 +2,7 @@
 
 **L'utilisation de ce logiciel vous soumet à nos** [**Conditions d'utilisation**](https://prrvchr.github.io/HsqlDBembeddedOOo/HsqlDBembeddedOOo/registration/TermsOfUse_fr)
 
-# version [0.0.3](https://prrvchr.github.io/HsqlDBembeddedOOo/README_fr#historique)
+# version [0.0.4](https://prrvchr.github.io/HsqlDBembeddedOOo/README_fr#historique)
 
 ## Introduction:
 
@@ -42,7 +42,7 @@ OpenOffice et LibreOffice sous Windows ne sont pas soumis à ce dysfonctionnemen
 Il semble important que le fichier n'ait pas été renommé lors de son téléchargement.  
 Si nécessaire, renommez-le avant de l'installer.
 
-- Installer l'extension [HsqlDBembeddedOOo.oxt](https://github.com/prrvchr/HsqlDBembeddedOOo/releases/download/v0.0.3/HsqlDBembeddedOOo.oxt) version 0.0.3.
+- Installer l'extension [HsqlDBembeddedOOo.oxt](https://github.com/prrvchr/HsqlDBembeddedOOo/raw/master/HsqlDBembeddedOOo.oxt) version 0.0.4.
 
 Redémarrez LibreOffice / OpenOffice après l'installation.
 
@@ -131,7 +131,13 @@ J'essaierai de le résoudre ;-)
 
 - Beaucoup d'autres correctifs...
 
-### Que reste-t-il à faire pour la version 0.0.3:
+### Ce qui a été fait pour la version 0.0.4:
+
+- Modification de [Driver.py](https://github.com/prrvchr/HsqlDBembeddedOOo/blob/master/HsqlDBembeddedOOo/Driver.py) afin de rendre possible l'utilisation du service Uno: `com.sun.star.sdb.RowSet`.
+
+- Beaucoup d'autres correctifs...
+
+### Que reste-t-il à faire pour la version 0.0.4:
 
 - Ajouter de nouvelles langue pour l'internationalisation...
 

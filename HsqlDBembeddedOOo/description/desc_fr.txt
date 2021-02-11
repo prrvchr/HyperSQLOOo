@@ -1,1 +1,1 @@
-Le pilote intégré Hsqldb installable comme extension.
+Le pilote intégré HsqlDB installable comme extension.

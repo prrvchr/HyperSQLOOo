@@ -104,7 +104,7 @@ class Driver(unohelper.Base,
                     raise self._getException(code, 1002, msg, self)
                 self._splitDataBase(transformer, sf, location, split, name)
             datasource = self._getDataSource(transformer, location, name)
-            connection = Connection(self.ctx, datasource, url, self._user, self._password)
+            connection = Connection(self.ctx, datasource, url, self._user, self._password, None, True)
             version = connection.getMetaData().getDriverVersion()
             msg = getMessage(self.ctx, g_message, 116, (version, self._user))
             logMessage(self.ctx, INFO, msg, 'Driver', 'connect()')
