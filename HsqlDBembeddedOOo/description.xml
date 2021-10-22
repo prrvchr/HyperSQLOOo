@@ -30,8 +30,8 @@
         <name lang="en-US">HsqlDBembeddedOOo</name>
     </display-name>
     <icon>
-        <default xlink:href="HsqlDBembeddedOOo/HsqlDBembedded.png"/>
-        <high-contrast xlink:href="HsqlDBembeddedOOo/HsqlDBembedded.png"/>
+        <default xlink:href="HsqlDBembeddedOOo/HsqlDBembeddedOOo.png"/>
+        <high-contrast xlink:href="HsqlDBembeddedOOo/HsqlDBembeddedOOo.png"/>
     </icon>
     <extension-description>
         <src xlink:href="description/desc_en.txt" lang="en-US"/>

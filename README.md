@@ -1,3 +1,5 @@
+# ![HsqlDBembeddedOOo logo](img/HsqlDBembeddedOOo.png) HsqlDBembeddedOOo
+
 **Ce [document](https://prrvchr.github.io/HsqlDBembeddedOOo/README_fr) en français.**
 
 **The use of this software subjects you to our** [**Terms Of Use**](https://prrvchr.github.io/HsqlDBembeddedOOo/HsqlDBembeddedOOo/registration/TermsOfUse_en)
@@ -52,20 +54,20 @@ Restart LibreOffice / OpenOffice after installation.
 
 In LibreOffice / OpenOffice go to File -> New -> Database...:
 
-![HsqlDBembeddedOOo screenshot 1](HsqlDBembeddedOOo-1.png)
+![HsqlDBembeddedOOo screenshot 1](img/HsqlDBembeddedOOo-1.png)
 
 In step: Select database:
 - select: Create a new database
 - in: Emdedded database: choose: Embedded HsqlDB Driver
 - click on button: Next
 
-![HsqlDBembeddedOOo screenshot 2](HsqlDBembeddedOOo-2.png)
+![HsqlDBembeddedOOo screenshot 2](img/HsqlDBembeddedOOo-2.png)
 
 In step: Save and proceed:
 - adjust the parameters according to your needs...
 - click on button: Finish
 
-![HsqlDBembeddedOOo screenshot 3](HsqlDBembeddedOOo-3.png)
+![HsqlDBembeddedOOo screenshot 3](img/HsqlDBembeddedOOo-3.png)
 
 Have fun...
 

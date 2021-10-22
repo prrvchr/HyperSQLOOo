@@ -1,3 +1,5 @@
+# ![HsqlDBembeddedOOo logo](img/HsqlDBembeddedOOo.png) HsqlDBembeddedOOo
+
 **This [document](https://prrvchr.github.io/HsqlDBembeddedOOo) in English.**
 
 **L'utilisation de ce logiciel vous soumet à nos** [**Conditions d'utilisation**](https://prrvchr.github.io/HsqlDBembeddedOOo/HsqlDBembeddedOOo/registration/TermsOfUse_fr)
@@ -52,20 +54,20 @@ Redémarrez LibreOffice / OpenOffice après l'installation.
 
 Dans LibreOffice / OpenOffice aller à: Fichier -> Nouveau -> Base de données...:
 
-![HsqlDBembeddedOOo screenshot 1](HsqlDBembeddedOOo-1.png)
+![HsqlDBembeddedOOo screenshot 1](img/HsqlDBembeddedOOo-1.png)
 
 A l'étape: Sélectionner une base de données:
 - selectionner: Créer une nouvelle base de données
 - Dans: Base de données intégrée: choisir: Pilote HsqlDB intégré
 - cliquer sur le bouton: Suivant
 
-![HsqlDBembeddedOOo screenshot 2](HsqlDBembeddedOOo-2.png)
+![HsqlDBembeddedOOo screenshot 2](img/HsqlDBembeddedOOo-2.png)
 
 A l'étape: Enregistrer et continuer:
 - ajuster les paramètres selon vos besoins...
 - cliquer sur le bouton: Terminer
 
-![HsqlDBembeddedOOo screenshot 3](HsqlDBembeddedOOo-3.png)
+![HsqlDBembeddedOOo screenshot 3](img/HsqlDBembeddedOOo-3.png)
 
 Maintenant à vous d'en profiter...
 
