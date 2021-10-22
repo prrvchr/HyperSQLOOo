@@ -1,6 +1,6 @@
-Regarding installation, configuration and use, please consult the [documentation](https://prrvchr.github.io/HsqlDBembeddedOOo/).
+# ![HsqlDBembeddedOOo logo](https://prrvchr.github.io/HsqlDBembeddedOOo/img/HsqlDBembeddedOOo.png) HsqlDBembeddedOOo - Terms Of Use
 
-# Terms Of Use
+Regarding installation, configuration and use, please consult the [documentation](https://prrvchr.github.io/HsqlDBembeddedOOo/).
 
 ## Introduction:
 
