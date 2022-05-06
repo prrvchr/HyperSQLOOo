@@ -13,10 +13,10 @@
 This extension allows you:
 - To overcome [bug 139538](https://bugs.documentfoundation.org/show_bug.cgi?id=139538) for users of **LibreOffice on Linux**.
 - To use Embedded HsqlDB in uncompressed (split) mode, which is more robust, with the version of the HsqlDB driver of your choice.
-- To migrate data from an embedded database (odb file) to the full feature HsqlDB driver: [HsqlDBDriverOOo](https://prrvchr.github.io/HsqlDBDriverOOo/), see: [How to migrate an embedded database](https://prrvchr.github.io/HsqlDBembeddedOOo/#how-to-migrate-an-embedded-database).
+- To migrate data from an embedded database (odb file) to the full feature HsqlDB driver: [jdbcDriverOOo](https://prrvchr.github.io/jdbcDriverOOo/), see: [How to migrate an embedded database](https://prrvchr.github.io/HsqlDBembeddedOOo/#how-to-migrate-an-embedded-database).
 
 HsqlDBembeddedOOo only works in split mode, with the ability to extract (decompress) the data contained in an odb file when connecting if a folder with the same name and location as the odb file does not exist. This allow conversion of odb files produced by the built-in LibreOffice / OpenOffice driver (Embedded HsqlDB).  
-If these features do not concern you, then I recommend you to use the driver [HsqlDBDriverOOo](https://prrvchr.github.io/HsqlDBDriverOOo/) allowing to exploit all the functionalities offered by HsqlDB.
+If these features do not concern you, then I recommend you to use the driver [jdbcDriverOOo](https://prrvchr.github.io/jdbcDriverOOo/) allowing to exploit all the functionalities offered by HsqlDB.
 
 Being free software I encourage you:
 - To duplicate its [source code](https://github.com/prrvchr/HsqlDBembeddedOOo/).
@@ -83,7 +83,7 @@ If you want to migrate an integrated database (HsqlDB version 1.8.0) to the late
 - Repeat this procedure at step 3 using version [2.5.1](https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.5.1/hsqldb-2.5.1.jar).
 - To finish, repeat step 3 then 4.
 
-Now you can use the full feature version of the driver [HsqlDBDriverOOo](https://prrvchr.github.io/HsqlDBDriverOOo/), your database is in a folder with the same name and location as your odb file.
+Now you can use the full feature version of the driver [jdbcDriverOOo](https://prrvchr.github.io/jdbcDriverOOo/), your database is in a folder with the same name and location as your odb file.
 
 ## Has been tested with:
 

@@ -13,10 +13,10 @@
 Cette extension vous permet:
 - De surmonter le [dysfonctionnement 139538](https://bugs.documentfoundation.org/show_bug.cgi?id=139538) pour les utilisateurs de **LibreOffice sur Linux**.
 - D'utiliser HsqlDB intégré en mode non compressé (fractionné), qui est plus robuste, avec la version du pilote HsqlDB de votre choix.
-- De migrer les données d'une base de données intégrée (fichier odb) vers le pilote HsqlDB complet: [HsqlDBDriverOOo](https://prrvchr.github.io/HsqlDBDriverOOo/README_fr), voir: [Comment migrer une base de données intégrée](https://prrvchr.github.io/HsqlDBembeddedOOo/README_fr#comment-migrer-une-base-de-donn%C3%A9es-int%C3%A9gr%C3%A9e).
+- De migrer les données d'une base de données intégrée (fichier odb) vers le pilote HsqlDB complet: [jdbcDriverOOo](https://prrvchr.github.io/jdbcDriverOOo/README_fr), voir: [Comment migrer une base de données intégrée](https://prrvchr.github.io/HsqlDBembeddedOOo/README_fr#comment-migrer-une-base-de-donn%C3%A9es-int%C3%A9gr%C3%A9e).
 
 HsqlDBembeddedOOo ne fonctionne qu'en mode fractionné, avec la possibilité d'extraire (décompresser) les données contenues dans un fichier odb lors de la connexion si un dossier avec le même nom et emplacement que le fichier odb n'existe pas. Cela permet la conversion des fichiers odb produits par le pilote LibreOffice / OpenOffice intégré (Embedded HsqlDB).  
-Si ces particularités ne vous concernent pas, alors je vous recommande d'utiliser le pilote [HsqlDBDriverOOo](https://prrvchr.github.io/HsqlDBDriverOOo/README_fr) permettant d'exploiter toutes les fonctionnalités offertes par HsqlDB.
+Si ces particularités ne vous concernent pas, alors je vous recommande d'utiliser le pilote [jdbcDriverOOo](https://prrvchr.github.io/jdbcDriverOOo/README_fr) permettant d'exploiter toutes les fonctionnalités offertes par HsqlDB.
 
 Etant un logiciel libre je vous encourage:
 - A dupliquer son [code source](https://github.com/prrvchr/HsqlDBembeddedOOo/).
@@ -83,7 +83,7 @@ Si vous souhaitez migrer une base de données intégrée (HsqlDB version 1.8.0) 
 - Recommencez cette procedure à l'étape 3 en utilisant la version [2.5.1](https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.5.1/hsqldb-2.5.1.jar).
 - Pour finir, répétez l'étape 3 puis 4.
 
-Maintenant vous pouvez utiliser la version complète du pilote [HsqlDBDriverOOo](https://prrvchr.github.io/HsqlDBDriverOOo/README_fr), votre base de données est dans un dossier avec le même nom et emplacement que votre fichier odb.
+Maintenant vous pouvez utiliser la version complète du pilote [jdbcDriverOOo](https://prrvchr.github.io/jdbcDriverOOo/README_fr), votre base de données est dans un dossier avec le même nom et emplacement que votre fichier odb.
 
 ## A été testé avec:
 
