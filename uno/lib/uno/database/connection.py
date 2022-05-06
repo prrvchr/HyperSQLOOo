@@ -63,16 +63,19 @@ from com.sun.star.container import XIndexAccess
 from com.sun.star.container import XEnumerationAccess
 from com.sun.star.container import XElementAccess
 
-from unolib import PropertySet
-from unolib import getProperty
-from unolib import createService
+from .unolib import PropertySet
+
+from .unotool import createService
+from .unotool import getProperty
 
 from .dbtools import getSequenceFromResult
 from .dbtools import getKeyMapSequenceFromResult
+
 from .dbqueries import getSqlQuery
 
 from .documentdatasource import DocumentDataSource
 from .databasemetadata import DatabaseMetaData
+
 from .statement import Statement
 from .statement import PreparedStatement
 from .statement import CallableStatement

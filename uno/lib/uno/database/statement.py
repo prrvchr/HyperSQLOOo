@@ -55,8 +55,9 @@ from com.sun.star.beans.PropertyAttribute import BOUND
 from com.sun.star.beans.PropertyAttribute import READONLY
 from com.sun.star.sdbc.ResultSetType import SCROLL_INSENSITIVE
 
-from unolib import PropertySet
-from unolib import getProperty
+from .unolib import PropertySet
+
+from .unotool import getProperty
 
 from .resultsetmetadata import ResultSetMetaData
 

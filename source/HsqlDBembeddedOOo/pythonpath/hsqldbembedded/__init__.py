@@ -1,5 +1,5 @@
 #!
-# -*- coding: utf-8 -*-
+# -*- coding: utf_8 -*-
 
 """
 ╔════════════════════════════════════════════════════════════════════════════════════╗
@@ -52,7 +52,6 @@ from .logger import getMessage
 from .logger import logMessage
 from .logger import setLoggerSetting
 
-#from .unolib import InteractionHandler
 from .unolib import Initialization
 from .unolib import KeyMap
 from .unolib import PropertySet
@@ -60,40 +59,38 @@ from .unolib import PropertySetInfo
 from .unolib import PropertiesChangeNotifier
 from .unolib import PropertySetInfoChangeNotifier
 
-from .unotools import createMessageBox
-from .unotools import createService
-from .unotools import executeDispatch
-from .unotools import executeShell
-from .unotools import generateUuid
-from .unotools import getConfiguration
-from .unotools import getConnectionMode
-from .unotools import getContainerWindow
-from .unotools import getCurrentLocale
-from .unotools import getDateTime
-from .unotools import getDesktop
-from .unotools import getDialog
-from .unotools import getDialogUrl
-from .unotools import getExceptionMessage
-from .unotools import getFileSequence
-from .unotools import getInteractionHandler
-from .unotools import getInterfaceTypes
-from .unotools import getNamedValue
-from .unotools import getNamedValueSet
-from .unotools import getParentWindow
-from .unotools import getPathSettings
-from .unotools import getProperty
-from .unotools import getPropertyValue
-from .unotools import getPropertyValueSet
-from .unotools import getResourceLocation
-from .unotools import getSimpleFile
-from .unotools import getStringResource
-from .unotools import getUrl
-from .unotools import getUrlPresentation
-from .unotools import getUrlTransformer
-from .unotools import hasInterface
-from .unotools import parseDateTime
-from .unotools import parseUrl
-from .unotools import unparseDateTime
-from .unotools import unparseTimeStamp
-
-from .unocore import PropertyContainer
+from .unotool import createMessageBox
+from .unotool import createService
+from .unotool import executeDispatch
+from .unotool import executeShell
+from .unotool import generateUuid
+from .unotool import getConfiguration
+from .unotool import getConnectionMode
+from .unotool import getContainerWindow
+from .unotool import getCurrentLocale
+from .unotool import getDateTime
+from .unotool import getDesktop
+from .unotool import getDialog
+from .unotool import getDialogUrl
+from .unotool import getExceptionMessage
+from .unotool import getFileSequence
+from .unotool import getInteractionHandler
+from .unotool import getInterfaceTypes
+from .unotool import getNamedValue
+from .unotool import getNamedValueSet
+from .unotool import getParentWindow
+from .unotool import getPathSettings
+from .unotool import getProperty
+from .unotool import getPropertyValue
+from .unotool import getPropertyValueSet
+from .unotool import getResourceLocation
+from .unotool import getSimpleFile
+from .unotool import getStringResource
+from .unotool import getUrl
+from .unotool import getUrlPresentation
+from .unotool import getUrlTransformer
+from .unotool import hasInterface
+from .unotool import parseDateTime
+from .unotool import parseUrl
+from .unotool import unparseDateTime
+from .unotool import unparseTimeStamp

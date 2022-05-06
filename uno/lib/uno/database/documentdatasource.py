@@ -44,8 +44,9 @@ from com.sun.star.uno import XWeak
 from com.sun.star.beans.PropertyAttribute import BOUND
 from com.sun.star.beans.PropertyAttribute import READONLY
 
-from unolib import PropertySet
-from unolib import getProperty
+from .unolib import PropertySet
+
+from .unotool import getProperty
 
 import traceback
 

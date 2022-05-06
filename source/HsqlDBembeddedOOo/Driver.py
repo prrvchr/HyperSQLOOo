@@ -221,6 +221,7 @@ class Driver(unohelper.Base,
 
     def _setDataSource(self, datasource, transformer, url, name):
         datasource.URL = self._getDataSourceUrl(transformer, url, name)
+        print("Driver._setDataSource() URL: %s" % datasource.URL)
         datasource.Settings.JavaDriverClass = g_class
         path = getDataSourceClassPath(self.ctx, g_identifier)
         datasource.Settings.JavaDriverClassPath = path

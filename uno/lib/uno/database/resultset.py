@@ -37,8 +37,9 @@ from com.sun.star.sdbc import XResultSetMetaDataSupplier
 from com.sun.star.sdbc import XColumnLocate
 from com.sun.star.sdbc import XRow
 
-from unolib import PropertySet
-from unolib import getProperty
+from .unolib import PropertySet
+
+from .unotool import getProperty
 
 import traceback
 
