@@ -1,4 +1,7 @@
-/*
+#!
+# -*- coding: utf_8 -*-
+
+"""
 ╔════════════════════════════════════════════════════════════════════════════════════╗
 ║                                                                                    ║
 ║   Copyright (c) 2020 https://prrvchr.github.io                                     ║
@@ -22,33 +25,29 @@
 ║   OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                                    ║
 ║                                                                                    ║
 ╚════════════════════════════════════════════════════════════════════════════════════╝
- */
+"""
 
-#ifndef __com_sun_star_auth_XRestKeyMap_idl__
-#define __com_sun_star_auth_XRestKeyMap_idl__
+from com.sun.star.logging.LogLevel import INFO
+from com.sun.star.logging.LogLevel import SEVERE
 
-#include <com/sun/star/container/XStringKeyMap.idl>
+from .logger import logMessage
+from .logger import getMessage
+g_message = 'dbqueries'
 
-module com { module sun { module star { module auth {
 
-interface XRestKeyMap: com::sun::star::container::XStringKeyMap
-{
+def getSqlQuery(ctx, name, format=None):
 
-    string getType([in] string Key);
-    sequence<string> getKeys();
-    void setValue([in] string Key,
-                  [in] any Value);
-    any getDefaultValue([in] string Key,
-                        [in] any Default);
-    void update([in] ::com::sun::star::auth::XRestKeyMap Keymap);
-    void fromJson([in] string JsonStr);
-    void fromJsonKey([in] string Key,
-                     [in] string JsonStr);
-    string toJson();
-    string toJsonKey([in] string Key);
+# Get Users and Privileges Query
+    if name == 'getUsers':
+        query = 'SELECT * FROM INFORMATION_SCHEMA.SYSTEM_USERS'
+    elif name == 'getPrivileges':
+        query = 'SELECT * FROM INFORMATION_SCHEMA.TABLE_PRIVILEGES'
+    elif name == 'changePassword':
+        query = "SET PASSWORD '%s'" % format
 
-};
-
-}; }; }; };
-
-#endif
+# Queries don't exist!!!
+    else:
+        query = None
+        msg = getMessage(ctx, g_message, 101, name)
+        logMessage(ctx, SEVERE, msg, 'dbqueries', 'getSqlQuery()')
+    return query

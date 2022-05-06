@@ -1,4 +1,7 @@
-/*
+#!
+# -*- coding: utf-8 -*-
+
+"""
 ╔════════════════════════════════════════════════════════════════════════════════════╗
 ║                                                                                    ║
 ║   Copyright (c) 2020 https://prrvchr.github.io                                     ║
@@ -22,33 +25,75 @@
 ║   OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                                    ║
 ║                                                                                    ║
 ╚════════════════════════════════════════════════════════════════════════════════════╝
- */
+"""
 
-#ifndef __com_sun_star_auth_XRestKeyMap_idl__
-#define __com_sun_star_auth_XRestKeyMap_idl__
+from .connection import Connection
 
-#include <com/sun/star/container/XStringKeyMap.idl>
+from .configuration import g_extension
+from .configuration import g_identifier
 
-module com { module sun { module star { module auth {
+from .dbconfig import g_class
+from .dbconfig import g_jar
+from .dbconfig import g_options
+from .dbconfig import g_path
+from .dbconfig import g_protocol
+from .dbconfig import g_shutdown
 
-interface XRestKeyMap: com::sun::star::container::XStringKeyMap
-{
+from .dbtools import getDataBaseInfo
+from .dbtools import getDataSourceClassPath
+from .dbtools import getDataSourceConnection
+from .dbtools import getDataSourceLocation
+from .dbtools import getDataSourceJavaInfo
 
-    string getType([in] string Key);
-    sequence<string> getKeys();
-    void setValue([in] string Key,
-                  [in] any Value);
-    any getDefaultValue([in] string Key,
-                        [in] any Default);
-    void update([in] ::com::sun::star::auth::XRestKeyMap Keymap);
-    void fromJson([in] string JsonStr);
-    void fromJsonKey([in] string Key,
-                     [in] string JsonStr);
-    string toJson();
-    string toJsonKey([in] string Key);
+from .logger import clearLogger
+from .logger import getLoggerSetting
+from .logger import getLoggerUrl
+from .logger import getMessage
+from .logger import logMessage
+from .logger import setLoggerSetting
 
-};
+#from .unolib import InteractionHandler
+from .unolib import Initialization
+from .unolib import KeyMap
+from .unolib import PropertySet
+from .unolib import PropertySetInfo
+from .unolib import PropertiesChangeNotifier
+from .unolib import PropertySetInfoChangeNotifier
 
-}; }; }; };
+from .unotools import createMessageBox
+from .unotools import createService
+from .unotools import executeDispatch
+from .unotools import executeShell
+from .unotools import generateUuid
+from .unotools import getConfiguration
+from .unotools import getConnectionMode
+from .unotools import getContainerWindow
+from .unotools import getCurrentLocale
+from .unotools import getDateTime
+from .unotools import getDesktop
+from .unotools import getDialog
+from .unotools import getDialogUrl
+from .unotools import getExceptionMessage
+from .unotools import getFileSequence
+from .unotools import getInteractionHandler
+from .unotools import getInterfaceTypes
+from .unotools import getNamedValue
+from .unotools import getNamedValueSet
+from .unotools import getParentWindow
+from .unotools import getPathSettings
+from .unotools import getProperty
+from .unotools import getPropertyValue
+from .unotools import getPropertyValueSet
+from .unotools import getResourceLocation
+from .unotools import getSimpleFile
+from .unotools import getStringResource
+from .unotools import getUrl
+from .unotools import getUrlPresentation
+from .unotools import getUrlTransformer
+from .unotools import hasInterface
+from .unotools import parseDateTime
+from .unotools import parseUrl
+from .unotools import unparseDateTime
+from .unotools import unparseTimeStamp
 
-#endif
+from .unocore import PropertyContainer

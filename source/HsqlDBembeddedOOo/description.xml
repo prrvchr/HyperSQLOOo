@@ -1,4 +1,5 @@
-/*
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
 ╔════════════════════════════════════════════════════════════════════════════════════╗
 ║                                                                                    ║
 ║   Copyright (c) 2020 https://prrvchr.github.io                                     ║
@@ -22,33 +23,43 @@
 ║   OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                                    ║
 ║                                                                                    ║
 ╚════════════════════════════════════════════════════════════════════════════════════╝
- */
-
-#ifndef __com_sun_star_auth_XRestKeyMap_idl__
-#define __com_sun_star_auth_XRestKeyMap_idl__
-
-#include <com/sun/star/container/XStringKeyMap.idl>
-
-module com { module sun { module star { module auth {
-
-interface XRestKeyMap: com::sun::star::container::XStringKeyMap
-{
-
-    string getType([in] string Key);
-    sequence<string> getKeys();
-    void setValue([in] string Key,
-                  [in] any Value);
-    any getDefaultValue([in] string Key,
-                        [in] any Default);
-    void update([in] ::com::sun::star::auth::XRestKeyMap Keymap);
-    void fromJson([in] string JsonStr);
-    void fromJsonKey([in] string Key,
-                     [in] string JsonStr);
-    string toJson();
-    string toJsonKey([in] string Key);
-
-};
-
-}; }; }; };
-
-#endif
+-->
+<description
+  xmlns="http://openoffice.org/extensions/description/2006"
+  xmlns:d="http://openoffice.org/extensions/description/2006"
+  xmlns:xlink="http://www.w3.org/1999/xlink">
+    <version value="0.0.4"/>
+    <identifier value="com.gmail.prrvchr.extensions.HsqlDBembeddedOOo"/>
+    <platform value="all"/>
+    <dependencies>
+        <OpenOffice.org-minimal-version value="4.1" d:name="OpenOffice.org 4.1"/>
+    </dependencies>
+    <update-information>
+        <src xlink:href="https://prrvchr.github.io/HsqlDBembeddedOOo/HsqlDBembeddedOOo.update.xml"/>
+    </update-information>
+    <publisher>
+        <name xlink:href="https://prrvchr.github.io/HsqlDBembeddedOOo/" lang="en-US">Embedded Hsqldb driver for LibreOffice / OpenOffice</name>
+        <name xlink:href="https://prrvchr.github.io/HsqlDBembeddedOOo/README_fr" lang="fr-FR">Pilote Hsqldb intégré pour LibreOffice / OpenOffice</name>
+    </publisher>
+    <registration>
+        <simple-license accept-by="admin" suppress-on-update="true">
+            <license-text xlink:href="registration/TermsOfUse_en.md" lang="en-US"/>
+            <license-text xlink:href="registration/TermsOfUse_fr.md" lang="fr-FR"/>
+        </simple-license>
+    </registration>
+    <release-notes>
+        <src xlink:href="https://prrvchr.github.io/HsqlDBembeddedOOo/" lang="en-US"/>
+        <src xlink:href="https://prrvchr.github.io/HsqlDBembeddedOOo/README_fr" lang="fr-FR"/>
+    </release-notes>
+    <display-name>
+        <name lang="en-US">HsqlDBembeddedOOo</name>
+    </display-name>
+    <icon>
+        <default xlink:href="HsqlDBembeddedOOo/HsqlDBembeddedOOo.png"/>
+        <high-contrast xlink:href="HsqlDBembeddedOOo/HsqlDBembeddedOOo.png"/>
+    </icon>
+    <extension-description>
+        <src xlink:href="description/desc_en.txt" lang="en-US"/>
+        <src xlink:href="description/desc_fr.txt" lang="fr-FR"/>
+    </extension-description>
+</description>

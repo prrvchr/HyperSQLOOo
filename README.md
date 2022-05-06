@@ -2,7 +2,7 @@
 
 **Ce [document](https://prrvchr.github.io/HsqlDBembeddedOOo/README_fr) en français.**
 
-**The use of this software subjects you to our** [**Terms Of Use**](https://prrvchr.github.io/HsqlDBembeddedOOo/HsqlDBembeddedOOo/registration/TermsOfUse_en)
+**The use of this software subjects you to our** [**Terms Of Use**](https://prrvchr.github.io/HsqlDBembeddedOOo/source/HsqlDBembeddedOOo/registration/TermsOfUse_en)
 
 # version [0.0.4](https://prrvchr.github.io/HsqlDBembeddedOOo#historical)
 
@@ -44,7 +44,7 @@ OpenOffice and LibreOffice on Windows are not subject to this malfunction.
 It seems important that the file was not renamed when it was downloaded.
 If necessary, rename it before installing it.
 
-- Install [HsqlDBembeddedOOo.oxt](https://github.com/prrvchr/HsqlDBembeddedOOo/raw/master/HsqlDBembeddedOOo.oxt) extension version 0.0.4.
+- Install [HsqlDBembeddedOOo.oxt](https://github.com/prrvchr/HsqlDBembeddedOOo/raw/master/source/HsqlDBembeddedOOo/dist/HsqlDBembeddedOOo.oxt) extension version 0.0.4.
 
 Restart LibreOffice / OpenOffice after installation.
 
@@ -135,7 +135,7 @@ I will try to solve it ;-)
 
 ### What has been done for version 0.0.4:
 
-- Modification of [Driver.py](https://github.com/prrvchr/HsqlDBembeddedOOo/blob/master/HsqlDBembeddedOOo/Driver.py) in order to make possible the use of the Uno service: `com.sun.star.sdb.RowSet`.
+- Modification of [Driver.py](https://github.com/prrvchr/HsqlDBembeddedOOo/blob/master/source/HsqlDBembeddedOOo/Driver.py) in order to make possible the use of the Uno service: `com.sun.star.sdb.RowSet`.
 
 - Many other fix...
 
