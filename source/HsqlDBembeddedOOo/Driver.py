@@ -87,6 +87,7 @@ class Driver(unohelper.Base,
     # XDriver
     def connect(self, url, infos):
         try:
+            print("HsqlDBDRiverOOo.Driver.connect() 1 Url: %s" % url)
             transformer = getUrlTransformer(self.ctx)
             location = self._getUrl(transformer, infos)
             if location is None:
@@ -221,10 +222,10 @@ class Driver(unohelper.Base,
 
     def _setDataSource(self, datasource, transformer, url, name):
         datasource.URL = self._getDataSourceUrl(transformer, url, name)
-        print("Driver._setDataSource() URL: %s" % datasource.URL)
-        datasource.Settings.JavaDriverClass = g_class
-        path = getDataSourceClassPath(self.ctx, g_identifier)
-        datasource.Settings.JavaDriverClassPath = path
+        print("HsqlDBDRiverOOo.Driver._setDataSource() URL: %s" % datasource.URL)
+        #datasource.Settings.JavaDriverClass = g_class
+        #path = getDataSourceClassPath(self.ctx, g_identifier)
+        #datasource.Settings.JavaDriverClassPath = path
 
     def _getDataSourceUrl(self, transformer, url, name):
         format = (g_protocol, url.Protocol, url.Path, name, name, g_options, g_shutdown)
