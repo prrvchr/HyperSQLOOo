@@ -1,5 +1,5 @@
 #!
-# -*- coding: utf_8 -*-
+# -*- coding: utf-8 -*-
 
 """
 ╔════════════════════════════════════════════════════════════════════════════════════╗
@@ -71,8 +71,8 @@ class DialogHandler(unohelper.Base,
                 'Cancel')
 
 
-class ItemHandler(unohelper.Base,
-                  XItemListener):
+class ItemListener(unohelper.Base,
+                   XItemListener):
     def __init__(self, manager):
         self._manager = manager
 
