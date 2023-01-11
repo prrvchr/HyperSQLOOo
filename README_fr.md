@@ -142,7 +142,17 @@ J'essaierai de le résoudre ;-)
 
 - Beaucoup d'autres correctifs...
 
-### Que reste-t-il à faire pour la version 0.0.4:
+### Ce qui a été fait pour la version 0.0.5:
+
+- Réécriture de [Driver.py][28] afin de permettre:
+  - Son fonctionnement avec le nouveau pilote JDBC fourni par l'extension [jdbcDriverOOo][9] version 0.0.4.
+  - L'extraction des fichiers de base de données contenus dans le fichier **odb** à la connexion.
+  - La sauvegarde des fichiers de base de données dans le fichier **odb** lors de sa fermeture.
+  - De rendre les fichiers **odb** portables tels qu'ils étaient avec la version 1.8 de HsqlDB.
+
+- Beaucoup d'autres correctifs...
+
+### Que reste-t-il à faire pour la version 0.0.5:
 
 - Ajouter de nouvelles langue pour l'internationalisation...
 
@@ -167,9 +177,9 @@ J'essaierai de le résoudre ;-)
 [17]: <https://github.com/prrvchr/jdbcDriverOOo/raw/master/jdbcDriverOOo.oxt>
 [18]: <img/HsqlDBembeddedOOo.png>
 [19]: <https://github.com/prrvchr/HsqlDBembeddedOOo/raw/master/HsqlDBembeddedOOo.oxt>
-[20]: <img/HsqlDBembeddedOOo-1.png>
-[21]: <img/HsqlDBembeddedOOo-2.png>
-[22]: <img/HsqlDBembeddedOOo-3.png>
+[20]: <img/HsqlDBembeddedOOo-1_fr.png>
+[21]: <img/HsqlDBembeddedOOo-2_fr.png>
+[22]: <img/HsqlDBembeddedOOo-3_fr.png>
 [23]: <https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.4.0/hsqldb-2.4.0.jar>
 [24]: <https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.4.1/hsqldb-2.4.1.jar>
 [25]: <https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.5.0/hsqldb-2.5.0.jar>

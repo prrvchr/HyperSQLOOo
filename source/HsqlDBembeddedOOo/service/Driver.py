@@ -103,7 +103,7 @@ class Driver(unohelper.Base,
                 raise self._getException(code, 1001, msg, self)
             msg = getMessage(self._ctx, g_message, 113, path)
             logMessage(self._ctx, INFO, msg, 'Driver', 'connect()')
-            self._splitDataBase(document, path)
+            self._openDataBase(document, path)
             location = self._getConnectionUrl(document, path)
             connection = Connection(self._ctx, document, location, url, infos, self._user, self._password)
             document.addCloseListener(CloseListener(self))
@@ -176,13 +176,26 @@ class Driver(unohelper.Base,
         path = self._parseUrl(document.URL)
         name = self._getDataSourceName(document.Title)
         url = self._getSplitUrl(path, name)
-        if self._closeDocument(document, url):
+        if self._closeDataBase(document, url):
             sf = getSimpleFile(self._ctx)
             if sf.isFolder(url):
                 sf.kill(url)
 
     # Driver private method
-    def _closeDocument(self, document, url):
+    def _openDataBase(self, document, path):
+        sf = getSimpleFile(self._ctx)
+        storage = document.getDocumentSubStorage(self._folder, READWRITE)
+        url = self._getSplitUrl(path, self._getDataSourceName(document.Title))
+        for name in storage.getElementNames():
+            if storage.isStreamElement(name):
+                location = self._getSplitLocation(url, name)
+                if not sf.exists(location):
+                    input = storage.openStreamElement(name, SEEKABLEREAD).getInputStream()
+                    sf.writeFile(location, input)
+                    input.closeInput()
+        storage.dispose()
+
+    def _closeDataBase(self, document, url):
         target = document.getDocumentSubStorage(self._folder, READWRITE)
         service = 'com.sun.star.embed.FileSystemStorageFactory'
         args = (url, READWRITE)
@@ -218,19 +231,6 @@ class Driver(unohelper.Base,
     def _getDataSourceName(self, title):
         name, sep, extension = title.rpartition('.')
         return name
-
-    def _splitDataBase(self, document, path):
-        sf = getSimpleFile(self._ctx)
-        storage = document.getDocumentSubStorage(self._folder, READWRITE)
-        url = self._getSplitUrl(path, self._getDataSourceName(document.Title))
-        for name in storage.getElementNames():
-            if storage.isStreamElement(name):
-                location = self._getSplitLocation(url, name)
-                if not sf.exists(location):
-                    input = storage.openStreamElement(name, SEEKABLEREAD).getInputStream()
-                    sf.writeFile(location, input)
-                    input.closeInput()
-        storage.dispose()
 
     def _getSplitUrl(self, path, name):
         return '%s.%s%s' % (path, name, self._suffix)

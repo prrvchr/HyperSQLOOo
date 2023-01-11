@@ -140,9 +140,17 @@ I will try to solve it ;-)
 
 - Modification of [Driver.py][28] in order to make possible the use of the Uno service: `com.sun.star.sdb.RowSet`.
 
+### What has been done for version 0.0.5:
+
+- Rewrote [Driver.py][28] to allow:
+  - Its operation with the new JDBC driver provided by the extension [jdbcDriverOOo][9] version 0.0.4.
+  - The extraction of the database files contained in the **odb** file on connection.
+  - Saving database files to **odb** file when closing it.
+  - To make **odb** files portable as they were with version 1.8 of HsqlDB.
+
 - Many other fix...
 
-### What remains to be done for version 0.0.4:
+### What remains to be done for version 0.0.5:
 
 - Add new language for internationalization...
 
