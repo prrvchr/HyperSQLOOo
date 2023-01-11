@@ -75,14 +75,16 @@ Maintenant à vous d'en profiter...
 ### Comment migrer une base de données intégrée:
 
 Si vous souhaitez migrer une base de données intégrée (HsqlDB version 1.8.0) vers une version plus récente (par exemple 2.5.1), procédez comme suit:
-- 1 - Si elles ne sont pas déjà installées, installez cette extension et l'extension [jdbcDriverOOo][9].
-- 2 - Faite une copie (sauvegarde) de votre base de données (fichier odb).
-- 3 - Ouvrir le fichier odb dans Base (double clique sur le fichier odb).
-- 4 - Dans Base allez à: **Outils -> SQL** et tapez la commande SQL: `SHUTDOWN COMPACT` ou `SHUTDOWN SCRIPT`.
-- 5 - Changez l'archive du pilote HsqlDB dans: **Outils -> Options -> Pilotes Base -> Pilote JDBC -> Options des pilotes JDBC**, par une version [2.4.0][23] ou [2.4.1][24] ou [2.5.0][25].
-- 6 - Redémarrer LibreOffice / OpenOffice aprés le changement du pilote (hsqldb.jar).
-- Recommencez cette procédure à l'étape 3 en utilisant la version [2.5.1][26].
-- Pour finir, répétez l'étape 3 puis 4.
+- 1 - Faite une copie (sauvegarde) de votre base de données (fichier odb).
+- 2 - Si elles ne sont pas déjà installées, installez cette extension et l'extension [jdbcDriverOOo][9].
+- 3 - Changez l'archive du pilote HsqlDB dans: **Outils -> Options -> Pilotes Base -> Pilote JDBC -> Options des pilotes JDBC**, par une version [1.8.1.10][10].
+- 4 - Redémarrer LibreOffice / OpenOffice aprés le changement du pilote (hsqldb.jar).
+- 5 - Ouvrir le fichier odb dans Base (double clique sur le fichier odb).
+- 6 - Dans Base allez à: **Outils -> SQL** et tapez la commande SQL: `SHUTDOWN COMPACT` ou `SHUTDOWN SCRIPT`.
+- 7 - Changez l'archive du pilote HsqlDB dans: **Outils -> Options -> Pilotes Base -> Pilote JDBC -> Options des pilotes JDBC**, par une version [2.4.0][23] ou [2.4.1][24] ou [2.5.0][25].
+- 8 - Redémarrer LibreOffice / OpenOffice aprés le changement du pilote (hsqldb.jar).
+- Recommencez cette procédure à l'étape 5 en utilisant la version [2.5.1][26].
+- Pour finir, répétez l'étape 5 puis 6.
 
 ## A été testé avec:
 
