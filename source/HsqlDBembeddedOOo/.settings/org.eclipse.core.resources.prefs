@@ -1,3 +1,5 @@
 eclipse.preferences.version=1
-encoding//pythonpath/hsqldbembedded/__init__.py=utf-8
-encoding//pythonpath/hsqldbembedded/dbconfig.py=utf-8
+encoding//service/pythonpath/hsqldbembedded/__init__.py=utf-8
+encoding//service/pythonpath/hsqldbembedded/dbtool/dbtool.py=utf-8
+encoding//service/pythonpath/hsqldbembedded/logger/logger.py=utf-8
+encoding//service/pythonpath/hsqldbembedded/unotool/unotool.py=utf-8

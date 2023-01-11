@@ -30,3 +30,6 @@
 # General configuration
 g_extension = 'HsqlDBembeddedOOo'
 g_identifier = 'com.gmail.prrvchr.extensions.%s' % g_extension
+g_resource = 'resource'
+g_jdbcdriver = 'io.github.prrvchr.jdbcdriver.sdbcx.Driver'
+

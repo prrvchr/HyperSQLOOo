@@ -63,8 +63,8 @@ class DocumentDataSource(unohelper.Base,
                          XDocumentDataSource,
                          XWeak,
                          PropertySet):
-    def __init__(self, datasource, url, username):
-        self._datasource = datasource
+    def __init__(self, document, url, username):
+        self._datasource = document.DataSource
         self._url = url
         self._username = username
 

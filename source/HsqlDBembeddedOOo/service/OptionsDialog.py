@@ -47,12 +47,12 @@ from hsqldbembedded import getSimpleFile
 from hsqldbembedded import getStringResource
 from hsqldbembedded import getUrl
 
-from hsqldbembedded import getLoggerUrl
-from hsqldbembedded import getLoggerSetting
-from hsqldbembedded import setLoggerSetting
 from hsqldbembedded import clearLogger
-from hsqldbembedded import logMessage
+from hsqldbembedded import getLoggerSetting
+from hsqldbembedded import getLoggerUrl
 from hsqldbembedded import getMessage
+from hsqldbembedded import logMessage
+from hsqldbembedded import setLoggerSetting
 g_message = 'OptionsDialog'
 
 from hsqldbembedded import g_extension
@@ -78,11 +78,11 @@ class OptionsDialog(unohelper.Base,
                     XContainerWindowEventHandler,
                     XDialogEventHandler):
     def __init__(self, ctx):
-        self.ctx = ctx
+        self._ctx = ctx
         self._index = 0
-        self.stringResource = getStringResource(self.ctx, g_identifier, g_extension, 'OptionsDialog')
-        msg = getMessage(self.ctx, g_message, 101)
-        logMessage(self.ctx, INFO, msg, 'OptionsDialog', '__init__()')
+        self.stringResource = getStringResource(self._ctx, g_identifier, g_extension, 'OptionsDialog')
+        msg = getMessage(self._ctx, g_message, 101)
+        logMessage(self._ctx, INFO, msg, 'OptionsDialog', '__init__()')
 
     # XContainerWindowEventHandler, XDialogEventHandler
     def callHandlerMethod(self, dialog, event, method):
@@ -149,8 +149,8 @@ class OptionsDialog(unohelper.Base,
         dialog.getControl('CommandButton1').Model.Enabled = enabled
 
     def _viewLog(self, window):
-        dialog = getDialog(self.ctx, g_extension, 'LogDialog', self, window.Peer)
-        url = getLoggerUrl(self.ctx)
+        dialog = getDialog(self._ctx, g_extension, 'LogDialog', self, window.Peer)
+        url = getLoggerUrl(self._ctx)
         dialog.Title = url
         self._setDialogText(dialog, url)
         dialog.execute()
@@ -158,30 +158,30 @@ class OptionsDialog(unohelper.Base,
 
     def _clearLog(self, dialog):
         clearLogger()
-        msg = getMessage(self.ctx, g_message, 111)
-        logMessage(self.ctx, INFO, msg, 'OptionsDialog', '_clearLog()')
-        url = getLoggerUrl(self.ctx)
+        msg = getMessage(self._ctx, g_message, 111)
+        logMessage(self._ctx, INFO, msg, 'OptionsDialog', '_clearLog()')
+        url = getLoggerUrl(self._ctx)
         self._setDialogText(dialog, url)
 
     def _logInfo(self, dialog):
         version  = ' '.join(sys.version.split())
-        msg = getMessage(self.ctx, g_message, 121, version)
-        logMessage(self.ctx, INFO, msg, "OptionsDialog", "_logInfo()")
+        msg = getMessage(self._ctx, g_message, 121, version)
+        logMessage(self._ctx, INFO, msg, "OptionsDialog", "_logInfo()")
         path = os.pathsep.join(sys.path)
-        msg = getMessage(self.ctx, g_message, 122, path)
-        logMessage(self.ctx, INFO, msg, "OptionsDialog", "_logInfo()")
-        url = getLoggerUrl(self.ctx)
+        msg = getMessage(self._ctx, g_message, 122, path)
+        logMessage(self._ctx, INFO, msg, "OptionsDialog", "_logInfo()")
+        url = getLoggerUrl(self._ctx)
         self._setDialogText(dialog, url)
 
     def _setDialogText(self, dialog, url):
         control = dialog.getControl('TextField1')
-        length, sequence = getFileSequence(self.ctx, url)
+        length, sequence = getFileSequence(self._ctx, url)
         control.Text = sequence.value.decode('utf-8')
         selection = uno.createUnoStruct('com.sun.star.awt.Selection', length, length)
         control.setSelection(selection)
 
     def _loadLoggerSetting(self, dialog):
-        enabled, index, handler = getLoggerSetting(self.ctx)
+        enabled, index, handler = getLoggerSetting(self._ctx)
         dialog.getControl('CheckBox1').State = int(enabled)
         dialog.getControl('ListBox1').selectItemPos(index, True)
         dialog.getControl('OptionButton%s' % handler).State = 1
@@ -191,16 +191,16 @@ class OptionsDialog(unohelper.Base,
         enabled = bool(dialog.getControl('CheckBox1').State)
         index = dialog.getControl('ListBox1').getSelectedItemPos()
         handler = dialog.getControl('OptionButton1').State
-        setLoggerSetting(self.ctx, enabled, index, handler)
+        setLoggerSetting(self._ctx, enabled, index, handler)
 
     def _reloadVersion(self, dialog):
-        msg = getMessage(self.ctx, g_message, 131)
+        msg = getMessage(self._ctx, g_message, 131)
         dialog.getControl('Label3').Text = msg
 
     def _getDriverVersion(self):
         try:
             service = '%s.Driver' % g_identifier
-            driver = createService(self.ctx, service)
+            driver = createService(self._ctx, service)
             url = 'sdbc:embedded:hsqldb'
             infos = getPropertyValueSet({'URL': self._getUrl()})
             connection = driver.connect(url, infos)
@@ -208,18 +208,18 @@ class OptionsDialog(unohelper.Base,
             connection.close()
             return version
         except UnoException as e:
-            msg = getMessage(self.ctx, g_message, 141, e.Message)
-            logMessage(self.ctx, SEVERE, msg, 'OptionsDialog', '_getDriverVersion()')
+            msg = getMessage(self._ctx, g_message, 141, e.Message)
+            logMessage(self._ctx, SEVERE, msg, 'OptionsDialog', '_getDriverVersion()')
         except Exception as e:
-            msg = getMessage(self.ctx, g_message, 142, (e, traceback.print_exc()))
-            logMessage(self.ctx, SEVERE, msg, 'OptionsDialog', '_getDriverVersion()')
+            msg = getMessage(self._ctx, g_message, 142, (e, traceback.print_exc()))
+            logMessage(self._ctx, SEVERE, msg, 'OptionsDialog', '_getDriverVersion()')
 
     def _getUrl(self):
-        path = getResourceLocation(self.ctx, g_identifier, g_path)
+        path = getResourceLocation(self._ctx, g_identifier, g_path)
         url = '%s/dbversion.odb' % path
-        if not getSimpleFile(self.ctx).exists(url):
+        if not getSimpleFile(self._ctx).exists(url):
             service = 'com.sun.star.sdb.DatabaseContext'
-            datasource = createService(self.ctx, service).createInstance()
+            datasource = createService(self._ctx, service).createInstance()
             datasource.URL = self._getDataSourceUrl(path)
             datasource.Settings.JavaDriverClass = g_class
             datasource.Settings.JavaDriverClassPath = self._getDataSourceClassPath(path)
@@ -235,19 +235,19 @@ class OptionsDialog(unohelper.Base,
 
     def _upload(self, dialog):
         service = 'com.sun.star.util.PathSubstitution'
-        ps = createService(self.ctx, service)
+        ps = createService(self._ctx, service)
         path = ps.substituteVariables('$(work)', True)
         service = 'com.sun.star.ui.dialogs.FilePicker'
-        fp = createService(self.ctx, service)
+        fp = createService(self._ctx, service)
         fp.setDisplayDirectory(path)
         fp.appendFilter(g_jar, '*.jar')
         fp.setCurrentFilter(g_jar)
         if fp.execute() == OK:
-            url = getUrl(self.ctx, fp.getFiles()[0])
+            url = getUrl(self._ctx, fp.getFiles()[0])
             if url.Name == g_jar:
                 jar = '%s/%s' % (g_path, g_jar)
-                target = getResourceLocation(self.ctx, g_identifier, jar)
-                getSimpleFile(self.ctx).copy(url.Main, target)
+                target = getResourceLocation(self._ctx, g_identifier, jar)
+                getSimpleFile(self._ctx).copy(url.Main, target)
                 self._reloadVersion(dialog)
 
     # XServiceInfo
