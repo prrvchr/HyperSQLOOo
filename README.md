@@ -12,11 +12,9 @@
 
 This extension allows you:
 - To overcome [bug 139538][8] for users of **LibreOffice on Linux**.
-- To use Embedded HsqlDB in uncompressed (split) mode, which is more robust, with the version of the HsqlDB driver of your choice.
-- To migrate data from an embedded database (odb file) to the full feature HsqlDB driver: [jdbcDriverOOo][9], see: [How to migrate an embedded database][10].
-
-HsqlDBembeddedOOo only works in split mode, with the ability to extract (decompress) the data contained in an odb file when connecting if a folder with the same name and location as the odb file does not exist. This allow conversion of odb files produced by the built-in LibreOffice / OpenOffice driver (Embedded HsqlDB).  
-If these features do not concern you, then I recommend you to use the driver [jdbcDriverOOo][9] allowing to exploit all the functionalities offered by HsqlDB.
+- To use HsqlDB in embedded mode, making the database portable (a single odb file), with the HsqlDB driver version of your choice.
+- Take advantage of the improvements offered by the [jdbcDriverOOo][9] extension with the management of users and roles (groups).
+- To migrate data from an embedded database (odb file) to the full HsqlDB driver: [jdbcDriverOOo][9], see: [How to migrate an embedded database][10].
 
 Being free software I encourage you:
 - To duplicate its [source code][11].

@@ -12,11 +12,9 @@
 
 Cette extension vous permet:
 - De surmonter le [dysfonctionnement 139538][8] pour les utilisateurs de **LibreOffice sur Linux**.
-- D'utiliser HsqlDB intégré en mode non compressé (fractionné), qui est plus robuste, avec la version du pilote HsqlDB de votre choix.
+- D'utiliser HsqlDB en mode intégré, rendant la base de donnée portable (un seul fichier odb), avec la version du pilote HsqlDB de votre choix.
+- De profitez des améliorations offertes par l'extension [jdbcDriverOOo][9] avec la gestion des utilisateurs et des rôles (groupes).
 - De migrer les données d'une base de données intégrée (fichier odb) vers le pilote HsqlDB complet: [jdbcDriverOOo][9], voir: [Comment migrer une base de données intégrée][10].
-
-HsqlDBembeddedOOo ne fonctionne qu'en mode fractionné, avec la possibilité d'extraire (décompresser) les données contenues dans un fichier odb lors de la connexion si un dossier avec le même nom et emplacement que le fichier odb n'existe pas. Cela permet la conversion des fichiers odb produits par le pilote LibreOffice / OpenOffice intégré (Embedded HsqlDB).  
-Si ces particularités ne vous concernent pas, alors je vous recommande d'utiliser le pilote [jdbcDriverOOo][9] permettant d'exploiter toutes les fonctionnalités offertes par HsqlDB.
 
 Etant un logiciel libre je vous encourage:
 - A dupliquer son [code source][11].
