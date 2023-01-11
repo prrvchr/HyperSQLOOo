@@ -103,8 +103,10 @@ class Driver(unohelper.Base,
                 raise self._getException(code, 1001, msg, self)
             msg = getMessage(self._ctx, g_message, 113, path)
             logMessage(self._ctx, INFO, msg, 'Driver', 'connect()')
-            self._openDataBase(document, path)
-            location = self._getConnectionUrl(document, path)
+            name = self._getDataSourceName(document.Title)
+            pwd = self._getSplitUrl(path, name)
+            self._openDataBase(document, pwd)
+            location = self._getUrl(pwd, name)
             connection = Connection(self._ctx, document, location, url, infos, self._user, self._password)
             document.addCloseListener(CloseListener(self))
             version = connection.getMetaData().getDriverVersion()
@@ -182,10 +184,9 @@ class Driver(unohelper.Base,
                 sf.kill(url)
 
     # Driver private method
-    def _openDataBase(self, document, path):
+    def _openDataBase(self, document, url):
         sf = getSimpleFile(self._ctx)
         storage = document.getDocumentSubStorage(self._folder, READWRITE)
-        url = self._getSplitUrl(path, self._getDataSourceName(document.Title))
         for name in storage.getElementNames():
             if storage.isStreamElement(name):
                 location = self._getSplitLocation(url, name)
@@ -238,9 +239,7 @@ class Driver(unohelper.Base,
     def _getSplitLocation(self, url, name):
         return '%s/%s' % (url, name)
 
-    def _getConnectionUrl(self, document, path):
-        name = self._getDataSourceName(document.Title)
-        url = self._getSplitUrl(path, name)
+    def _getUrl(self, url, name):
         return '%s%s/%s%s%s' % (g_protocol, url, name, g_options, g_shutdown)
 
     def _getDriverPropertyInfo(self, name, value):
