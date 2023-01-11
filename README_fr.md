@@ -14,7 +14,7 @@ Cette extension vous permet:
 - De surmonter le [dysfonctionnement 139538][8] pour les utilisateurs de **LibreOffice sur Linux**.
 - D'utiliser HsqlDB en mode intégré, rendant la base de donnée portable (un seul fichier odb), avec la version du pilote HsqlDB de votre choix.
 - De profitez des améliorations offertes par l'extension [jdbcDriverOOo][9] avec la gestion des utilisateurs et des rôles (groupes).
-- De migrer les données d'une base de données intégrée (fichier odb) vers le pilote HsqlDB complet: [jdbcDriverOOo][9], voir: [Comment migrer une base de données intégrée][10].
+- De remplacer le pilote [HsqlDB 1.8][10] intégré fourni par LibreOffice / OpenOffice, une version qui date de plus de 10 ans, par une version HsqlDB récente et à votre choix.
 
 Etant un logiciel libre je vous encourage:
 - A dupliquer son [code source][11].
@@ -74,17 +74,15 @@ Maintenant à vous d'en profiter...
 
 ### Comment migrer une base de données intégrée:
 
-Si vous souhaitez migrer une base de données intégrée (HsqlDB version 1.8.0) vers la dernière version (par exemple 2.5.1), procédez comme suit:
-- 1 - Si elle n'est pas déjà installée, installez cette extension.
+Si vous souhaitez migrer une base de données intégrée (HsqlDB version 1.8.0) vers une version plus récente (par exemple 2.5.1), procédez comme suit:
+- 1 - Si elles ne sont pas déjà installées, installez cette extension et l'extension [jdbcDriverOOo][9].
 - 2 - Faite une copie (sauvegarde) de votre base de données (fichier odb).
 - 3 - Ouvrir le fichier odb dans Base (double clique sur le fichier odb).
-- 4 - Dans Base allez à: Outils -> SQL et tapez la commande SQL: `SHUTDOWN COMPACT` ou `SHUTDOWN SCRIPT`.
-- 5 - Changez la version du pilote HsqlDB dans: Outils -> Options -> Pilotes Base -> Pilote HsqlDB intégré, par une version [2.4.0][23] ou [2.4.1][24] ou [2.5.0][25] (Vous devez renommer le fichier jar en hsqldb.jar pour qu'il soit pris en compte).
+- 4 - Dans Base allez à: **Outils -> SQL** et tapez la commande SQL: `SHUTDOWN COMPACT` ou `SHUTDOWN SCRIPT`.
+- 5 - Changez l'archive du pilote HsqlDB dans: **Outils -> Options -> Pilotes Base -> Pilote JDBC -> Options des pilotes JDBC**, par une version [2.4.0][23] ou [2.4.1][24] ou [2.5.0][25].
 - 6 - Redémarrer LibreOffice / OpenOffice aprés le changement du pilote (hsqldb.jar).
-- Recommencez cette procedure à l'étape 3 en utilisant la version [2.5.1][26].
+- Recommencez cette procédure à l'étape 3 en utilisant la version [2.5.1][26].
 - Pour finir, répétez l'étape 3 puis 4.
-
-Maintenant vous pouvez utiliser la version complète du pilote [jdbcDriverOOo][9], votre base de données est dans un dossier avec le même nom et emplacement que votre fichier odb.
 
 ## A été testé avec:
 
@@ -146,7 +144,7 @@ J'essaierai de le résoudre ;-)
   - Son fonctionnement avec le nouveau pilote JDBC fourni par l'extension [jdbcDriverOOo][9] version 0.0.4.
   - L'extraction des fichiers de base de données contenus dans le fichier **odb** à la connexion.
   - La sauvegarde des fichiers de base de données dans le fichier **odb** lors de sa fermeture.
-  - De rendre les fichiers **odb** portables tels qu'ils étaient avec la version 1.8 de HsqlDB.
+  - De rendre les fichiers **odb** portables tels qu'ils étaient dans LibreOffice / OpenOffce avec la version 1.8 de HsqlDB.
 
 - Beaucoup d'autres correctifs...
 
@@ -165,7 +163,7 @@ J'essaierai de le résoudre ;-)
 [7]: <https://www.openoffice.org/fr/Telecharger/>
 [8]: <https://bugs.documentfoundation.org/show_bug.cgi?id=139538>
 [9]: <https://prrvchr.github.io/jdbcDriverOOo/README_fr>
-[10]: <https://prrvchr.github.io/HsqlDBembeddedOOo/README_fr#comment-migrer-une-base-de-donn%C3%A9es-int%C3%A9gr%C3%A9e>
+[10]: <https://repo1.maven.org/maven2/org/hsqldb/hsqldb/1.8.0.10/hsqldb-1.8.0.10.jar>
 [11]: <https://github.com/prrvchr/HsqlDBembeddedOOo/>
 [12]: <https://github.com/prrvchr/HsqlDBembeddedOOo/issues/new>
 [13]: <http://hsqldb.org/>

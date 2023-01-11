@@ -13,8 +13,8 @@
 This extension allows you:
 - To overcome [bug 139538][8] for users of **LibreOffice on Linux**.
 - To use HsqlDB in embedded mode, making the database portable (a single odb file), with the HsqlDB driver version of your choice.
-- Take advantage of the improvements offered by the [jdbcDriverOOo][9] extension with the management of users and roles (groups).
-- To migrate data from an embedded database (odb file) to the full HsqlDB driver: [jdbcDriverOOo][9], see: [How to migrate an embedded database][10].
+- To take advantage of the improvements offered by the [jdbcDriverOOo][9] extension with the management of users and roles (groups).
+- To replace the integrated [HsqlDB 1.8][10] driver provided by LibreOffice / OpenOffice, a version that dates back more than 10 years, with a recent HsqlDB version of your choice.
 
 Being free software I encourage you:
 - To duplicate its [source code][11].
@@ -74,17 +74,15 @@ Have fun...
 
 ### How to migrate an embedded database:
 
-If you want to migrate an integrated database (HsqlDB version 1.8.0) to the latest version (for example 2.5.1), follow these steps:
-- 1 - If it is not already installed, install this extension.
+If you want to migrate an integrated database (HsqlDB version 1.8.0) to a newer version (for example 2.5.1), follow these steps:
+- 1 - If not already installed, install this extension and the [jdbcDriverOOo][9] extension.
 - 2 - Make a copy (backup) of your database (odb file).
 - 3 - Open the odb file in Base (double click on the odb file).
-- 4 - In Base go to: Tools -> SQL and type the SQL command: `SHUTDOWN COMPACT` or `SHUTDOWN SCRIPT`.
-- 5 - Change the version of the HsqlDB driver in: Tools -> Options -> Base drivers -> Embedded HsqlDB driver, with a version [2.4.0][23] or [2.4.1][24] or [2.5.0][25] (You must rename the jar file to hsqldb.jar for it to be taken into account).
+- 4 - In Base go to: **Tools -> SQL** and type the SQL command: `SHUTDOWN COMPACT` or `SHUTDOWN SCRIPT`.
+- 5 - Update driver archive of the HsqlDB driver in: **Tools -> Options -> Base drivers -> JDBC driver -> JDBC drivers settings**, with a version [2.4.0][23] or [2.4.1][24] or [2.5.0][25].
 - 6 - Restart LibreOffice / OpenOffice after changing the driver (hsqldb.jar).
 - Repeat this procedure at step 3 using version [2.5.1][26].
 - To finish, repeat step 3 then 4.
-
-Now you can use the full feature version of the driver [jdbcDriverOOo][9], your database is in a folder with the same name and location as your odb file.
 
 ## Has been tested with:
 
@@ -144,7 +142,7 @@ I will try to solve it ;-)
   - Its operation with the new JDBC driver provided by the extension [jdbcDriverOOo][9] version 0.0.4.
   - The extraction of the database files contained in the **odb** file on connection.
   - Saving database files to **odb** file when closing it.
-  - To make **odb** files portable as they were with version 1.8 of HsqlDB.
+  - To make **odb** files portable as they were in LibreOffice / OpenOffce with version 1.8 of HsqlDB.
 
 - Many other fix...
 
@@ -163,7 +161,7 @@ I will try to solve it ;-)
 [7]: <https://www.openoffice.org/download/index.html>
 [8]: <https://bugs.documentfoundation.org/show_bug.cgi?id=139538>
 [9]: <https://prrvchr.github.io/jdbcDriverOOo/>
-[10]: <https://prrvchr.github.io/HsqlDBembeddedOOo/#how-to-migrate-an-embedded-database>
+[10]: <https://repo1.maven.org/maven2/org/hsqldb/hsqldb/1.8.0.10/hsqldb-1.8.0.10.jar>
 [11]: <https://github.com/prrvchr/HsqlDBembeddedOOo/>
 [12]: <https://github.com/prrvchr/HsqlDBembeddedOOo/issues/new>
 [13]: <http://hsqldb.org/>
