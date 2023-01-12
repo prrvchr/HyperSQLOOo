@@ -29,6 +29,8 @@
 
 from .connection import Connection
 
+from .documenthandler import DocumentHandler
+
 from .unotool import createService
 from .unotool import getDialog
 from .unotool import getFileSequence
@@ -37,8 +39,6 @@ from .unotool import getResourceLocation
 from .unotool import getSimpleFile
 from .unotool import getStringResource
 from .unotool import getUrl
-from .unotool import getUrlTransformer
-from .unotool import parseUrl
 
 from .dbtool import getDataBaseInfo
 

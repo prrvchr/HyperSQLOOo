@@ -138,13 +138,17 @@ I will try to solve it ;-)
 
 - Modification of [Driver.py][28] in order to make possible the use of the Uno service: `com.sun.star.sdb.RowSet`.
 
+- Many other fix...
+
 ### What has been done for version 0.0.5:
+
+- Writing a [DocumentHandler][29] to allow:
+  - The extraction of the database files contained in the **odb** file on connection.
+  - Saving database files to **odb** file when closing it.
 
 - Rewrote [Driver.py][28] to allow:
   - Its operation with the new JDBC driver provided by the extension [jdbcDriverOOo][9] version 0.0.4.
-  - The extraction of the database files contained in the **odb** file on connection.
-  - Saving database files to **odb** file when closing it.
-  - To make **odb** files portable as they were in LibreOffice / OpenOffce with version 1.8 of HsqlDB.
+  - The support for the new [DocumentHandler][29] to make **odb** files portable as they were in LibreOffice / OpenOffce with version 1.8 of HsqlDB.
 
 - Many other fix...
 
@@ -182,3 +186,4 @@ I will try to solve it ;-)
 [26]: <https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.5.1/hsqldb-2.5.1.jar>
 [27]: <https://forum.openoffice.org/en/forum/viewtopic.php?f=13&t=103912>
 [28]: <https://github.com/prrvchr/HsqlDBembeddedOOo/blob/master/source/HsqlDBembeddedOOo/service/Driver.py>
+[29]: <https://github.com/prrvchr/HsqlDBembeddedOOo/blob/master/source/HsqlDBembeddedOOo/service/pythonpath/hsqldbembedded/documenthandler.py>

@@ -67,7 +67,6 @@ from com.sun.star.sdbcx import XUser
 
 from com.sun.star.uno import XWeak
 
-from .documentdatasource import DocumentDataSource
 from .databasemetadata import DatabaseMetaData
 
 from .statement import Statement
@@ -183,7 +182,6 @@ class Connection(unohelper.Base,
 
     # XChild
     def getParent(self):
-        #return DocumentDataSource(self._document, self._url, self._username)
         return self._document.DataSource
     def setParent(self):
         pass

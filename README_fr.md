@@ -142,11 +142,13 @@ J'essaierai de le résoudre ;-)
 
 ### Ce qui a été fait pour la version 0.0.5:
 
+- Ecriture d'un [DocumentHandler][29] responsable:
+  - De l'extraction des fichiers de base de données contenus dans le fichier **odb** à la connexion.
+  - De la sauvegarde des fichiers de base de données dans le fichier **odb** lors de sa fermeture.
+
 - Réécriture de [Driver.py][28] afin de permettre:
   - Son fonctionnement avec le nouveau pilote JDBC fourni par l'extension [jdbcDriverOOo][9] version 0.0.4.
-  - L'extraction des fichiers de base de données contenus dans le fichier **odb** à la connexion.
-  - La sauvegarde des fichiers de base de données dans le fichier **odb** lors de sa fermeture.
-  - De rendre les fichiers **odb** portables tels qu'ils étaient dans LibreOffice / OpenOffce avec la version 1.8 de HsqlDB.
+  - La prise en charge du nouveau [DocumentHandler][29] afin de rendre les fichiers **odb** portables tels qu'ils étaient dans LibreOffice / OpenOffce avec la version 1.8 de HsqlDB.
 
 - Beaucoup d'autres correctifs...
 
@@ -184,3 +186,4 @@ J'essaierai de le résoudre ;-)
 [26]: <https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.5.1/hsqldb-2.5.1.jar>
 [27]: <https://forum.openoffice.org/en/forum/viewtopic.php?f=13&t=103912>
 [28]: <https://github.com/prrvchr/HsqlDBembeddedOOo/blob/master/source/HsqlDBembeddedOOo/service/Driver.py>
+[29]: <https://github.com/prrvchr/HsqlDBembeddedOOo/blob/master/source/HsqlDBembeddedOOo/service/pythonpath/hsqldbembedded/documenthandler.py>

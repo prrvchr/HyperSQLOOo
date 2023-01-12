@@ -30,10 +30,6 @@
 import uno
 import unohelper
 
-from com.sun.star.embed.ElementModes import SEEKABLEREAD
-from com.sun.star.embed.ElementModes import READWRITE
-from com.sun.star.embed.ElementModes import TRUNCATE
-
 from com.sun.star.lang import XServiceInfo
 
 from com.sun.star.logging.LogLevel import INFO
@@ -47,17 +43,10 @@ from com.sun.star.sdbcx import XDataDefinitionSupplier
 from com.sun.star.sdbcx import XCreateCatalog
 from com.sun.star.sdbcx import XDropCatalog
 
-from com.sun.star.util import XCloseListener
-
-from com.sun.star.util import CloseVetoException
-
 from hsqldbembedded import Connection
+from hsqldbembedded import DocumentHandler
 
-from hsqldbembedded import createService
 from hsqldbembedded import getDataBaseInfo
-from hsqldbembedded import getSimpleFile
-from hsqldbembedded import getUrlTransformer
-from hsqldbembedded import parseUrl
 
 from hsqldbembedded import g_identifier
 from hsqldbembedded import g_protocol
@@ -85,30 +74,26 @@ class Driver(unohelper.Base,
     def __init__(self, ctx):
         self._ctx = ctx
         self._supportedProtocol = 'sdbc:embedded:hsqldb'
-        self._folder = 'database'
-        self._suffix = '.lck'
         self._user = 'SA'
         self._password = ''
-        self._transformer = getUrlTransformer(self._ctx)
         msg = getMessage(self._ctx, g_message, 101)
         logMessage(self._ctx, INFO, msg, 'Driver', '__init__()')
 
     # XDriver
     def connect(self, url, infos):
         try:
-            path, document, storage = self._getConnectionInfo(infos)
-            if path is None or document is None or storage is None:
+            document = self._getConnectionInfo(infos)
+            if document is None:
                 code = getMessage(self._ctx, g_message, 111)
                 msg = getMessage(self._ctx, g_message, 112, url)
                 raise self._getException(code, 1001, msg, self)
-            msg = getMessage(self._ctx, g_message, 113, path)
+            msg = getMessage(self._ctx, g_message, 113, document.URL)
             logMessage(self._ctx, INFO, msg, 'Driver', 'connect()')
-            name = self._getDataSourceName(document.Title)
-            pwd = self._getSplitUrl(path, name)
-            self._openDataBase(document, pwd)
-            location = self._getUrl(pwd, name)
+            handler = DocumentHandler(self._ctx)
+            path, name = handler.openDataBase(document)
+            location = self._getConnectionUrl(path, name)
             connection = Connection(self._ctx, document, location, url, infos, self._user, self._password)
-            document.addCloseListener(CloseListener(self))
+            document.addCloseListener(handler)
             version = connection.getMetaData().getDriverVersion()
             msg = getMessage(self._ctx, g_message, 116, (version, self._user))
             logMessage(self._ctx, INFO, msg, 'Driver', 'connect()')
@@ -173,73 +158,16 @@ class Driver(unohelper.Base,
         msg = getMessage(self._ctx, g_message, 171, name)
         logMessage(self._ctx, INFO, msg, 'Driver', 'dropCatalog()')
 
-    # Driver setter method
-    def queryClosingDocument(self, document):
-        path = self._parseUrl(document.URL)
-        name = self._getDataSourceName(document.Title)
-        url = self._getSplitUrl(path, name)
-        if self._closeDataBase(document, url):
-            sf = getSimpleFile(self._ctx)
-            if sf.isFolder(url):
-                sf.kill(url)
-
     # Driver private method
-    def _openDataBase(self, document, url):
-        sf = getSimpleFile(self._ctx)
-        storage = document.getDocumentSubStorage(self._folder, READWRITE)
-        for name in storage.getElementNames():
-            if storage.isStreamElement(name):
-                location = self._getSplitLocation(url, name)
-                if not sf.exists(location):
-                    input = storage.openStreamElement(name, SEEKABLEREAD).getInputStream()
-                    sf.writeFile(location, input)
-                    input.closeInput()
-        storage.dispose()
-
-    def _closeDataBase(self, document, url):
-        target = document.getDocumentSubStorage(self._folder, READWRITE)
-        service = 'com.sun.star.embed.FileSystemStorageFactory'
-        args = (url, READWRITE)
-        source = createService(self._ctx, service).createInstanceWithArguments(args)
-        for name in source.getElementNames():
-            if source.isStreamElement(name):
-                if target.hasByName(name):
-                    target.removeElement(name)
-                source.moveElementTo(name, target, name)
-        empty = not source.hasElements()
-        target.commit()
-        target.dispose()
-        source.dispose()
-        document.store()
-        return empty
-
     def _getConnectionInfo(self, infos):
-        path = document = storage = None
+        document = None
         for info in infos:
-            if info.Name == 'URL':
-                path = self._parseUrl(info.Value)
-            elif info.Name == 'Document':
+            if info.Name == 'Document':
                 document = info.Value
-            elif info.Name == 'Storage':
-                storage = info.Value
-        return path, document, storage
+                break
+        return document
 
-    def _parseUrl(self, url):
-        location = parseUrl(self._transformer, url)
-        path = parseUrl(self._transformer, location.Protocol + location.Path)
-        return self._transformer.getPresentation(path, False)
-
-    def _getDataSourceName(self, title):
-        name, sep, extension = title.rpartition('.')
-        return name
-
-    def _getSplitUrl(self, path, name):
-        return '%s.%s%s' % (path, name, self._suffix)
-
-    def _getSplitLocation(self, url, name):
-        return '%s/%s' % (url, name)
-
-    def _getUrl(self, url, name):
+    def _getConnectionUrl(self, url, name):
         return '%s%s/%s%s%s' % (g_protocol, url, name, g_options, g_shutdown)
 
     def _getDriverPropertyInfo(self, name, value):
@@ -274,21 +202,4 @@ g_ImplementationHelper.addImplementation(Driver,
                                         (g_ImplementationName,
                                         'com.sun.star.sdbc.Driver',
                                         'com.sun.star.sdbcx.Driver'))
-
-
-class CloseListener(unohelper.Base,
-                    XCloseListener):
-    def __init__(self, driver):
-        self._driver = driver
-
-    # XCloseListener
-    def queryClosing(self, event, owner):
-        self._driver.queryClosingDocument(event.Source)
-
-    def notifyClosing(self, event):
-        pass
-
-    # XEventListener
-    def disposing(self, event):
-        pass
 
