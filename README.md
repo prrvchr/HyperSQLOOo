@@ -186,4 +186,4 @@ I will try to solve it ;-)
 [26]: <https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.5.1/hsqldb-2.5.1.jar>
 [27]: <https://forum.openoffice.org/en/forum/viewtopic.php?f=13&t=103912>
 [28]: <https://github.com/prrvchr/HsqlDBembeddedOOo/blob/master/source/HsqlDBembeddedOOo/service/Driver.py>
-[29]: <https://github.com/prrvchr/HsqlDBembeddedOOo/blob/master/source/HsqlDBembeddedOOo/service/pythonpath/hsqldbembedded/documenthandler.py>
+[29]: <https://github.com/prrvchr/HsqlDBembeddedOOo/blob/master/uno/lib/uno/database/documenthandler.py>
