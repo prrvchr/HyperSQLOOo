@@ -94,7 +94,6 @@ class Driver(unohelper.Base,
     # XDriver
     def connect(self, url, infos):
         try:
-            print("Driver.connect()")
             document, storage, path, name = self._getConnectionInfo(infos)
             if storage is None or path is None or name is None:
                 code = getMessage(self._ctx, g_message, 111)
@@ -132,25 +131,20 @@ class Driver(unohelper.Base,
 
     def getPropertyInfo(self, url, infos):
         try:
-            print("Driver.getPropertyInfo() 1")
             msg = getMessage(self._ctx, g_message, 131, url)
             logMessage(self._ctx, INFO, msg, 'Driver', 'getPropertyInfo()')
-            #drvinfo = self._driver.getPropertyInfo(g_protocol, infos)
-            for info in infos:
-                msg = getMessage(self._ctx, g_message, 132, (info.Name, info.Value))
-                logMessage(self._ctx, INFO, msg, 'Driver', 'getPropertyInfo()')
-            drvinfo = []
-            dbinfo = getDataBaseInfo()
-            for info in dbinfo:
-                drvinfo.append(self._getDriverPropertyInfo(info, dbinfo[info]))
-            for info in infos:
-                if info.Name not in dbinfo:
-                    drvinfo.append(self._getDriverPropertyInfo(info.Name, info.Value))
+            driver = createService(self._ctx, g_jdbcdriver)
+            if driver is None:
+                code = getMessage(self._ctx, g_message, 132)
+                msg = getMessage(self._ctx, g_message, 133, g_jdbcdriver)
+                raise self._getException(code, 1001, msg, self)
+            drvinfo = driver.getPropertyInfo(g_protocol, infos)
             for info in drvinfo:
-                msg = getMessage(self._ctx, g_message, 133, (info.Name, info.Value))
+                msg = getMessage(self._ctx, g_message, 134, (info.Name, info.Value))
                 logMessage(self._ctx, INFO, msg, 'Driver', 'getPropertyInfo()')
-            print("Driver.getPropertyInfo() 2")
-            return ()
+            return drvinfo
+        except SQLException as e:
+            raise e
         except Exception as e:
             msg = getMessage(self._ctx, g_message, 134, (e, traceback.print_exc()))
             logMessage(self._ctx, SEVERE, msg, 'Driver', 'getPropertyInfo()')
