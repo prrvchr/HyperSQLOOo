@@ -43,8 +43,6 @@ from com.sun.star.sdbcx import XDataDefinitionSupplier
 from com.sun.star.sdbcx import XCreateCatalog
 from com.sun.star.sdbcx import XDropCatalog
 
-from com.sun.star.uno import XWeak
-
 from hsqldbembedded import Connection
 from hsqldbembedded import DocumentHandler
 
@@ -76,8 +74,7 @@ class Driver(unohelper.Base,
              XDataDefinitionSupplier,
              XCreateCatalog,
              XDropCatalog,
-             XDriver,
-             XWeak):
+             XDriver):
 
     def __init__(self, ctx):
         self._ctx = ctx
@@ -86,10 +83,6 @@ class Driver(unohelper.Base,
         self._password = ''
         msg = getMessage(self._ctx, g_message, 101)
         logMessage(self._ctx, INFO, msg, 'Driver', '__init__()')
-
-    # XWeak
-    def queryAdapter(self):
-        return self
 
     # XDriver
     def connect(self, url, infos):
