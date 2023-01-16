@@ -44,11 +44,13 @@ import traceback
 
 class DocumentHandler(unohelper.Base,
                       XCloseListener):
-    def __init__(self, ctx):
+    def __init__(self, ctx, storage, path):
         self._ctx = ctx
         self._folder = 'database'
         self._prefix = '.'
         self._suffix = '.lck'
+        if storage.hasByName(self._folder) and storage.isStorageElement(self._folder):
+            self._openDataBase(storage, path)
 
     # XCloseListener
     def queryClosing(self, event, owner):
@@ -68,32 +70,37 @@ class DocumentHandler(unohelper.Base,
         pass
 
     # Document getter methods
-    def openDataBase(self, document):
-        name = self._getDataSourceName(document.Title)
-        path = self._getDataBasePath(document.URL, name)
-        sf = getSimpleFile(self._ctx)
-        storage = document.getDocumentSubStorage(self._folder, READWRITE)
-        for element in storage.getElementNames():
-            if storage.isStreamElement(element):
-                url = self._getFileUrl(path, element)
-                if not sf.exists(url):
-                    input = storage.openStreamElement(element, SEEKABLEREAD).getInputStream()
-                    sf.writeFile(url, input)
-                    input.closeInput()
-        storage.dispose()
-        return path, name
+    def getDataBasePath(self, path, name):
+        return '%s%s%s%s' % (path, self._prefix, name, self._suffix)
 
     # Document private methods
+    def _openDataBase(self, storage, path):
+        sf = getSimpleFile(self._ctx)
+        source = storage.openStorageElement(self._folder, READWRITE)
+        # FIXME: With OpenOffice getElementNames() return a String
+        # FIXME: if source has no elements.
+        if source.hasElements():
+            for name in source.getElementNames():
+                url = self._getFileUrl(path, name)
+                if not sf.exists(url):
+                    if source.isStreamElement(name):
+                        stream = source.openStreamElement(name, SEEKABLEREAD)
+                        input = stream.getInputStream()
+                        sf.writeFile(url, input)
+                        input.closeInput()
+                        stream.dispose()
+        source.dispose()
+
     def _closeDataBase(self, document, url):
         target = document.getDocumentSubStorage(self._folder, READWRITE)
         service = 'com.sun.star.embed.FileSystemStorageFactory'
         args = (url, READWRITE)
         source = createService(self._ctx, service).createInstanceWithArguments(args)
-        for element in source.getElementNames():
-            if source.isStreamElement(element):
-                if target.hasByName(element):
-                    target.removeElement(element)
-                source.moveElementTo(element, target, element)
+        for name in source.getElementNames():
+            if source.isStreamElement(name):
+                if target.hasByName(name):
+                    target.removeElement(name)
+                source.moveElementTo(name, target, name)
         empty = not source.hasElements()
         target.commit()
         target.dispose()
@@ -103,7 +110,7 @@ class DocumentHandler(unohelper.Base,
 
     def _getDataBasePath(self, url, name):
         path = self._getDocumentPath(url)
-        return '%s%s%s%s' % (path, self._prefix, name, self._suffix)
+        return self.getDataBasePath(path, name)
 
     def _getDataSourceName(self, title):
         name, sep, extension = title.rpartition('.')

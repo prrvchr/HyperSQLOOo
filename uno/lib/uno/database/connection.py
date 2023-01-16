@@ -69,17 +69,13 @@ from com.sun.star.uno import XWeak
 
 from .databasemetadata import DatabaseMetaData
 
+from .datasource import DataSource
+
 from .statement import Statement
 from .statement import PreparedStatement
 from .statement import CallableStatement
 
 from .unotool import createService
-from .unotool import getProperty
-
-from .dbtool import getSequenceFromResult
-from .dbtool import getKeyMapSequenceFromResult
-
-from .dbqueries import getSqlQuery
 
 from .configuration import g_jdbcdriver
 
@@ -104,11 +100,9 @@ class Connection(unohelper.Base,
                  XTableUIProvider,
                  XConnectionTools,
                  XWeak):
-    def __init__(self, ctx, document, location, url, infos, user, password):
-        self._ctx = ctx
-        self._document = document
-        driver = createService(ctx, g_jdbcdriver)
+    def __init__(self, driver, document, location, url, infos, user, password):
         self._connection = driver.connect(location, infos)
+        self._datasource = document.DataSource
         self._url = url
         self._infos = infos
         self._username = user
@@ -182,7 +176,7 @@ class Connection(unohelper.Base,
 
     # XChild
     def getParent(self):
-        return self._document.DataSource
+        return DataSource(self._datasource, self._username, self._url)
     def setParent(self):
         pass
 

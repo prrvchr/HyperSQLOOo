@@ -32,18 +32,23 @@ from .connection import Connection
 from .documenthandler import DocumentHandler
 
 from .unotool import createService
+from .unotool import getDesktop
 from .unotool import getDialog
 from .unotool import getFileSequence
 from .unotool import getPropertyValueSet
 from .unotool import getResourceLocation
 from .unotool import getSimpleFile
 from .unotool import getStringResource
+from .unotool import getUriFactory
 from .unotool import getUrl
+from .unotool import getUrlTransformer
+from .unotool import parseUrl
 
 from .dbtool import getDataBaseInfo
 
 from .configuration import g_extension
 from .configuration import g_identifier
+from .configuration import g_jdbcdriver
 
 from .dbconfig import g_class
 from .dbconfig import g_jar

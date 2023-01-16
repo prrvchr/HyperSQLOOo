@@ -43,12 +43,19 @@ from com.sun.star.sdbcx import XDataDefinitionSupplier
 from com.sun.star.sdbcx import XCreateCatalog
 from com.sun.star.sdbcx import XDropCatalog
 
+from com.sun.star.uno import XWeak
+
 from hsqldbembedded import Connection
 from hsqldbembedded import DocumentHandler
 
+from hsqldbembedded import createService
 from hsqldbembedded import getDataBaseInfo
+from hsqldbembedded import getUriFactory
+from hsqldbembedded import getUrlTransformer
+from hsqldbembedded import parseUrl
 
 from hsqldbembedded import g_identifier
+from hsqldbembedded import g_jdbcdriver
 from hsqldbembedded import g_protocol
 from hsqldbembedded import g_options
 from hsqldbembedded import g_shutdown
@@ -69,7 +76,8 @@ class Driver(unohelper.Base,
              XDataDefinitionSupplier,
              XCreateCatalog,
              XDropCatalog,
-             XDriver):
+             XDriver,
+             XWeak):
 
     def __init__(self, ctx):
         self._ctx = ctx
@@ -79,21 +87,33 @@ class Driver(unohelper.Base,
         msg = getMessage(self._ctx, g_message, 101)
         logMessage(self._ctx, INFO, msg, 'Driver', '__init__()')
 
+    # XWeak
+    def queryAdapter(self):
+        return self
+
     # XDriver
     def connect(self, url, infos):
         try:
-            document = self._getConnectionInfo(infos)
-            if document is None:
+            print("Driver.connect()")
+            document, storage, path, name = self._getConnectionInfo(infos)
+            if storage is None or path is None or name is None:
                 code = getMessage(self._ctx, g_message, 111)
                 msg = getMessage(self._ctx, g_message, 112, url)
                 raise self._getException(code, 1001, msg, self)
-            msg = getMessage(self._ctx, g_message, 113, document.URL)
+            driver = createService(self._ctx, g_jdbcdriver)
+            if driver is None:
+                code = getMessage(self._ctx, g_message, 113)
+                msg = getMessage(self._ctx, g_message, 114, g_jdbcdriver)
+                raise self._getException(code, 1001, msg, self)
+            handler = DocumentHandler(self._ctx, storage, path)
+            location = self._getConnectionUrl(handler.getDataBasePath(path, name), name)
+            msg = getMessage(self._ctx, g_message, 115, location)
             logMessage(self._ctx, INFO, msg, 'Driver', 'connect()')
-            handler = DocumentHandler(self._ctx)
-            path, name = handler.openDataBase(document)
-            location = self._getConnectionUrl(path, name)
-            connection = Connection(self._ctx, document, location, url, infos, self._user, self._password)
-            document.addCloseListener(handler)
+            if document is None:
+                document = self._getDocument(location)
+            else:
+                document.addCloseListener(handler)
+            connection = Connection(driver, document, location, url, infos, self._user, self._password)
             version = connection.getMetaData().getDriverVersion()
             msg = getMessage(self._ctx, g_message, 116, (version, self._user))
             logMessage(self._ctx, INFO, msg, 'Driver', 'connect()')
@@ -112,9 +132,10 @@ class Driver(unohelper.Base,
 
     def getPropertyInfo(self, url, infos):
         try:
-            print("Driver.getPropertyInfo() Infos: %s" % (infos, ))
+            print("Driver.getPropertyInfo() 1")
             msg = getMessage(self._ctx, g_message, 131, url)
             logMessage(self._ctx, INFO, msg, 'Driver', 'getPropertyInfo()')
+            #drvinfo = self._driver.getPropertyInfo(g_protocol, infos)
             for info in infos:
                 msg = getMessage(self._ctx, g_message, 132, (info.Name, info.Value))
                 logMessage(self._ctx, INFO, msg, 'Driver', 'getPropertyInfo()')
@@ -128,7 +149,8 @@ class Driver(unohelper.Base,
             for info in drvinfo:
                 msg = getMessage(self._ctx, g_message, 133, (info.Name, info.Value))
                 logMessage(self._ctx, INFO, msg, 'Driver', 'getPropertyInfo()')
-            return tuple(drvinfo)
+            print("Driver.getPropertyInfo() 2")
+            return ()
         except Exception as e:
             msg = getMessage(self._ctx, g_message, 134, (e, traceback.print_exc()))
             logMessage(self._ctx, SEVERE, msg, 'Driver', 'getPropertyInfo()')
@@ -160,12 +182,44 @@ class Driver(unohelper.Base,
 
     # Driver private method
     def _getConnectionInfo(self, infos):
-        document = None
+        document = storage = url = path = name = None
         for info in infos:
-            if info.Name == 'Document':
+            if info.Name == 'URL':
+                url = info.Value
+            elif info.Name == 'Storage':
+                storage = info.Value
+            elif info.Name == 'Document':
                 document = info.Value
-                break
-        return document
+        if url is not None:
+            path, name = self._getUrlInfo(url)
+        return document, storage, path, name
+
+    def _getUrlInfo(self, location):
+        transformer = getUrlTransformer(self._ctx)
+        url = parseUrl(transformer, location)
+        path = self._getDataBasePath(transformer, url)
+        name = self._getDataBaseName(transformer, url)
+        return path, name
+
+    def _getDataBasePath(self, transformer, url):
+        path = parseUrl(transformer, url.Protocol + url.Path)
+        return transformer.getPresentation(path, False)
+
+    def _getDataBaseName(self, transformer, location):
+        url = transformer.getPresentation(location, False)
+        uri = getUriFactory(self._ctx).parse(url)
+        name = uri.getPathSegment(uri.getPathSegmentCount() -1)
+        return self._getDocumentName(name)
+
+    def _getDocumentName(self, title):
+        name, sep, extension = title.rpartition('.')
+        return name
+
+    def _getDocument(self, url):
+        service = 'com.sun.star.sdb.DatabaseContext'
+        datasource = createService(self._ctx, service).createInstance()
+        datasource.URL = url
+        return datasource.DatabaseDocument
 
     def _getConnectionUrl(self, url, name):
         return '%s%s/%s%s%s' % (g_protocol, url, name, g_options, g_shutdown)
