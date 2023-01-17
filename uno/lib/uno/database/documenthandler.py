@@ -36,31 +36,36 @@ from com.sun.star.util import XCloseListener
 
 from .unotool import createService
 from .unotool import getSimpleFile
+from .unotool import getUriFactory
 from .unotool import getUrlTransformer
 from .unotool import parseUrl
+
+from .dbconfig import g_protocol
+from .dbconfig import g_options
+from .dbconfig import g_shutdown
 
 import traceback
 
 
 class DocumentHandler(unohelper.Base,
                       XCloseListener):
-    def __init__(self, ctx, storage, path):
+    def __init__(self, ctx, storage, url):
         self._ctx = ctx
         self._folder = 'database'
         self._prefix = '.'
         self._suffix = '.lck'
-        if storage.hasByName(self._folder) and storage.isStorageElement(self._folder):
-            self._openDataBase(storage, path)
+        self._path, self._name = self._getDataBaseInfo(url)
+        # FIXME: With OpenOffice getElementNames() return a String
+        # FIXME: if storage has no elements.
+        if storage.hasElements():
+            self._openDataBase(storage)
 
     # XCloseListener
     def queryClosing(self, event, owner):
-        document = event.Source
-        name = self._getDataSourceName(document.Title)
-        path = self._getDataBasePath(document.URL, name)
-        if self._closeDataBase(document, path):
+        if self._closeDataBase(event.Source):
             sf = getSimpleFile(self._ctx)
-            if sf.isFolder(path):
-                sf.kill(path)
+            if sf.isFolder(self._path):
+                sf.kill(self._path)
 
     def notifyClosing(self, event):
         pass
@@ -70,31 +75,66 @@ class DocumentHandler(unohelper.Base,
         pass
 
     # Document getter methods
-    def getDataBasePath(self, path, name):
-        return '%s%s%s%s' % (path, self._prefix, name, self._suffix)
+    def getDocumentInfo(self, document, url):
+        if document is None:
+            document = self._getDocument(url)
+        else:
+            document.addCloseListener(self)
+        return document.DataSource, self._getConnectionUrl()
 
     # Document private methods
-    def _openDataBase(self, storage, path):
+    def _openDataBase(self, source):
         sf = getSimpleFile(self._ctx)
-        source = storage.openStorageElement(self._folder, READWRITE)
-        # FIXME: With OpenOffice getElementNames() return a String
-        # FIXME: if source has no elements.
-        if source.hasElements():
-            for name in source.getElementNames():
-                url = self._getFileUrl(path, name)
-                if not sf.exists(url):
-                    if source.isStreamElement(name):
-                        stream = source.openStreamElement(name, SEEKABLEREAD)
-                        input = stream.getInputStream()
-                        sf.writeFile(url, input)
-                        input.closeInput()
-                        stream.dispose()
+        for name in source.getElementNames():
+            url = self._getFileUrl(name)
+            if not sf.exists(url):
+                if source.isStreamElement(name):
+                    input = source.openStreamElement(name, SEEKABLEREAD).getInputStream()
+                    sf.writeFile(url, input)
+                    input.closeInput()
         source.dispose()
 
-    def _closeDataBase(self, document, url):
+    def _getDataBaseInfo(self, location):
+        transformer = getUrlTransformer(self._ctx)
+        url = parseUrl(transformer, location)
+        name = self._getDataBaseName(transformer, url)
+        path = self._getDataBasePath(transformer, url, name)
+        return path, name
+
+    def _getDataBasePath(self, transformer, url, name):
+        path = self._getDocumentPath(transformer, url)
+        return '%s%s%s%s' % (path, self._prefix, name, self._suffix)
+
+    def _getDocumentPath(self, transformer, url):
+        path = parseUrl(transformer, url.Protocol + url.Path)
+        return transformer.getPresentation(path, False)
+
+    def _getDataBaseName(self, transformer, location):
+        url = transformer.getPresentation(location, False)
+        uri = getUriFactory(self._ctx).parse(url)
+        name = uri.getPathSegment(uri.getPathSegmentCount() -1)
+        return self._getDocumentName(name)
+
+    def _getDocumentName(self, title):
+        name, sep, extension = title.rpartition('.')
+        return name
+
+    def _getFileUrl(self, name):
+        return '%s/%s' % (self._path, name)
+
+    def _getDocument(self, url):
+        service = 'com.sun.star.sdb.DatabaseContext'
+        datasource = createService(self._ctx, service).createInstance()
+        datasource.URL = url
+        return datasource.DatabaseDocument
+
+    def _getConnectionUrl(self):
+        return '%s%s/%s%s%s' % (g_protocol, self._path, self._name, g_options, g_shutdown)
+
+    def _closeDataBase(self, document):
         target = document.getDocumentSubStorage(self._folder, READWRITE)
         service = 'com.sun.star.embed.FileSystemStorageFactory'
-        args = (url, READWRITE)
+        args = (self._path, READWRITE)
         source = createService(self._ctx, service).createInstanceWithArguments(args)
         for name in source.getElementNames():
             if source.isStreamElement(name):
@@ -107,21 +147,4 @@ class DocumentHandler(unohelper.Base,
         source.dispose()
         document.store()
         return empty
-
-    def _getDataBasePath(self, url, name):
-        path = self._getDocumentPath(url)
-        return self.getDataBasePath(path, name)
-
-    def _getDataSourceName(self, title):
-        name, sep, extension = title.rpartition('.')
-        return name
-
-    def _getDocumentPath(self, location):
-        transformer = getUrlTransformer(self._ctx)
-        url = parseUrl(transformer, location)
-        path = parseUrl(transformer, url.Protocol + url.Path)
-        return transformer.getPresentation(path, False)
-
-    def _getFileUrl(self, path, name):
-        return '%s/%s' % (path, name)
 

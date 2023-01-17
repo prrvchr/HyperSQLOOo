@@ -100,9 +100,9 @@ class Connection(unohelper.Base,
                  XTableUIProvider,
                  XConnectionTools,
                  XWeak):
-    def __init__(self, driver, document, location, url, infos, user, password):
+    def __init__(self, driver, datasource, location, url, infos, user, password):
         self._connection = driver.connect(location, infos)
-        self._datasource = document.DataSource
+        self._datasource = datasource
         self._url = url
         self._infos = infos
         self._username = user

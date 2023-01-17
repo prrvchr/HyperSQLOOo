@@ -55,8 +55,6 @@ from hsqldbembedded import parseUrl
 from hsqldbembedded import g_identifier
 from hsqldbembedded import g_jdbcdriver
 from hsqldbembedded import g_protocol
-from hsqldbembedded import g_options
-from hsqldbembedded import g_shutdown
 
 from hsqldbembedded import logMessage
 from hsqldbembedded import getMessage
@@ -87,8 +85,8 @@ class Driver(unohelper.Base,
     # XDriver
     def connect(self, url, infos):
         try:
-            document, storage, path, name = self._getConnectionInfo(infos)
-            if storage is None or path is None or name is None:
+            document, storage, location = self._getConnectionInfo(infos)
+            if storage is None or location is None:
                 code = getMessage(self._ctx, g_message, 111)
                 msg = getMessage(self._ctx, g_message, 112, url)
                 raise self._getException(code, 1001, msg, self)
@@ -97,15 +95,11 @@ class Driver(unohelper.Base,
                 code = getMessage(self._ctx, g_message, 113)
                 msg = getMessage(self._ctx, g_message, 114, g_jdbcdriver)
                 raise self._getException(code, 1001, msg, self)
-            handler = DocumentHandler(self._ctx, storage, path)
-            location = self._getConnectionUrl(handler.getDataBasePath(path, name), name)
+            handler = DocumentHandler(self._ctx, storage, location)
+            datasource, path = handler.getDocumentInfo(document, location)
             msg = getMessage(self._ctx, g_message, 115, location)
             logMessage(self._ctx, INFO, msg, 'Driver', 'connect()')
-            if document is None:
-                document = self._getDocument(location)
-            else:
-                document.addCloseListener(handler)
-            connection = Connection(driver, document, location, url, infos, self._user, self._password)
+            connection = Connection(driver, datasource, path, url, infos, self._user, self._password)
             version = connection.getMetaData().getDriverVersion()
             msg = getMessage(self._ctx, g_message, 116, (version, self._user))
             logMessage(self._ctx, INFO, msg, 'Driver', 'connect()')
@@ -169,7 +163,7 @@ class Driver(unohelper.Base,
 
     # Driver private method
     def _getConnectionInfo(self, infos):
-        document = storage = url = path = name = None
+        document = storage = url = None
         for info in infos:
             if info.Name == 'URL':
                 url = info.Value
@@ -177,39 +171,7 @@ class Driver(unohelper.Base,
                 storage = info.Value
             elif info.Name == 'Document':
                 document = info.Value
-        if url is not None:
-            path, name = self._getUrlInfo(url)
-        return document, storage, path, name
-
-    def _getUrlInfo(self, location):
-        transformer = getUrlTransformer(self._ctx)
-        url = parseUrl(transformer, location)
-        path = self._getDataBasePath(transformer, url)
-        name = self._getDataBaseName(transformer, url)
-        return path, name
-
-    def _getDataBasePath(self, transformer, url):
-        path = parseUrl(transformer, url.Protocol + url.Path)
-        return transformer.getPresentation(path, False)
-
-    def _getDataBaseName(self, transformer, location):
-        url = transformer.getPresentation(location, False)
-        uri = getUriFactory(self._ctx).parse(url)
-        name = uri.getPathSegment(uri.getPathSegmentCount() -1)
-        return self._getDocumentName(name)
-
-    def _getDocumentName(self, title):
-        name, sep, extension = title.rpartition('.')
-        return name
-
-    def _getDocument(self, url):
-        service = 'com.sun.star.sdb.DatabaseContext'
-        datasource = createService(self._ctx, service).createInstance()
-        datasource.URL = url
-        return datasource.DatabaseDocument
-
-    def _getConnectionUrl(self, url, name):
-        return '%s%s/%s%s%s' % (g_protocol, url, name, g_options, g_shutdown)
+        return document, storage, url
 
     def _getDriverPropertyInfo(self, name, value):
         info = uno.createUnoStruct('com.sun.star.sdbc.DriverPropertyInfo')
