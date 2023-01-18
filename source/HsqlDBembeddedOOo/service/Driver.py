@@ -47,10 +47,6 @@ from hsqldbembedded import Connection
 from hsqldbembedded import DocumentHandler
 
 from hsqldbembedded import createService
-from hsqldbembedded import getDataBaseInfo
-from hsqldbembedded import getUriFactory
-from hsqldbembedded import getUrlTransformer
-from hsqldbembedded import parseUrl
 
 from hsqldbembedded import g_identifier
 from hsqldbembedded import g_jdbcdriver
@@ -133,23 +129,35 @@ class Driver(unohelper.Base,
         except SQLException as e:
             raise e
         except Exception as e:
-            msg = getMessage(self._ctx, g_message, 134, (e, traceback.print_exc()))
+            msg = getMessage(self._ctx, g_message, 135, (e, traceback.print_exc()))
             logMessage(self._ctx, SEVERE, msg, 'Driver', 'getPropertyInfo()')
 
     def getMajorVersion(self):
-        return self._connection.getMajorVersion()
+        return 1
     def getMinorVersion(self):
-        return self._connection.getMinorVersion()
+        return 0
 
     # XDataDefinitionSupplier
     def getDataDefinitionByConnection(self, connection):
-        msg = getMessage(self._ctx, g_message, 141)
-        logMessage(self._ctx, INFO, msg, 'Driver', 'getDataDefinitionByConnection()')
-        return self._connection.getDataDefinitionByConnection(connection)
+        try:
+            msg = getMessage(self._ctx, g_message, 141)
+            logMessage(self._ctx, INFO, msg, 'Driver', 'getDataDefinitionByConnection()')
+            driver = createService(self._ctx, g_jdbcdriver)
+            if driver is None:
+                code = getMessage(self._ctx, g_message, 142)
+                msg = getMessage(self._ctx, g_message, 143, g_jdbcdriver)
+                raise self._getException(code, 1001, msg, self)
+            return driver.getDataDefinitionByConnection(connection)
+        except SQLException as e:
+            raise e
+        except Exception as e:
+            msg = getMessage(self._ctx, g_message, 144, (e, traceback.print_exc()))
+            logMessage(self._ctx, SEVERE, msg, 'Driver', 'getDataDefinitionByConnection()')
+
     def getDataDefinitionByURL(self, url, infos):
         msg = getMessage(self._ctx, g_message, 151, url)
         logMessage(self._ctx, INFO, msg, 'Driver', 'getDataDefinitionByURL()')
-        return self._connection.getDataDefinitionByURL(url, infos)
+        return self.getDataDefinitionByConnection(connect(url, infos))
 
     # XCreateCatalog
     def createCatalog(self, info):
@@ -172,16 +180,6 @@ class Driver(unohelper.Base,
             elif info.Name == 'Document':
                 document = info.Value
         return document, storage, url
-
-    def _getDriverPropertyInfo(self, name, value):
-        info = uno.createUnoStruct('com.sun.star.sdbc.DriverPropertyInfo')
-        info.Name = name
-        required = value is not None and not isinstance(value, tuple)
-        info.IsRequired = required
-        if required:
-            info.Value = value
-        info.Choices = ()
-        return info
 
     def _getException(self, state, code, message, context=None, exception=None):
         error = SQLException()
