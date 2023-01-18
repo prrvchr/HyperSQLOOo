@@ -127,12 +127,12 @@ class DocumentHandler(unohelper.Base,
 
     def _getDocument(self, url):
         document = None
-        interface = 'com.sun.star.sdb.XOfficeDatabaseDocument'
+        interface = 'com.sun.star.frame.XStorable'
         components = getDesktop(self._ctx).getComponents().createEnumeration()
         while components.hasMoreElements():
-            component = components.nextElement()
-            if hasInterface(component, interface) and component.URL == url:
-                document = component
+            cpt = components.nextElement()
+            if hasInterface(cpt, interface) and cpt.hasLocation() and cpt.getLocation() == url:
+                document = cpt
                 break
         return document
 
