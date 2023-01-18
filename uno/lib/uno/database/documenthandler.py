@@ -35,9 +35,11 @@ from com.sun.star.embed.ElementModes import READWRITE
 from com.sun.star.util import XCloseListener
 
 from .unotool import createService
+from .unotool import getDesktop
 from .unotool import getSimpleFile
 from .unotool import getUriFactory
 from .unotool import getUrlTransformer
+from .unotool import hasInterface
 from .unotool import parseUrl
 
 from .dbconfig import g_protocol
@@ -77,9 +79,10 @@ class DocumentHandler(unohelper.Base,
     # Document getter methods
     def getDocumentInfo(self, document, url):
         if document is None:
+            # FIXME: With OpenOffice there is no Document
+            # FIXME: in the info provided during the connection
             document = self._getDocument(url)
-        else:
-            document.addCloseListener(self)
+        document.addCloseListener(self)
         return document.DataSource, self._getConnectionUrl()
 
     # Document private methods
@@ -123,10 +126,15 @@ class DocumentHandler(unohelper.Base,
         return '%s/%s' % (self._path, name)
 
     def _getDocument(self, url):
-        service = 'com.sun.star.sdb.DatabaseContext'
-        datasource = createService(self._ctx, service).createInstance()
-        datasource.URL = url
-        return datasource.DatabaseDocument
+        document = None
+        interface = 'com.sun.star.sdb.XOfficeDatabaseDocument'
+        components = getDesktop(self._ctx).getComponents().createEnumeration()
+        while components.hasMoreElements():
+            component = components.nextElement()
+            if hasInterface(component, interface) and component.URL == url:
+                document = component
+                break
+        return document
 
     def _getConnectionUrl(self):
         return '%s%s/%s%s%s' % (g_protocol, self._path, self._name, g_options, g_shutdown)
