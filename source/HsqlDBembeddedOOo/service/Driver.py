@@ -56,6 +56,7 @@ from hsqldbembedded import logMessage
 from hsqldbembedded import getMessage
 g_message = 'Driver'
 
+from threading import Condition
 import traceback
 
 # pythonloader looks for a static g_ImplementationHelper variable
@@ -75,8 +76,34 @@ class Driver(unohelper.Base,
         self._supportedProtocol = 'sdbc:embedded:hsqldb'
         self._user = 'SA'
         self._password = ''
+        self._lock = Condition()
         msg = getMessage(self._ctx, g_message, 101)
         logMessage(self._ctx, INFO, msg, 'Driver', '__init__()')
+
+    _handlers = None
+    
+    def _getHandlers(self):
+        if Driver._handlers is None:
+            Driver._handlers = []
+        return Driver._handlers
+
+    def _getHandler(self, handlers, location):
+        document = None
+        for handler in handlers:
+            url = handler.URL
+            if url is None:
+                handlers.remove(handler)
+            elif url == location:
+                document = handler
+        return document
+
+    def _getDocumentHandler(self, location):
+        handlers = self._getHandlers()
+        handler = self._getHandler(handlers, location)
+        if handler is None:
+            handler = DocumentHandler(self._ctx, self._lock, location)
+            handlers.append(handler)
+        return handler
 
     # XDriver
     def connect(self, url, infos):
@@ -91,8 +118,8 @@ class Driver(unohelper.Base,
                 code = getMessage(self._ctx, g_message, 113)
                 msg = getMessage(self._ctx, g_message, 114, g_jdbcdriver)
                 raise self._getException(code, 1001, msg, self)
-            handler = DocumentHandler(self._ctx, storage, location)
-            datasource, path = handler.getDocumentInfo(document, location)
+            handler = self._getDocumentHandler(location)
+            datasource, path = handler.getDocumentInfo(document, storage, location)
             msg = getMessage(self._ctx, g_message, 115, location)
             logMessage(self._ctx, INFO, msg, 'Driver', 'connect()')
             connection = Connection(driver, datasource, path, url, infos, self._user, self._password)
