@@ -97,6 +97,8 @@ class Driver(unohelper.Base,
                 document = handler
         return document
 
+    # FIXME: If we want to add the StorageChangeListener only once,
+    # FIXME: we need to be able to retrieve the DocumentHandler (keep a reference)
     def _getDocumentHandler(self, location):
         handlers = self._getHandlers()
         handler = self._getHandler(handlers, location)

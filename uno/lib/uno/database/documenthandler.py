@@ -123,7 +123,7 @@ class DocumentHandler(unohelper.Base,
         sf = getSimpleFile(self._ctx)
         for name in source.getElementNames():
             url = self._getFileUrl(name)
-            if url is not None and not sf.exists(url):
+            if not sf.exists(url):
                 if source.isStreamElement(name):
                     input = source.openStreamElement(name, SEEKABLEREAD).getInputStream()
                     sf.writeFile(url, input)
@@ -153,21 +153,15 @@ class DocumentHandler(unohelper.Base,
 
     def _getDocumentName(self, title):
         name, sep, extension = title.rpartition('.')
-        return name
-
-    def _getFileExtension(self, title):
-        name, sep, extension = title.rpartition('.')
-        return extension if sep else None
+        return name if sep else extension
 
     def _getFileUrl(self, name):
-        url = None
-        if name.startswith(self._name):
-            url = '%s/%s' % (self._path, name)
-        else:
-            extension = self._getFileExtension(name)
-            if extension is not None:
-                url = '%s/%s.%s' % (self._path, self._name, extension)
-        return url
+        # FIXME: If the odb file was Save As while the connection was closed,
+        # FIXME: then the contents of the database folder must be renamed
+        # FIXME: The cleaning of the odb file is done when it is closed
+        if not name.startswith(self._name):
+            name = self._getStorageName(name, self._getDocumentName(name), self._name)
+        return '%s/%s' % (self._path, name)
  
     def _getDocument(self, url):
         document = None
@@ -196,6 +190,7 @@ class DocumentHandler(unohelper.Base,
                     if target.hasByName(name):
                         target.removeElement(name)
                     source.moveElementTo(name, target, name)
+            # FIXME: We need to clean the odb file if Save As as been used with a closed connection
             if target.hasElements():
                 for name in target.getElementNames():
                     if not name.startswith(self._name):
@@ -228,7 +223,10 @@ class DocumentHandler(unohelper.Base,
     def _moveStorage(self, source, target, oldname, newname):
         if target.hasByName(oldname):
             target.removeElement(oldname)
-        name = oldname.replace(self._name, newname)
+        name = self._getStorageName(oldname, self._name, newname)
         if target.hasByName(name):
             target.removeElement(name)
         source.moveElementTo(oldname, target, name)
+
+    def _getStorageName(self, name, oldname, newname):
+        return name.replace(oldname, newname)
