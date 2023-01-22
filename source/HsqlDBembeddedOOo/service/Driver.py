@@ -80,32 +80,9 @@ class Driver(unohelper.Base,
         msg = getMessage(self._ctx, g_message, 101)
         logMessage(self._ctx, INFO, msg, 'Driver', '__init__()')
 
-    _handlers = None
-    
-    def _getHandlers(self):
-        if Driver._handlers is None:
-            Driver._handlers = []
-        return Driver._handlers
-
-    def _getHandler(self, handlers, location):
-        document = None
-        for handler in handlers:
-            url = handler.URL
-            if url is None:
-                handlers.remove(handler)
-            elif url == location:
-                document = handler
-        return document
-
     # FIXME: If we want to add the StorageChangeListener only once,
     # FIXME: we need to be able to retrieve the DocumentHandler (keep a reference)
-    def _getDocumentHandler(self, location):
-        handlers = self._getHandlers()
-        handler = self._getHandler(handlers, location)
-        if handler is None:
-            handler = DocumentHandler(self._ctx, self._lock, location)
-            handlers.append(handler)
-        return handler
+    _handlers = None
 
     # XDriver
     def connect(self, url, infos):
@@ -198,7 +175,15 @@ class Driver(unohelper.Base,
         msg = getMessage(self._ctx, g_message, 171, name)
         logMessage(self._ctx, INFO, msg, 'Driver', 'dropCatalog()')
 
-    # Driver private method
+    # XServiceInfo
+    def supportsService(self, service):
+        return g_ImplementationHelper.supportsService(g_ImplementationName, service)
+    def getImplementationName(self):
+        return g_ImplementationName
+    def getSupportedServiceNames(self):
+        return g_ImplementationHelper.getSupportedServiceNames(g_ImplementationName)
+
+    # Driver private getter methods
     def _getConnectionInfo(self, infos):
         document = storage = url = None
         for info in infos:
@@ -210,6 +195,29 @@ class Driver(unohelper.Base,
                 document = info.Value
         return document, storage, url
 
+    def _getHandlers(self):
+        if Driver._handlers is None:
+            Driver._handlers = []
+        return Driver._handlers
+
+    def _getHandler(self, handlers, location):
+        document = None
+        for handler in handlers:
+            url = handler.URL
+            if url is None:
+                handlers.remove(handler)
+            elif url == location:
+                document = handler
+        return document
+
+    def _getDocumentHandler(self, location):
+        handlers = self._getHandlers()
+        handler = self._getHandler(handlers, location)
+        if handler is None:
+            handler = DocumentHandler(self._ctx, self._lock, location)
+            handlers.append(handler)
+        return handler
+
     def _getException(self, state, code, message, context=None, exception=None):
         error = SQLException()
         error.SQLState = state
@@ -218,14 +226,6 @@ class Driver(unohelper.Base,
         error.Message = message
         error.Context = context
         return error
-
-    # XServiceInfo
-    def supportsService(self, service):
-        return g_ImplementationHelper.supportsService(g_ImplementationName, service)
-    def getImplementationName(self):
-        return g_ImplementationName
-    def getSupportedServiceNames(self):
-        return g_ImplementationHelper.getSupportedServiceNames(g_ImplementationName)
 
 g_ImplementationHelper.addImplementation(Driver,
                                          g_ImplementationName,

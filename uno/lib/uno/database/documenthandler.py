@@ -99,7 +99,7 @@ class DocumentHandler(unohelper.Base,
     def disposing(self, event):
         pass
 
-    # Document getter methods
+    # DocumentHandler getter methods
     def getDocumentInfo(self, document, storage, url):
         with self._lock:
             # FIXME: With OpenOffice getElementNames() return a String
@@ -118,18 +118,7 @@ class DocumentHandler(unohelper.Base,
             document.addCloseListener(self)
             return document.DataSource, self._getConnectionUrl()
 
-    # Document private methods
-    def _openDataBase(self, source):
-        sf = getSimpleFile(self._ctx)
-        for name in source.getElementNames():
-            url = self._getFileUrl(name)
-            if not sf.exists(url):
-                if source.isStreamElement(name):
-                    input = source.openStreamElement(name, SEEKABLEREAD).getInputStream()
-                    sf.writeFile(url, input)
-                    input.closeInput()
-        source.dispose()
-
+    # DocumentHandler private getter methods
     def _getDataBaseInfo(self, location):
         transformer = getUrlTransformer(self._ctx)
         url = parseUrl(transformer, location)
@@ -177,6 +166,9 @@ class DocumentHandler(unohelper.Base,
     def _getConnectionUrl(self):
         return '%s%s/%s%s%s' % (g_protocol, self._path, self._name, g_options, g_shutdown)
 
+    def _getStorageName(self, name, oldname, newname):
+        return name.replace(oldname, newname)
+
     def _closeDataBase(self, document):
         target = document.getDocumentSubStorage(self._folder, READWRITE)
         service = 'com.sun.star.embed.FileSystemStorageFactory'
@@ -220,6 +212,18 @@ class DocumentHandler(unohelper.Base,
         document.store()
         return empty
 
+    # DocumentHandler private setter methods
+    def _openDataBase(self, source):
+        sf = getSimpleFile(self._ctx)
+        for name in source.getElementNames():
+            url = self._getFileUrl(name)
+            if not sf.exists(url):
+                if source.isStreamElement(name):
+                    input = source.openStreamElement(name, SEEKABLEREAD).getInputStream()
+                    sf.writeFile(url, input)
+                    input.closeInput()
+        source.dispose()
+
     def _moveStorage(self, source, target, oldname, newname):
         if target.hasByName(oldname):
             target.removeElement(oldname)
@@ -228,5 +232,3 @@ class DocumentHandler(unohelper.Base,
             target.removeElement(name)
         source.moveElementTo(oldname, target, name)
 
-    def _getStorageName(self, name, oldname, newname):
-        return name.replace(oldname, newname)
