@@ -45,6 +45,7 @@ from com.sun.star.ui.dialogs.ExecutableDialogResults import OK
 from com.sun.star.uno import Exception as UnoException
 
 from hsqldbembedded import createService
+from hsqldbembedded import getConfiguration
 from hsqldbembedded import getDialog
 from hsqldbembedded import getFileSequence
 from hsqldbembedded import getPropertyValueSet
@@ -86,6 +87,9 @@ class OptionsDialog(unohelper.Base,
         self._ctx = ctx
         self._index = 0
         self._folder = 'database'
+        self._base = 'io.github.prrvchr.jdbcdriver.sdbc.Driver'
+        self._enhanced = 'io.github.prrvchr.jdbcdriver.sdbcx.Driver'
+        self._config = getConfiguration(ctx, g_identifier, True)
         self.stringResource = getStringResource(self._ctx, g_identifier, g_extension, 'OptionsDialog')
         msg = getMessage(self._ctx, g_message, 101)
         logMessage(self._ctx, INFO, msg, 'OptionsDialog', '__init__()')
@@ -123,16 +127,23 @@ class OptionsDialog(unohelper.Base,
             elif method == 'LogInfo':
                 self._logInfo(dialog)
                 handled = True
+            elif method == 'Base':
+                self._setBaseDriver()
+                handled = True
+            elif method == 'Enhanced':
+                self._setEnhancedDriver()
+                handled = True
             return handled
         except Exception as e:
             print("ERROR: %s - %s" % (e, traceback.print_exc()))
 
     def getSupportedMethodNames(self):
         return ('external_event', 'ToggleLogger', 'EnableViewer', 'DisableViewer',
-                'ViewLog', 'ClearLog', 'LogInfo')
+                'ViewLog', 'ClearLog', 'LogInfo', 'Base', 'Enhanced')
 
     def _loadSetting(self, dialog):
         self._loadLoggerSetting(dialog)
+        self._loadDriverSetting(dialog)
         self._loadVersion(dialog)
 
     def _loadVersion(self, dialog):
@@ -140,9 +151,11 @@ class OptionsDialog(unohelper.Base,
 
     def _reloadSetting(self, dialog):
         self._loadLoggerSetting(dialog)
+        self._loadDriverSetting(dialog)
 
     def _saveSetting(self, dialog):
         self._saveLoggerSetting(dialog)
+        self._saveDriverSetting()
 
     def _toggleLogger(self, dialog, enabled):
         dialog.getControl('Label1').Model.Enabled = enabled
@@ -244,6 +257,23 @@ class OptionsDialog(unohelper.Base,
     def _getDataSourceUrl(self, path):
         url = '%s%s/dbversion%s%s'  % (g_protocol, path, g_options, g_shutdown)
         return url
+
+    def _setBaseDriver(self):
+        self._config.replaceByName('DriverService', self._base)
+
+    def _setEnhancedDriver(self):
+        self._config.replaceByName('DriverService', self._enhanced)
+
+    def _loadDriverSetting(self, dialog):
+        driver = self._config.getByName('DriverService')
+        if driver == self._base:
+            dialog.getControl('OptionButton3').State = 1
+        else:
+            dialog.getControl('OptionButton4').State = 1
+
+    def _saveDriverSetting(self):
+        if self._config.hasPendingChanges():
+            self._config.commitChanges()
 
     # XServiceInfo
     def supportsService(self, service):

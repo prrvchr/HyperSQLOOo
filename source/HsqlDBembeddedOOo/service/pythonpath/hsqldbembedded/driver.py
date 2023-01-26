@@ -38,7 +38,10 @@ from com.sun.star.logging.LogLevel import SEVERE
 from com.sun.star.sdbc import XDriver
 from com.sun.star.sdbc import SQLException
 
-from .connection import Connection
+from .sdbconnection import SdbConnection
+from .sdbcconnection import SdbcConnection
+from .sdbcxconnection import SdbcxConnection
+
 from .documenthandler import DocumentHandler
 
 from .unotool import createService
@@ -85,7 +88,7 @@ class Driver(unohelper.Base,
             datasource, path = handler.getDocumentInfo(document, storage, location)
             msg = getMessage(self._ctx, g_message, 113, location)
             logMessage(self._ctx, INFO, msg, 'Driver', 'connect()')
-            connection = Connection(driver, datasource, path, url, infos, self._user, self._password)
+            connection = self._getConnection(driver.connect(path, infos), datasource, url, infos)
             version = connection.getMetaData().getDriverVersion()
             msg = getMessage(self._ctx, g_message, 114, (version, self._user))
             logMessage(self._ctx, INFO, msg, 'Driver', 'connect()')
@@ -172,6 +175,14 @@ class Driver(unohelper.Base,
                 handler = DocumentHandler(self._ctx, self._lock, location)
                 self._handlers.append(handler)
             return handler
+
+    def _getConnection(self, connection, datasource, url, infos):
+        if connection.supportsService('com.sun.star.sdb.Connection'):
+            return SdbConnection(connection, datasource, url, infos, self._user, self._password)
+        elif connection.supportsService('com.sun.star.sdbcx.Connection'):
+            return SdbcxConnection(connection, datasource, url, infos, self._user, self._password)
+        elif connection.supportsService('com.sun.star.sdbc.Connection'):
+            return SdbcConnection(connection, datasource, url, infos, self._user, self._password)
 
     def _getException(self, state, code, message, context=None, exception=None):
         error = SQLException()
