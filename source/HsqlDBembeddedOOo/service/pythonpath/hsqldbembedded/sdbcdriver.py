@@ -41,9 +41,8 @@ import traceback
 
 class SdbcDriver(Driver):
 
-    def __init__(self, ctx, lock, name):
-        Driver.__init__(self, ctx, lock, name)
-        self._service = 'io.github.prrvchr.jdbcdriver.sdbc.Driver'
+    def __init__(self, ctx, lock, service, name):
+        Driver.__init__(self, ctx, lock, service, name)
         self._services = ('com.sun.star.sdbc.Driver')
         msg = getMessage(ctx, g_message, 101)
         logMessage(ctx, INFO, msg, 'SdbcDriver', '__init__()')

@@ -58,14 +58,15 @@ class Driver(unohelper.Base,
              XServiceInfo,
              XDriver):
 
-    def __init__(self, ctx, lock, name):
+    def __init__(self, ctx, lock, service, name):
         self._ctx = ctx
         self._supportedProtocol = 'sdbc:embedded:hsqldb'
         self._user = 'SA'
         self._password = ''
         self._lock = lock
+        self._service = service
         self._name = name
-        # FIXME: Driver is a Singleton we need to load only once,
+        # FIXME: Driver is not a Singleton we need to load only once.
         self._driver = None
         # FIXME: If we want to add the StorageChangeListener only once,
         # FIXME: we need to be able to retrieve the DocumentHandler (keep a reference)
@@ -80,17 +81,13 @@ class Driver(unohelper.Base,
                 msg = getMessage(self._ctx, g_message, 112, url)
                 raise self._getException(code, 1001, msg, self)
             driver = self._getDriver()
-            if driver is None:
-                code = getMessage(self._ctx, g_message, 113)
-                msg = getMessage(self._ctx, g_message, 114, self._service)
-                raise self._getException(code, 1001, msg, self)
             handler = self._getDocumentHandler(location)
             datasource, path = handler.getDocumentInfo(document, storage, location)
-            msg = getMessage(self._ctx, g_message, 115, location)
+            msg = getMessage(self._ctx, g_message, 113, location)
             logMessage(self._ctx, INFO, msg, 'Driver', 'connect()')
             connection = Connection(driver, datasource, path, url, infos, self._user, self._password)
             version = connection.getMetaData().getDriverVersion()
-            msg = getMessage(self._ctx, g_message, 116, (version, self._user))
+            msg = getMessage(self._ctx, g_message, 114, (version, self._user))
             logMessage(self._ctx, INFO, msg, 'Driver', 'connect()')
             return connection
         except SQLException as e:
@@ -110,19 +107,15 @@ class Driver(unohelper.Base,
             msg = getMessage(self._ctx, g_message, 131, url)
             logMessage(self._ctx, INFO, msg, 'Driver', 'getPropertyInfo()')
             driver = self._getDriver()
-            if driver is None:
-                code = getMessage(self._ctx, g_message, 132)
-                msg = getMessage(self._ctx, g_message, 133, self._service)
-                raise self._getException(code, 1001, msg, self)
             drvinfo = driver.getPropertyInfo(g_protocol, infos)
             for info in drvinfo:
-                msg = getMessage(self._ctx, g_message, 134, (info.Name, info.Value))
+                msg = getMessage(self._ctx, g_message, 132, (info.Name, info.Value))
                 logMessage(self._ctx, INFO, msg, 'Driver', 'getPropertyInfo()')
             return drvinfo
         except SQLException as e:
             raise e
         except Exception as e:
-            msg = getMessage(self._ctx, g_message, 135, (e, traceback.print_exc()))
+            msg = getMessage(self._ctx, g_message, 133, (e, traceback.print_exc()))
             logMessage(self._ctx, SEVERE, msg, 'Driver', 'getPropertyInfo()')
 
     def getMajorVersion(self):
@@ -140,8 +133,15 @@ class Driver(unohelper.Base,
 
     # Driver private getter methods
     def _getDriver(self):
+        # FIXME: If jdbcDriverOOo is not installed,
+        # FIXME: we need to throw SQLException
         if self._driver is None:
-            self._driver = createService(self._ctx, self._service)
+            driver = createService(self._ctx, self._service)
+            if driver is None:
+                code = getMessage(self._ctx, g_message, 181)
+                msg = getMessage(self._ctx, g_message, 182, self._service)
+                raise self._getException(code, 1001, msg, self)
+            self._driver = driver
         return self._driver
 
     def _getConnectionInfo(self, infos):

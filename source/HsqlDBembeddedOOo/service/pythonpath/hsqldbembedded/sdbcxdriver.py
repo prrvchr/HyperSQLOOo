@@ -48,9 +48,8 @@ class SdbcxDriver(Driver,
                   XCreateCatalog,
                   XDropCatalog):
 
-    def __init__(self, ctx, lock, name):
-        Driver.__init__(self, ctx, lock, name)
-        self._service = 'io.github.prrvchr.jdbcdriver.sdbcx.Driver'
+    def __init__(self, ctx, lock, service, name):
+        Driver.__init__(self, ctx, lock, service, name)
         self._services = ('com.sun.star.sdbc.Driver', 'com.sun.star.sdbcx.Driver')
         msg = getMessage(self._ctx, g_message, 101)
         logMessage(self._ctx, INFO, msg, 'SdbcxDriver', '__init__()')
@@ -61,15 +60,11 @@ class SdbcxDriver(Driver,
             msg = getMessage(self._ctx, g_message, 141)
             logMessage(self._ctx, INFO, msg, 'Driver', 'getDataDefinitionByConnection()')
             driver = self._getDriver()
-            if driver is None:
-                code = getMessage(self._ctx, g_message, 142)
-                msg = getMessage(self._ctx, g_message, 143, self._service)
-                raise self._getException(code, 1001, msg, self)
             return driver.getDataDefinitionByConnection(connection)
         except SQLException as e:
             raise e
         except Exception as e:
-            msg = getMessage(self._ctx, g_message, 144, (e, traceback.print_exc()))
+            msg = getMessage(self._ctx, g_message, 142, (e, traceback.print_exc()))
             logMessage(self._ctx, SEVERE, msg, 'Driver', 'getDataDefinitionByConnection()')
 
     def getDataDefinitionByURL(self, url, infos):
