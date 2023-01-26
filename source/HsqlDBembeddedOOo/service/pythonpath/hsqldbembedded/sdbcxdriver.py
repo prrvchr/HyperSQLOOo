@@ -36,8 +36,6 @@ from com.sun.star.sdbcx import XDropCatalog
 
 from .driver import Driver
 
-from .unotool import createService
-
 from .logger import logMessage
 from .logger import getMessage
 g_message = 'Driver'
@@ -62,7 +60,7 @@ class SdbcxDriver(Driver,
         try:
             msg = getMessage(self._ctx, g_message, 141)
             logMessage(self._ctx, INFO, msg, 'Driver', 'getDataDefinitionByConnection()')
-            driver = createService(self._ctx, self._service)
+            driver = self._getDriver()
             if driver is None:
                 code = getMessage(self._ctx, g_message, 142)
                 msg = getMessage(self._ctx, g_message, 143, self._service)
