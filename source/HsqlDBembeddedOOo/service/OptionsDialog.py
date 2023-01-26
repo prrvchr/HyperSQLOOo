@@ -30,13 +30,19 @@
 import uno
 import unohelper
 
-from com.sun.star.lang import XServiceInfo
 from com.sun.star.awt import XContainerWindowEventHandler
 from com.sun.star.awt import XDialogEventHandler
 
-from com.sun.star.ui.dialogs.ExecutableDialogResults import OK
+from com.sun.star.embed.ElementModes import READWRITE
+
+from com.sun.star.lang import XServiceInfo
+
 from com.sun.star.logging.LogLevel import INFO
 from com.sun.star.logging.LogLevel import SEVERE
+
+from com.sun.star.ui.dialogs.ExecutableDialogResults import OK
+
+from com.sun.star.uno import Exception as UnoException
 
 from hsqldbembedded import createService
 from hsqldbembedded import getDialog
@@ -45,9 +51,9 @@ from hsqldbembedded import getPropertyValueSet
 from hsqldbembedded import getResourceLocation
 from hsqldbembedded import getSimpleFile
 from hsqldbembedded import getStringResource
-from hsqldbembedded import getUrl
 
 from hsqldbembedded import clearLogger
+from hsqldbembedded import getDocument
 from hsqldbembedded import getLoggerSetting
 from hsqldbembedded import getLoggerUrl
 from hsqldbembedded import getMessage
@@ -58,9 +64,8 @@ g_message = 'OptionsDialog'
 from hsqldbembedded import g_extension
 from hsqldbembedded import g_identifier
 from hsqldbembedded import g_protocol
-from hsqldbembedded import g_class
+
 from hsqldbembedded import g_path
-from hsqldbembedded import g_jar
 from hsqldbembedded import g_options
 from hsqldbembedded import g_shutdown
 
@@ -80,49 +85,51 @@ class OptionsDialog(unohelper.Base,
     def __init__(self, ctx):
         self._ctx = ctx
         self._index = 0
+        self._folder = 'database'
         self.stringResource = getStringResource(self._ctx, g_identifier, g_extension, 'OptionsDialog')
         msg = getMessage(self._ctx, g_message, 101)
         logMessage(self._ctx, INFO, msg, 'OptionsDialog', '__init__()')
 
     # XContainerWindowEventHandler, XDialogEventHandler
     def callHandlerMethod(self, dialog, event, method):
-        handled = False
-        if method == 'external_event':
-            if event == 'ok':
-                self._saveSetting(dialog)
+        try:
+            handled = False
+            if method == 'external_event':
+                if event == 'ok':
+                    self._saveSetting(dialog)
+                    handled = True
+                elif event == 'back':
+                    self._reloadSetting(dialog)
+                    handled = True
+                elif event == 'initialize':
+                    self._loadSetting(dialog)
+                    handled = True
+            elif method == 'ToggleLogger':
+                enabled = event.Source.State == 1
+                self._toggleLogger(dialog, enabled)
                 handled = True
-            elif event == 'back':
-                self._reloadSetting(dialog)
+            elif method == 'EnableViewer':
+                self._toggleViewer(dialog, True)
                 handled = True
-            elif event == 'initialize':
-                self._loadSetting(dialog)
+            elif method == 'DisableViewer':
+                self._toggleViewer(dialog, False)
                 handled = True
-        elif method == 'ToggleLogger':
-            enabled = event.Source.State == 1
-            self._toggleLogger(dialog, enabled)
-            handled = True
-        elif method == 'EnableViewer':
-            self._toggleViewer(dialog, True)
-            handled = True
-        elif method == 'DisableViewer':
-            self._toggleViewer(dialog, False)
-            handled = True
-        elif method == 'ViewLog':
-            self._viewLog(dialog)
-            handled = True
-        elif method == 'ClearLog':
-            self._clearLog(dialog)
-            handled = True
-        elif method == 'LogInfo':
-            self._logInfo(dialog)
-            handled = True
-        elif method == 'Upload':
-            self._upload(dialog)
-            handled = True
-        return handled
+            elif method == 'ViewLog':
+                self._viewLog(dialog)
+                handled = True
+            elif method == 'ClearLog':
+                self._clearLog(dialog)
+                handled = True
+            elif method == 'LogInfo':
+                self._logInfo(dialog)
+                handled = True
+            return handled
+        except Exception as e:
+            print("ERROR: %s - %s" % (e, traceback.print_exc()))
+
     def getSupportedMethodNames(self):
         return ('external_event', 'ToggleLogger', 'EnableViewer', 'DisableViewer',
-                'ViewLog', 'ClearLog', 'LogInfo', 'Upload')
+                'ViewLog', 'ClearLog', 'LogInfo')
 
     def _loadSetting(self, dialog):
         self._loadLoggerSetting(dialog)
@@ -202,10 +209,12 @@ class OptionsDialog(unohelper.Base,
             service = '%s.Driver' % g_identifier
             driver = createService(self._ctx, service)
             url = 'sdbc:embedded:hsqldb'
-            infos = getPropertyValueSet({'URL': self._getUrl()})
+            document = self._getDocument()
+            infos = getPropertyValueSet(self._getInfos(document))
             connection = driver.connect(url, infos)
             version = connection.getMetaData().getDriverVersion()
             connection.close()
+            document.close(True)
             return version
         except UnoException as e:
             msg = getMessage(self._ctx, g_message, 141, e.Message)
@@ -214,41 +223,27 @@ class OptionsDialog(unohelper.Base,
             msg = getMessage(self._ctx, g_message, 142, (e, traceback.print_exc()))
             logMessage(self._ctx, SEVERE, msg, 'OptionsDialog', '_getDriverVersion()')
 
-    def _getUrl(self):
+    def _getDocument(self):
         path = getResourceLocation(self._ctx, g_identifier, g_path)
         url = '%s/dbversion.odb' % path
-        if not getSimpleFile(self._ctx).exists(url):
+        if getSimpleFile(self._ctx).exists(url):
+            document = getDocument(self._ctx, url)
+        else:
             service = 'com.sun.star.sdb.DatabaseContext'
             datasource = createService(self._ctx, service).createInstance()
             datasource.URL = self._getDataSourceUrl(path)
-            datasource.Settings.JavaDriverClass = g_class
-            datasource.Settings.JavaDriverClassPath = self._getDataSourceClassPath(path)
-            datasource.DatabaseDocument.storeAsURL(url, ())
-        return url
+            document = datasource.DatabaseDocument
+            document.initNew()
+            document.storeAsURL(url, ())
+        return document
+
+    def _getInfos(self, document):
+        storage = document.getDocumentSubStorage(self._folder, READWRITE)
+        return {'URL': document.URL, 'Document': document, 'Storage': storage}
 
     def _getDataSourceUrl(self, path):
         url = '%s%s/dbversion%s%s'  % (g_protocol, path, g_options, g_shutdown)
         return url
-
-    def _getDataSourceClassPath(self, path):
-        return '%s/%s' % (path, g_jar)
-
-    def _upload(self, dialog):
-        service = 'com.sun.star.util.PathSubstitution'
-        ps = createService(self._ctx, service)
-        path = ps.substituteVariables('$(work)', True)
-        service = 'com.sun.star.ui.dialogs.FilePicker'
-        fp = createService(self._ctx, service)
-        fp.setDisplayDirectory(path)
-        fp.appendFilter(g_jar, '*.jar')
-        fp.setCurrentFilter(g_jar)
-        if fp.execute() == OK:
-            url = getUrl(self._ctx, fp.getFiles()[0])
-            if url.Name == g_jar:
-                jar = '%s/%s' % (g_path, g_jar)
-                target = getResourceLocation(self._ctx, g_identifier, jar)
-                getSimpleFile(self._ctx).copy(url.Main, target)
-                self._reloadVersion(dialog)
 
     # XServiceInfo
     def supportsService(self, service):

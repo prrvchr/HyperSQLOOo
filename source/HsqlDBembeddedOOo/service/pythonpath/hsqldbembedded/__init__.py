@@ -32,18 +32,16 @@ from .sdbcxdriver import SdbcxDriver
 from .unotool import createService
 from .unotool import getConfiguration
 from .unotool import getDialog
+from .unotool import getDocument
 from .unotool import getFileSequence
 from .unotool import getPropertyValueSet
 from .unotool import getResourceLocation
 from .unotool import getSimpleFile
 from .unotool import getStringResource
-from .unotool import getUrl
 
 from .configuration import g_extension
 from .configuration import g_identifier
 
-from .dbconfig import g_class
-from .dbconfig import g_jar
 from .dbconfig import g_options
 from .dbconfig import g_path
 from .dbconfig import g_protocol
