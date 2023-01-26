@@ -50,22 +50,17 @@ g_ImplementationName = '%s.Driver' % g_identifier
 class Driver(unohelper.Base,
              XServiceInfo):
     def __new__(cls, ctx, *args, **kwargs):
-        try:
-            print("Driver.__new__() 1")
-            if cls._instance is None:
-                with cls._lock:
-                    print("Driver.__new__() 2")
+        if cls._instance is None:
+            with cls._lock:
+                if cls._instance is None:
+                    print("Driver.__new__() *******************************")
                     service = getConfiguration(ctx, g_identifier).getByName('DriverService')
                     if service == 'io.github.prrvchr.jdbcdriver.sdbc.Driver':
                         instance = SdbcDriver(ctx, cls._lock, g_ImplementationName)
                     else:
                         instance = SdbcxDriver(ctx, cls._lock, g_ImplementationName)
                     cls._instance = instance
-            print("Driver.__new__() 3")
-            return cls._instance
-        except Exception as e:
-            msg = "Error: %s" % traceback.print_exc()
-            print(msg)
+        return cls._instance
 
     _instance = None
     _lock = Lock()
