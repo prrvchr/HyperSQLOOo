@@ -27,60 +27,65 @@
 ╚════════════════════════════════════════════════════════════════════════════════════╝
 """
 
-import uno
-import unohelper
+from com.sun.star.logging.LogLevel import INFO
+from com.sun.star.logging.LogLevel import SEVERE
 
-from com.sun.star.lang import XServiceInfo
+from com.sun.star.sdbcx import XDataDefinitionSupplier
+from com.sun.star.sdbcx import XCreateCatalog
+from com.sun.star.sdbcx import XDropCatalog
 
-from hsqldbembedded import SdbcDriver
-from hsqldbembedded import SdbcxDriver
+from .driver import Driver
 
-from hsqldbembedded import getConfiguration
+from .unotool import createService
 
-from hsqldbembedded import g_identifier
+from .logger import logMessage
+from .logger import getMessage
+g_message = 'Driver'
 
-from threading import Lock
 import traceback
 
-# pythonloader looks for a static g_ImplementationHelper variable
-g_ImplementationHelper = unohelper.ImplementationHelper()
-g_ImplementationName = '%s.Driver' % g_identifier
 
+class SdbcxDriver(Driver,
+                  XDataDefinitionSupplier,
+                  XCreateCatalog,
+                  XDropCatalog):
 
-class Driver(unohelper.Base,
-             XServiceInfo):
-    def __new__(cls, ctx, *args, **kwargs):
+    def __init__(self, ctx, lock, name):
+        Driver.__init__(self, ctx, lock, name)
+        self._service = 'io.github.prrvchr.jdbcdriver.sdbcx.Driver'
+        self._services = ('com.sun.star.sdbc.Driver', 'com.sun.star.sdbcx.Driver')
+        msg = getMessage(self._ctx, g_message, 101)
+        logMessage(self._ctx, INFO, msg, 'SdbcxDriver', '__init__()')
+
+    # XDataDefinitionSupplier
+    def getDataDefinitionByConnection(self, connection):
         try:
-            print("Driver.__new__() 1")
-            if cls._instance is None:
-                with cls._lock:
-                    print("Driver.__new__() 2")
-                    service = getConfiguration(ctx, g_identifier).getByName('DriverService')
-                    if service == 'io.github.prrvchr.jdbcdriver.sdbc.Driver':
-                        instance = SdbcDriver(ctx, cls._lock, g_ImplementationName)
-                    else:
-                        instance = SdbcxDriver(ctx, cls._lock, g_ImplementationName)
-                    cls._instance = instance
-            print("Driver.__new__() 3")
-            return cls._instance
+            msg = getMessage(self._ctx, g_message, 141)
+            logMessage(self._ctx, INFO, msg, 'Driver', 'getDataDefinitionByConnection()')
+            driver = createService(self._ctx, self._service)
+            if driver is None:
+                code = getMessage(self._ctx, g_message, 142)
+                msg = getMessage(self._ctx, g_message, 143, self._service)
+                raise self._getException(code, 1001, msg, self)
+            return driver.getDataDefinitionByConnection(connection)
+        except SQLException as e:
+            raise e
         except Exception as e:
-            msg = "Error: %s" % traceback.print_exc()
-            print(msg)
+            msg = getMessage(self._ctx, g_message, 144, (e, traceback.print_exc()))
+            logMessage(self._ctx, SEVERE, msg, 'Driver', 'getDataDefinitionByConnection()')
 
-    _instance = None
-    _lock = Lock()
+    def getDataDefinitionByURL(self, url, infos):
+        msg = getMessage(self._ctx, g_message, 151, url)
+        logMessage(self._ctx, INFO, msg, 'Driver', 'getDataDefinitionByURL()')
+        return self.getDataDefinitionByConnection(connect(url, infos))
 
-    # XServiceInfo
-    def supportsService(self, service):
-        return g_ImplementationHelper.supportsService(g_ImplementationName, service)
-    def getImplementationName(self):
-        return g_ImplementationName
-    def getSupportedServiceNames(self):
-        return g_ImplementationHelper.getSupportedServiceNames(g_ImplementationName)
+    # XCreateCatalog
+    def createCatalog(self, info):
+        msg = getMessage(self._ctx, g_message, 161)
+        logMessage(self._ctx, INFO, msg, 'Driver', 'createCatalog()')
 
-
-g_ImplementationHelper.addImplementation(Driver,
-                                         g_ImplementationName,
-                                        (g_ImplementationName,
-                                        'com.sun.star.sdbc.Driver'))
+    # XDropCatalog
+    def dropCatalog(self, name, info):
+        msg = getMessage(self._ctx, g_message, 171, name)
+        logMessage(self._ctx, INFO, msg, 'Driver', 'dropCatalog()')
 

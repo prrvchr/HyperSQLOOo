@@ -26,12 +26,11 @@
 ║                                                                                    ║
 ╚════════════════════════════════════════════════════════════════════════════════════╝
 """
-
-from .connection import Connection
-
-from .documenthandler import DocumentHandler
+from .sdbcdriver import SdbcDriver
+from .sdbcxdriver import SdbcxDriver
 
 from .unotool import createService
+from .unotool import getConfiguration
 from .unotool import getDialog
 from .unotool import getFileSequence
 from .unotool import getPropertyValueSet
@@ -42,7 +41,6 @@ from .unotool import getUrl
 
 from .configuration import g_extension
 from .configuration import g_identifier
-from .configuration import g_jdbcdriver
 
 from .dbconfig import g_class
 from .dbconfig import g_jar
