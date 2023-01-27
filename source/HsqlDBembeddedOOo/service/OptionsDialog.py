@@ -89,6 +89,7 @@ class OptionsDialog(unohelper.Base,
         self._folder = 'database'
         self._base = 'io.github.prrvchr.jdbcdriver.sdbc.Driver'
         self._enhanced = 'io.github.prrvchr.jdbcdriver.sdbcx.Driver'
+        self._url = 'xdbc:hsqldb:mem:dbversion'
         self._config = getConfiguration(ctx, g_identifier, True)
         self.stringResource = getStringResource(self._ctx, g_identifier, g_extension, 'OptionsDialog')
         msg = getMessage(self._ctx, g_message, 101)
@@ -219,15 +220,12 @@ class OptionsDialog(unohelper.Base,
 
     def _getDriverVersion(self):
         try:
-            service = '%s.Driver' % g_identifier
+            service = self._config.getByName('DriverService')
             driver = createService(self._ctx, service)
-            url = 'sdbc:embedded:hsqldb'
-            document = self._getDocument()
-            infos = getPropertyValueSet(self._getInfos(document))
-            connection = driver.connect(url, infos)
+            connection = driver.connect(self._url, ())
             version = connection.getMetaData().getDriverVersion()
             connection.close()
-            document.close(True)
+            driver.dispose()
             return version
         except UnoException as e:
             msg = getMessage(self._ctx, g_message, 141, e.Message)
@@ -236,28 +234,6 @@ class OptionsDialog(unohelper.Base,
             msg = getMessage(self._ctx, g_message, 142, (e, traceback.print_exc()))
             logMessage(self._ctx, SEVERE, msg, 'OptionsDialog', '_getDriverVersion()')
 
-    def _getDocument(self):
-        path = getResourceLocation(self._ctx, g_identifier, g_path)
-        url = '%s/dbversion.odb' % path
-        if getSimpleFile(self._ctx).exists(url):
-            document = getDocument(self._ctx, url)
-        else:
-            service = 'com.sun.star.sdb.DatabaseContext'
-            datasource = createService(self._ctx, service).createInstance()
-            datasource.URL = self._getDataSourceUrl(path)
-            document = datasource.DatabaseDocument
-            document.initNew()
-            document.storeAsURL(url, ())
-        return document
-
-    def _getInfos(self, document):
-        storage = document.getDocumentSubStorage(self._folder, READWRITE)
-        return {'URL': document.URL, 'Document': document, 'Storage': storage}
-
-    def _getDataSourceUrl(self, path):
-        url = '%s%s/dbversion%s%s'  % (g_protocol, path, g_options, g_shutdown)
-        return url
-
     def _setBaseDriver(self):
         self._config.replaceByName('DriverService', self._base)
 
@@ -265,8 +241,8 @@ class OptionsDialog(unohelper.Base,
         self._config.replaceByName('DriverService', self._enhanced)
 
     def _loadDriverSetting(self, dialog):
-        driver = self._config.getByName('DriverService')
-        if driver == self._base:
+        service = self._config.getByName('DriverService')
+        if service == self._base:
             dialog.getControl('OptionButton3').State = 1
         else:
             dialog.getControl('OptionButton4').State = 1
