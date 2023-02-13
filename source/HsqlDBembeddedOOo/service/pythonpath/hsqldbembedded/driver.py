@@ -90,18 +90,18 @@ class Driver(unohelper.Base,
             logMessage(self._ctx, INFO, msg, 'Driver', 'connect()')
             connection = self._getConnection(driver.connect(path, infos), datasource, url, infos)
             version = connection.getMetaData().getDriverVersion()
-            msg = getMessage(self._ctx, g_message, 114, (version, self._user))
+            msg = getMessage(self._ctx, g_message, 114, version, self._user)
             logMessage(self._ctx, INFO, msg, 'Driver', 'connect()')
             return connection
         except SQLException as e:
             raise e
         except Exception as e:
-            msg = getMessage(self._ctx, g_message, 117, (e, traceback.print_exc()))
+            msg = getMessage(self._ctx, g_message, 117, e, traceback.print_exc())
             logMessage(self._ctx, SEVERE, msg, 'Driver', 'connect()')
 
     def acceptsURL(self, url):
         accept = url.startswith(self._supportedProtocol)
-        msg = getMessage(self._ctx, g_message, 121, (url, accept))
+        msg = getMessage(self._ctx, g_message, 121, url, accept)
         logMessage(self._ctx, INFO, msg, 'Driver', 'acceptsURL()')
         return accept
 
@@ -112,13 +112,13 @@ class Driver(unohelper.Base,
             driver = self._getDriver()
             drvinfo = driver.getPropertyInfo(g_protocol, infos)
             for info in drvinfo:
-                msg = getMessage(self._ctx, g_message, 132, (info.Name, info.Value))
+                msg = getMessage(self._ctx, g_message, 132, info.Name, info.Value)
                 logMessage(self._ctx, INFO, msg, 'Driver', 'getPropertyInfo()')
             return drvinfo
         except SQLException as e:
             raise e
         except Exception as e:
-            msg = getMessage(self._ctx, g_message, 133, (e, traceback.print_exc()))
+            msg = getMessage(self._ctx, g_message, 133, e, traceback.print_exc())
             logMessage(self._ctx, SEVERE, msg, 'Driver', 'getPropertyInfo()')
 
     def getMajorVersion(self):

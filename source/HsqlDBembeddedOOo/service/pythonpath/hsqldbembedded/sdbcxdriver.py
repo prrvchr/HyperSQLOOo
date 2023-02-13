@@ -64,7 +64,7 @@ class SdbcxDriver(Driver,
         except SQLException as e:
             raise e
         except Exception as e:
-            msg = getMessage(self._ctx, g_message, 142, (e, traceback.print_exc()))
+            msg = getMessage(self._ctx, g_message, 142, e, traceback.print_exc())
             logMessage(self._ctx, SEVERE, msg, 'Driver', 'getDataDefinitionByConnection()')
 
     def getDataDefinitionByURL(self, url, infos):
