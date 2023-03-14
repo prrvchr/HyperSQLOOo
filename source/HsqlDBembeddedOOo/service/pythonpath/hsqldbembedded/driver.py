@@ -45,14 +45,16 @@ from .sdbcxconnection import SdbcxConnection
 from .documenthandler import DocumentHandler
 
 from .unotool import createService
-
-from .configuration import g_identifier
+from .unotool import getConfiguration
+from .unotool import getPropertyValueSet
 
 from .dbconfig import g_protocol
 
-from .logger import logMessage
-from .logger import getMessage
-g_message = 'Driver'
+from .logger import getLogger
+
+from .configuration import g_identifier
+from .configuration import g_defaultlog
+from .configuration import g_basename
 
 import traceback
 
@@ -69,7 +71,9 @@ class Driver(unohelper.Base,
         self._lock = lock
         self._service = service
         self._name = name
-        # FIXME: Driver is not a Singleton we need to load only once.
+        self._logger = getLogger(ctx, g_defaultlog, g_basename)
+        # FIXME: Driver is lazy loaded in connect() driver method to be able to throw
+        # FIXME: an exception if jdbcDriverOOo extension is not installed.
         self._driver = None
         # FIXME: If we want to add the StorageChangeListener only once,
         # FIXME: we need to be able to retrieve the DocumentHandler (keep a reference)
@@ -78,48 +82,42 @@ class Driver(unohelper.Base,
     # XDriver
     def connect(self, url, infos):
         try:
-            document, storage, location = self._getConnectionInfo(infos)
+            newinfos, document, storage, location = self._getConnectionInfo(infos)
             if storage is None or location is None:
-                code = getMessage(self._ctx, g_message, 111)
-                msg = getMessage(self._ctx, g_message, 112, url)
+                code = self._logger.resolveString(111)
+                msg = self._logger.resolveString(112, url)
                 raise self._getException(code, 1001, msg, self)
             driver = self._getDriver()
             handler = self._getDocumentHandler(location)
             datasource, path = handler.getDocumentInfo(document, storage, location)
-            msg = getMessage(self._ctx, g_message, 113, location)
-            logMessage(self._ctx, INFO, msg, 'Driver', 'connect()')
-            connection = self._getConnection(driver.connect(path, infos), datasource, url, infos)
+            self._logger.logprb(INFO, 'Driver', 'connect()', 113, location)
+            connection = self._getConnection(driver.connect(path, newinfos), datasource, url, infos)
             version = connection.getMetaData().getDriverVersion()
-            msg = getMessage(self._ctx, g_message, 114, version, self._user)
-            logMessage(self._ctx, INFO, msg, 'Driver', 'connect()')
+            self._logger.logprb(INFO, 'Driver', 'connect()', 114, version, self._user)
             return connection
         except SQLException as e:
+            self._logger.logp(SEVERE, 'Driver', 'connect()', e.Message)
             raise e
         except Exception as e:
-            msg = getMessage(self._ctx, g_message, 117, e, traceback.print_exc())
-            logMessage(self._ctx, SEVERE, msg, 'Driver', 'connect()')
+            self._logger.logprb(SEVERE, 'Driver', 'connect()', 117, e, traceback.print_exc())
 
     def acceptsURL(self, url):
         accept = url.startswith(self._supportedProtocol)
-        msg = getMessage(self._ctx, g_message, 121, url, accept)
-        logMessage(self._ctx, INFO, msg, 'Driver', 'acceptsURL()')
+        self._logger.logprb(INFO, 'Driver', 'acceptsURL()', 121, url, accept)
         return accept
 
     def getPropertyInfo(self, url, infos):
         try:
-            msg = getMessage(self._ctx, g_message, 131, url)
-            logMessage(self._ctx, INFO, msg, 'Driver', 'getPropertyInfo()')
+            self._logger.logprb(INFO, 'Driver', 'getPropertyInfo()', 131, url)
             driver = self._getDriver()
             drvinfo = driver.getPropertyInfo(g_protocol, infos)
             for info in drvinfo:
-                msg = getMessage(self._ctx, g_message, 132, info.Name, info.Value)
-                logMessage(self._ctx, INFO, msg, 'Driver', 'getPropertyInfo()')
+                self._logger.logprb(INFO, 'Driver', 'getPropertyInfo()', 132, info.Name, info.Value)
             return drvinfo
         except SQLException as e:
             raise e
         except Exception as e:
-            msg = getMessage(self._ctx, g_message, 133, e, traceback.print_exc())
-            logMessage(self._ctx, SEVERE, msg, 'Driver', 'getPropertyInfo()')
+            self._logger.logprb(SEVERE, 'Driver', 'getPropertyInfo()', 133, e, traceback.print_exc())
 
     def getMajorVersion(self):
         return 1
@@ -141,14 +139,16 @@ class Driver(unohelper.Base,
         if self._driver is None:
             driver = createService(self._ctx, self._service)
             if driver is None:
-                code = getMessage(self._ctx, g_message, 181)
-                msg = getMessage(self._ctx, g_message, 182, self._service)
+                code = self._logger.resolveString(181)
+                msg = self._logger.resolveString(182, self._service)
                 raise self._getException(code, 1001, msg, self)
             self._driver = driver
         return self._driver
 
     def _getConnectionInfo(self, infos):
         document = storage = url = None
+        service = getConfiguration(self._ctx, g_identifier).getByName('ConnectionService')
+        newinfos = {'ConnectionService': service}
         for info in infos:
             if info.Name == 'URL':
                 url = info.Value
@@ -156,7 +156,10 @@ class Driver(unohelper.Base,
                 storage = info.Value
             elif info.Name == 'Document':
                 document = info.Value
-        return document, storage, url
+            else:
+                newinfos[info.Name] = info.Value
+                print("Driver._getConnectionInfo() Name: %s - Value: %s" % (info.Name, info.Value))
+        return getPropertyValueSet(newinfos), document, storage, url
 
     def _getHandler(self, location):
         document = None

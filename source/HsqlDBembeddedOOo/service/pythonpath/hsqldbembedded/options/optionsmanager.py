@@ -52,6 +52,7 @@ from ..dbconfig import g_jar
 
 from ..configuration import g_extension
 from ..configuration import g_identifier
+from ..configuration import g_defaultlog
 
 import os
 import sys
@@ -70,7 +71,7 @@ class OptionsManager(unohelper.Base):
         version  = ' '.join(sys.version.split())
         path = os.pathsep.join(sys.path)
         infos = {111: version, 112: path}
-        self._logger = LogManager(ctx, window.getPeer(), infos, g_identifier, 'Driver')
+        self._logger = LogManager(ctx, window.getPeer(), infos, g_identifier, g_defaultlog)
         print("OptionsManager.__init__() 2")
 
     def dispose(self):
@@ -98,9 +99,8 @@ class OptionsManager(unohelper.Base):
 
     def saveSetting(self):
         self._logger.saveSetting()
-        if self._model.saveSetting() and self._model.isLevelUpdated():
+        if self._model.saveSetting() and self._model.isUpdated():
             self._view.disableDriverLevel()
-            self._view.disableConnectionLevel()
 
     def loadSetting(self):
         self._logger.loadSetting()
@@ -108,8 +108,7 @@ class OptionsManager(unohelper.Base):
 
     def setDriverService(self, driver):
         print("OptionsManager.setDriverService() ************************")
-        level, updated, enabled = self._model.setDriverService(driver)
-        self._view.setConnectionLevel(level, updated, enabled)
+        self._view.setConnectionLevel(*self._model.setDriverService(driver))
 
     def setConnectionService(self, level):
         self._model.setConnectionService(level)

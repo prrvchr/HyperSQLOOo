@@ -32,10 +32,6 @@ from com.sun.star.logging.LogLevel import SEVERE
 
 from .driver import Driver
 
-from .logger import logMessage
-from .logger import getMessage
-g_message = 'Driver'
-
 import traceback
 
 
@@ -44,6 +40,5 @@ class SdbcDriver(Driver):
     def __init__(self, ctx, lock, service, name):
         Driver.__init__(self, ctx, lock, service, name)
         self._services = ('com.sun.star.sdbc.Driver')
-        msg = getMessage(ctx, g_message, 101)
-        logMessage(ctx, INFO, msg, 'SdbcDriver', '__init__()')
+        self._logger.logprb(INFO, 'SdbcDriver', '__init__()', 101)
 

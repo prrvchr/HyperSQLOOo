@@ -36,10 +36,6 @@ from com.sun.star.sdbcx import XDropCatalog
 
 from .driver import Driver
 
-from .logger import logMessage
-from .logger import getMessage
-g_message = 'Driver'
-
 import traceback
 
 
@@ -51,34 +47,28 @@ class SdbcxDriver(Driver,
     def __init__(self, ctx, lock, service, name):
         Driver.__init__(self, ctx, lock, service, name)
         self._services = ('com.sun.star.sdbc.Driver', 'com.sun.star.sdbcx.Driver')
-        msg = getMessage(self._ctx, g_message, 101)
-        logMessage(self._ctx, INFO, msg, 'SdbcxDriver', '__init__()')
+        self._logger.logprb(INFO, 'SdbcxDriver', '__init__()', 101)
 
     # XDataDefinitionSupplier
     def getDataDefinitionByConnection(self, connection):
         try:
-            msg = getMessage(self._ctx, g_message, 141)
-            logMessage(self._ctx, INFO, msg, 'Driver', 'getDataDefinitionByConnection()')
+            self._logger.logprb(INFO, 'SdbcxDriver', 'getDataDefinitionByConnection()', 141)
             driver = self._getDriver()
             return driver.getDataDefinitionByConnection(connection)
         except SQLException as e:
             raise e
         except Exception as e:
-            msg = getMessage(self._ctx, g_message, 142, e, traceback.print_exc())
-            logMessage(self._ctx, SEVERE, msg, 'Driver', 'getDataDefinitionByConnection()')
+            self._logger.logprb(SEVERE, 'SdbcxDriver', 'getDataDefinitionByConnection()', 142, e, traceback.print_exc())
 
     def getDataDefinitionByURL(self, url, infos):
-        msg = getMessage(self._ctx, g_message, 151, url)
-        logMessage(self._ctx, INFO, msg, 'Driver', 'getDataDefinitionByURL()')
+        self._logger.logprb(INFO, 'SdbcxDriver', 'getDataDefinitionByURL()', 151, url)
         return self.getDataDefinitionByConnection(connect(url, infos))
 
     # XCreateCatalog
     def createCatalog(self, info):
-        msg = getMessage(self._ctx, g_message, 161)
-        logMessage(self._ctx, INFO, msg, 'Driver', 'createCatalog()')
+        self._logger.logprb(INFO, 'SdbcxDriver', 'createCatalog()', 161)
 
     # XDropCatalog
     def dropCatalog(self, name, info):
-        msg = getMessage(self._ctx, g_message, 171, name)
-        logMessage(self._ctx, INFO, msg, 'Driver', 'dropCatalog()')
+        self._logger.logprb(INFO, 'SdbcxDriver', 'dropCatalog()', 171, name)
 

@@ -48,7 +48,7 @@ import traceback
 
 class OptionsModel(unohelper.Base):
 
-    _level = None
+    _level = False
     _reboot = False
 
     def __init__(self, ctx):
@@ -90,26 +90,22 @@ class OptionsModel(unohelper.Base):
 
 # OptionsModel setter methods
     def setDriverService(self, driver):
-        OptionsModel._level = False
+        OptionsModel._level = True
         self._config.replaceByName('DriverService', self._services.get('Driver')[driver])
         connection = self._services.get('Connection').index(self._getConnectionService())
         if driver and not connection:
             connection = 1
             self._config.replaceByName('ConnectionService', self._services.get('Connection')[connection])
-        return connection, self.isUpdated(), self._isConnectionEnabled(driver)
+        return connection, self._isConnectionEnabled(driver)
 
     def setConnectionService(self, level):
-        OptionsModel._level = False
         self._config.replaceByName('ConnectionService', self._services.get('Connection')[level])
 
     def saveSetting(self):
-        config = self._config.hasPendingChanges()
-        if config:
+        if self._config.hasPendingChanges():
             self._config.commitChanges()
-            if OptionsModel._level is not None:
-                OptionsModel._level = True
-        if config:
-            OptionsModel._reboot = True
+            if OptionsModel._level:
+                OptionsModel._reboot = True
             return True
         return False
 
@@ -130,9 +126,11 @@ class OptionsModel(unohelper.Base):
             driver.dispose()
             return version
         except UnoException as e:
+            print("OptionsModel._getDriverVersion() Error: %s" % e.Message)
             logger = getLogger(self._ctx, g_defaultlog, g_basename)
             logger.logprb(SEVERE, 'OptionsModel', '_getDriverVersion()', 141, e.Message)
         except Exception as e:
+            print("OptionsModel._getDriverVersion() Error: %s - Traceback: %s" % (e, traceback.print_exc()))
             logger = getLogger(self._ctx, g_defaultlog, g_basename)
-            logger.logprb(SEVERE, 'OptionsModel', '_getDriverVersion()', 142, e, traceback.print_exc())
+            logger.logprb(SEVERE, 'OptionsModel', '_getDriverVersion()', 142, str(e), traceback.print_exc())
 
