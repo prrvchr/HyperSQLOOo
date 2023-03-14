@@ -33,5 +33,6 @@
   oor:name="HsqlDBembeddedOOo">
     <component>
         <prop oor:name="DriverService" oor:type="xs:string"/>
+        <prop oor:name="ConnectionService" oor:type="xs:string"/>
     </component>
 </oor:component-schema>

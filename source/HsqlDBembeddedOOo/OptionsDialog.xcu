@@ -27,7 +27,7 @@
                         <value>%origin%/HsqlDBembeddedOOo/OptionsDialog.xdl</value>
                     </prop>
                     <prop oor:name="EventHandlerService">
-                        <value>io.github.prrvchr.HsqlDBembeddedOOo.OptionsDialog</value>
+                        <value>io.github.prrvchr.HsqlDBembeddedOOo.OptionsHandler</value>
                     </prop>
                 </node>
             </node>

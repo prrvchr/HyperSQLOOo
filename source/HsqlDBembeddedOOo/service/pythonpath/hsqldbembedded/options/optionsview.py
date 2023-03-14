@@ -1,5 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+#!
+# -*- coding: utf-8 -*-
+
+"""
 ╔════════════════════════════════════════════════════════════════════════════════════╗
 ║                                                                                    ║
 ║   Copyright (c) 2020 https://prrvchr.github.io                                     ║
@@ -23,15 +25,73 @@
 ║   OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                                    ║
 ║                                                                                    ║
 ╚════════════════════════════════════════════════════════════════════════════════════╝
--->
-<!DOCTYPE manifest:manifest PUBLIC "-//OpenOffice.org//DTD Manifest 1.0//EN" "Manifest.dtd">
-<manifest:manifest xmlns:manifest="http://openoffice.org/2001/manifest">
-    <manifest:file-entry manifest:media-type="application/vnd.sun.star.uno-typelibrary;type=RDB" manifest:full-path="types.rdb"/>
-    <manifest:file-entry manifest:media-type="application/vnd.sun.star.basic-library" manifest:full-path="HsqlDBembeddedOOo/"/>
-    <manifest:file-entry manifest:media-type="application/vnd.sun.star.configuration-schema" manifest:full-path="Options.xcs"/>
-    <manifest:file-entry manifest:media-type="application/vnd.sun.star.configuration-data" manifest:full-path="Options.xcu"/>
-    <manifest:file-entry manifest:media-type="application/vnd.sun.star.configuration-data" manifest:full-path="OptionsDialog.xcu"/>
-    <manifest:file-entry manifest:media-type="application/vnd.sun.star.configuration-data" manifest:full-path="Drivers.xcu"/>
-    <manifest:file-entry manifest:media-type="application/vnd.sun.star.uno-component;type=Python" manifest:full-path="service/OptionsHandler.py"/>
-    <manifest:file-entry manifest:media-type="application/vnd.sun.star.uno-component;type=Python" manifest:full-path="service/Driver.py"/>
-</manifest:manifest>
+"""
+
+import uno
+import unohelper
+
+from ..unotool import getContainerWindow
+
+from ..configuration import g_extension
+
+import traceback
+
+
+class OptionsView(unohelper.Base):
+    def __init__(self, window, driver, connection, updated, enabled, version, reboot):
+        self._window = window
+        self.initView(driver, connection, updated, enabled, version, reboot)
+
+# OptionsView setter methods
+    def initView(self, driver, connection, updated, enabled, version, reboot):
+        self._getVersion().Text = version
+        self._getDriverService(driver).State = 1
+        if updated:
+            self.disableDriverLevel()
+        self._getConnectionService(connection).State = 1
+        if updated:
+            self.disableConnectionLevel()
+        else:
+            self._getConnectionService(0).Model.Enabled = enabled
+        self._getReboot().setVisible(reboot)
+
+    def setDriverVersion(self, version):
+        self._getVersion().Text = version
+
+    def setDriverLevel(self, level, updated):
+        self._getDriverService(level).State = 1
+        if updated:
+            self.disableDriverLevel()
+
+    def setConnectionLevel(self, level, updated, enabled):
+        self._getConnectionService(level).State = 1
+        if updated:
+            self.disableConnectionLevel()
+        else:
+            self._getConnectionService(0).Model.Enabled = enabled
+
+    def disableDriverLevel(self):
+        self._getDriverService(0).Model.Enabled = False
+        self._getDriverService(1).Model.Enabled = False
+
+    def disableConnectionLevel(self):
+        self._getConnectionService(0).Model.Enabled = False
+        self._getConnectionService(1).Model.Enabled = False
+        self._getConnectionService(2).Model.Enabled = False
+
+    def setReboot(self, state):
+        self._getReboot().setVisible(state)
+
+# OptionsView private control methods
+    def _getDriverService(self, index):
+        return self._window.getControl('OptionButton%s' % (index + 1))
+
+    def _getConnectionService(self, index):
+        return self._window.getControl('OptionButton%s' % (index + 3))
+
+    def _getVersion(self):
+        return self._window.getControl('Label2')
+
+    def _getReboot(self):
+        return self._window.getControl('Label5')
+

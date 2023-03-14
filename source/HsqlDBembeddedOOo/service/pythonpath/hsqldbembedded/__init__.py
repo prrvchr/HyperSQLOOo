@@ -47,10 +47,7 @@ from .dbconfig import g_path
 from .dbconfig import g_protocol
 from .dbconfig import g_shutdown
 
-from .logger import clearLogger
-from .logger import getLoggerSetting
-from .logger import getLoggerUrl
-from .logger import getMessage
-from .logger import logMessage
-from .logger import setLoggerSetting
+from .options import OptionsManager
+
+from .logger import getLogger
 
