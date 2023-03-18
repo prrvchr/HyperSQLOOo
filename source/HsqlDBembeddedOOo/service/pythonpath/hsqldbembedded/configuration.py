@@ -32,7 +32,7 @@ g_extension = 'HsqlDBembeddedOOo'
 g_identifier = 'io.github.prrvchr.%s' % g_extension
 g_resource = 'resource'
 g_basename = 'Driver'
-g_defaultlog = 'Logger'
+g_defaultlog = 'HsqlDBembeddedLogger'
 g_errorlog = 'HsqlDBembeddedError'
 
 
