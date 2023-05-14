@@ -1,4 +1,7 @@
-/*
+#!
+# -*- coding: utf-8 -*-
+
+"""
 ╔════════════════════════════════════════════════════════════════════════════════════╗
 ║                                                                                    ║
 ║   Copyright (c) 2020 https://prrvchr.github.io                                     ║
@@ -22,24 +25,13 @@
 ║   OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                                    ║
 ║                                                                                    ║
 ╚════════════════════════════════════════════════════════════════════════════════════╝
- */
+"""
 
-#ifndef __com_sun_star_auth_RestRequestEnumerator_idl__
-#define __com_sun_star_auth_RestRequestEnumerator_idl__
+from .database import DataBase
 
-#include <com/sun/star/auth/RestRequestToken.idl>
+from .datasource import DataSource
 
-module com { module sun { module star { module auth {
+from .provider import Provider
 
-struct RestRequestEnumerator
-{
+from .provider import getSqlException
 
-    ::com::sun::star::auth::RestRequestToken Token;
-    string Field;
-
-
-};
-
-}; }; }; };
-
-#endif

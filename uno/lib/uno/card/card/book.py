@@ -1,4 +1,7 @@
-/*
+#!
+# -*- coding: utf-8 -*-
+
+"""
 ╔════════════════════════════════════════════════════════════════════════════════════╗
 ║                                                                                    ║
 ║   Copyright (c) 2020 https://prrvchr.github.io                                     ║
@@ -22,25 +25,85 @@
 ║   OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                                    ║
 ║                                                                                    ║
 ╚════════════════════════════════════════════════════════════════════════════════════╝
- */
+"""
 
-#ifndef __com_sun_star_rest_XRequestDataSink_idl__
-#define __com_sun_star_rest_XRequestDataSink_idl__
+import uno
+import unohelper
 
-#include <com/sun/star/io/XActiveDataSink.idl>
+from collections import OrderedDict
+import traceback
 
-module com { module sun { module star { module rest {
 
-interface XRequestDataSink: com::sun::star::io::XActiveDataSink
-{
+class Books(unohelper.Base):
+    def __init__(self, ctx, metadata, new):
+        self._ctx = ctx
+        print("Books.__init__() 1")
+        self._books = self._getBooks(metadata, new)
+        print("Books.__init__() 2")
 
-    sequence<byte> read([in] long Length);
-    void close();
-    void seek([in] hyper Location);
-    hyper tell();
+    def getBooks(self):
+        return self._books.values()
 
-};
+    def hasBook(self, uri):
+        return uri in self._books
 
-}; }; }; };
+    def getBook(self, uri):
+        return self._books[uri]
 
-#endif
+    def setBook(self, uri, book):
+        self._books[uri] = book
+
+    # Private methods
+    def _getBooks(self, metadata, new):
+        i = 0
+        books = OrderedDict()
+        aids, names, tags, tokens = self._getBookMetaData(metadata)
+        for uri in metadata.getValue('Uris'):
+            # FIXME: If url is None we don't add this addressbook
+            if uri is None:
+                continue
+            print("AddressBook._getBooks() Url: %s - Name: %s - Index: %s - Tag: %s - Token: %s" % (uri, names[i], aids[i], tags[i], tokens[i]))
+            books[uri] = Book(self._ctx, aids[i], uri, names[i], tags[i], tokens[i], new)
+            i += 1
+        return books
+
+    def _getBookMetaData(self, data):
+        return data.getValue('Aids'), data.getValue('Names'), data.getValue('Tags'), data.getValue('Tokens')
+
+
+class Book(unohelper.Base):
+    def __init__(self, ctx, bid, uri, name, tag, token, new=False):
+        self._ctx = ctx
+        self._id = bid
+        self._uri = uri
+        self._name = name
+        self._tag = tag
+        self._token = token
+        self._new = new
+
+    @property
+    def Id(self):
+        return self._id
+    @property
+    def Uri(self):
+        return self._uri
+    @property
+    def Name(self):
+        return self._name
+    @property
+    def Tag(self):
+        return self._tag
+    @property
+    def Token(self):
+        return self._token
+
+    def isNew(self):
+        new = self._new
+        self._new = False
+        return new
+
+    def hasNameChanged(self, name):
+        return self._name != name
+
+    def setName(self, name):
+        self.Name = name
