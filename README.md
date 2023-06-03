@@ -14,7 +14,7 @@ This extension allows you:
 - To overcome [bug 139538][8] for users of **LibreOffice on Linux**.
 - To use HsqlDB in embedded mode, making the database portable (a single odb file), with the HsqlDB driver version of your choice.
 - To take advantage of the improvements offered by the [jdbcDriverOOo][9] extension with the management of users and roles (groups).
-- To replace the integrated [HsqlDB 1.8][10] driver provided by LibreOffice / OpenOffice, a version that dates back more than 10 years, with a recent HsqlDB version of your choice.
+- To replace the integrated [HsqlDB 1.8][10] driver provided by LibreOffice / OpenOffice, a version that will soon be more than 20 years old, with a recent HsqlDB version of your choice.
 
 Being free software I encourage you:
 - To duplicate its [source code][11].
@@ -30,10 +30,9 @@ Because it is together that we can make Free Software smarter.
 Its use requires the [installation and configuration][14] in LibreOffice / OpenOffice of a **JRE version 11 or later**.  
 I recommend [Adoptium][15] as your Java installation source.
 
-If you are using **LibreOffice on Linux**, then you are subject to [bug 139538][8].  
-To work around the problem, please uninstall the packages:
-- libreoffice-sdbc-hsqldb
-- libhsqldb1.8.0-java
+If you are using **LibreOffice on Linux**, then you are subject to [bug 139538][8]. To work around the problem, please **uninstall the packages** with commands:
+- `sudo apt remove libreoffice-sdbc-hsqldb` (to uninstall the libreoffice-sdbc-hsqldb package)
+- `sudo apt remove libhsqldb1.8.0-java` (to uninstall the libhsqldb1.8.0-java package)
 
 OpenOffice and LibreOffice on Windows are not subject to this malfunction.
 

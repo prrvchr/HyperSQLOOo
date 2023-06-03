@@ -14,7 +14,7 @@ Cette extension vous permet:
 - De surmonter le [dysfonctionnement 139538][8] pour les utilisateurs de **LibreOffice sur Linux**.
 - D'utiliser HsqlDB en mode intégré, rendant la base de donnée portable (un seul fichier odb), avec la version du pilote HsqlDB de votre choix.
 - De profitez des améliorations offertes par l'extension [jdbcDriverOOo][9] avec la gestion des utilisateurs et des rôles (groupes).
-- De remplacer le pilote [HsqlDB 1.8][10] intégré fourni par LibreOffice / OpenOffice, une version qui date de plus de 10 ans, par une version HsqlDB récente et à votre choix.
+- De remplacer le pilote [HsqlDB 1.8][10] intégré fourni par LibreOffice / OpenOffice, une version qui aura bientôt plus de 20 ans, par une version HsqlDB récente et à votre choix.
 
 Etant un logiciel libre je vous encourage:
 - A dupliquer son [code source][11].
@@ -30,10 +30,9 @@ Car c'est ensemble que nous pouvons rendre le Logiciel Libre plus intelligent.
 Son utilisation nécessite [l'installation et la configuration][14] dans LibreOffice / OpenOffice d'un **JRE version 11 ou ultérieure**.  
 Je vous recommande [Adoptium][15] comme source d'installation de Java.
 
-Si vous utilisez **LibreOffice sous Linux**, alors vous êtes sujet au [dysfonctionnement 139538][8].  
-Pour contourner le problème, veuillez désinstaller les paquets:
-- libreoffice-sdbc-hsqldb
-- libhsqldb1.8.0-java
+Si vous utilisez **LibreOffice sous Linux**, alors vous êtes sujet au [dysfonctionnement 139538][8]. Pour contourner le problème, veuillez **désinstaller les paquets** avec les commandes:
+- `sudo apt remove libreoffice-sdbc-hsqldb` (pour désinstaller le paquet libreoffice-sdbc-hsqldb)
+- `sudo apt remove libhsqldb1.8.0-java` (pour désinstaller le paquet libhsqldb1.8.0-java)
 
 OpenOffice et LibreOffice sous Windows ne sont pas soumis à ce dysfonctionnement.
 
