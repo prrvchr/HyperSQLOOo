@@ -95,9 +95,9 @@ If you want to migrate an integrated database (HsqlDB version 1.8.0) to a newer 
 
 * LibreOffice 6.4.4.2 - Windows 7 SP1
 
-I encourage you in case of problem :-(  
+I encourage you in case of problem :confused:  
 to create an [issue][12]  
-I will try to solve it ;-)
+I will try to solve it :smile:
 
 ## Historical:
 
@@ -147,7 +147,7 @@ I will try to solve it ;-)
 
 - Rewrote [Driver.py][27] to allow:
   - Its operation with the new JDBC driver provided by the extension [jdbcDriverOOo][9] version 0.0.4.
-  - The support for the new [DocumentHandler][28] to make **odb** files portable as they were in LibreOffice / OpenOffce with version 1.8 of HsqlDB.
+  - The support for the new [DocumentHandler][28] to make **odb** files portable as they were in LibreOffice / OpenOffice with version 1.8 of HsqlDB.
 
 - Many other fix...
 

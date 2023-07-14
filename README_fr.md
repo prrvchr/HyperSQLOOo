@@ -95,9 +95,9 @@ Si vous souhaitez migrer une base de données intégrée (HsqlDB version 1.8.0) 
 
 * LibreOffice 6.4.4.2 - Windows 7 SP1
 
-Je vous encourage en cas de problème :-(  
+Je vous encourage en cas de problème :confused:  
 de créer un [dysfonctionnement][12]  
-J'essaierai de le résoudre ;-)
+J'essaierai de le résoudre :smile:
 
 ## Historique:
 
@@ -147,7 +147,7 @@ J'essaierai de le résoudre ;-)
 
 - Réécriture de [Driver.py][27] afin de permettre:
   - Son fonctionnement avec le nouveau pilote JDBC fourni par l'extension [jdbcDriverOOo][9] version 0.0.4.
-  - La prise en charge du nouveau [DocumentHandler][28] afin de rendre les fichiers **odb** portables tels qu'ils étaient dans LibreOffice / OpenOffce avec la version 1.8 de HsqlDB.
+  - La prise en charge du nouveau [DocumentHandler][28] afin de rendre les fichiers **odb** portables tels qu'ils étaient dans LibreOffice / OpenOffice avec la version 1.8 de HsqlDB.
 
 - Beaucoup d'autres correctifs...
 
