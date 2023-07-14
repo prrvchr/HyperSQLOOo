@@ -34,9 +34,9 @@ from com.sun.star.awt import XContainerWindowEventHandler
 
 from com.sun.star.lang import XServiceInfo
 
-from hsqldbembedded import OptionsManager
+from hsqldriver import OptionsManager
 
-from hsqldbembedded import g_identifier
+from hsqldriver import g_identifier
 
 import traceback
 

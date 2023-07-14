@@ -30,7 +30,7 @@
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   oor:package="io.github.prrvchr"
-  oor:name="HsqlDBembeddedOOo">
+  oor:name="HsqlDriverOOo">
     <prop oor:name="DriverService" oor:op="fuse">
         <value>io.github.prrvchr.jdbcdriver.sdbcx.Driver</value>
     </prop>

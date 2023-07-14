@@ -1,14 +1,14 @@
-# ![HsqlDBembeddedOOo logo][1] HsqlDBembeddedOOo
+# Documentation
 
 **Ce [document][2] en français.**
 
-**The use of this software subjects you to our** [**Terms Of Use**][3]
+**The use of this software subjects you to our [Terms Of Use][3].**
 
-# version [0.0.5][4]
+# version [1.0.0][4]
 
 ## Introduction:
 
-**HsqlDBembeddedOOo** is part of a [Suite][5] of [LibreOffice][6] and/or [OpenOffice][7] extensions allowing to offer you innovative services in these office suites.  
+**HsqlDriverOOo** is part of a [Suite][5] of [LibreOffice][6] and/or [OpenOffice][7] extensions allowing to offer you innovative services in these office suites.  
 
 This extension allows you:
 - To overcome [bug 139538][8] for users of **LibreOffice on Linux**.
@@ -44,7 +44,7 @@ If necessary, rename it before installing it.
 - Install ![jdbcDriverOOo logo][16] **[jdbcDriverOOo.oxt][17]** extension version 0.0.4.  
 This extension is necessary to use HsqlDB version 2.5.1 with all its features.
 
-- Install ![HsqlDBembeddedOOo logo][18] **[HsqlDBembeddedOOo.oxt][19]** extension version 0.0.5.
+- Install ![HsqlDriverOOo logo][1] **[HsqlDriverOOo.oxt][18]** extension version 1.0.0.
 
 Restart LibreOffice / OpenOffice after installation.
 
@@ -54,20 +54,20 @@ Restart LibreOffice / OpenOffice after installation.
 
 In LibreOffice / OpenOffice go to File -> New -> Database...:
 
-![HsqlDBembeddedOOo screenshot 1][20]
+![HsqlDriverOOo screenshot 1][19]
 
 In step: Select database:
 - select: Create a new database
 - in: Emdedded database: choose: Embedded HsqlDB Driver
 - click on button: Next
 
-![HsqlDBembeddedOOo screenshot 2][21]
+![HsqlDriverOOo screenshot 2][20]
 
 In step: Save and proceed:
 - adjust the parameters according to your needs...
 - click on button: Finish
 
-![HsqlDBembeddedOOo screenshot 3][22]
+![HsqlDriverOOo screenshot 3][21]
 
 Have fun...
 
@@ -80,9 +80,9 @@ If you want to migrate an integrated database (HsqlDB version 1.8.0) to a newer 
 - 4 - Restart LibreOffice / OpenOffice after changing the driver (hsqldb.jar).
 - 5 - Open the odb file in Base (double click on the odb file).
 - 6 - In Base go to: **Tools -> SQL** and type the SQL command: `SHUTDOWN COMPACT` or `SHUTDOWN SCRIPT`.
-- 7 - Update driver archive of the HsqlDB driver in: **Tools -> Options -> Base drivers -> JDBC driver -> JDBC drivers settings**, with a version [2.4.0][23] or [2.4.1][24] or [2.5.0][25].
+- 7 - Update driver archive of the HsqlDB driver in: **Tools -> Options -> Base drivers -> JDBC driver -> JDBC drivers settings**, with a version [2.4.0][22] or [2.4.1][23] or [2.5.0][24].
 - 8 - Restart LibreOffice / OpenOffice after changing the driver (hsqldb.jar).
-- Repeat this procedure at step 5 using version [2.5.1][26].
+- Repeat this procedure at step 5 using version [2.5.1][25].
 - To finish, repeat step 5 then 6.
 
 ## Has been tested with:
@@ -103,7 +103,7 @@ I will try to solve it ;-)
 
 ### What has been done for version 0.0.1:
 
-- The writing of this driver was facilitated by a [discussion with Villeroy][27], on the OpenOffice forum, which I would like to thank, because knowledge is only worth if it is shared...
+- The writing of this driver was facilitated by a [discussion with Villeroy][26], on the OpenOffice forum, which I would like to thank, because knowledge is only worth if it is shared...
 
 - Using the old version of HsqlDB 1.8.0 (can be easily updated).
 
@@ -135,19 +135,19 @@ I will try to solve it ;-)
 
 ### What has been done for version 0.0.4:
 
-- Modification of [Driver.py][28] in order to make possible the use of the Uno service: `com.sun.star.sdb.RowSet`.
+- Modification of [Driver.py][27] in order to make possible the use of the Uno service: `com.sun.star.sdb.RowSet`.
 
 - Many other fix...
 
 ### What has been done for version 0.0.5:
 
-- Writing a [DocumentHandler][29] to allow:
+- Writing a [DocumentHandler][28] to allow:
   - The extraction of the database files contained in the **odb** file on connection.
   - Saving database files to **odb** file when closing it.
 
-- Rewrote [Driver.py][28] to allow:
+- Rewrote [Driver.py][27] to allow:
   - Its operation with the new JDBC driver provided by the extension [jdbcDriverOOo][9] version 0.0.4.
-  - The support for the new [DocumentHandler][29] to make **odb** files portable as they were in LibreOffice / OpenOffce with version 1.8 of HsqlDB.
+  - The support for the new [DocumentHandler][28] to make **odb** files portable as they were in LibreOffice / OpenOffce with version 1.8 of HsqlDB.
 
 - Many other fix...
 
@@ -157,32 +157,31 @@ I will try to solve it ;-)
 
 - Anything welcome...
 
-[1]: <img/HsqlDBembeddedOOo.png>
-[2]: <https://prrvchr.github.io/HsqlDBembeddedOOo/README_fr>
-[3]: <https://prrvchr.github.io/HsqlDBembeddedOOo/source/HsqlDBembeddedOOo/registration/TermsOfUse_en>
-[4]: <https://prrvchr.github.io/HsqlDBembeddedOOo#historical>
+[1]: <img/HsqlDriverOOo.svg>
+[2]: <https://prrvchr.github.io/HsqlDriverOOo/README_fr>
+[3]: <https://prrvchr.github.io/HsqlDriverOOo/source/HsqlDriverOOo/registration/TermsOfUse_en>
+[4]: <https://prrvchr.github.io/HsqlDriverOOo#historical>
 [5]: <https://prrvchr.github.io/>
 [6]: <https://www.libreoffice.org/download/download/>
 [7]: <https://www.openoffice.org/download/index.html>
 [8]: <https://bugs.documentfoundation.org/show_bug.cgi?id=139538>
 [9]: <https://prrvchr.github.io/jdbcDriverOOo/>
 [10]: <https://repo1.maven.org/maven2/org/hsqldb/hsqldb/1.8.0.10/hsqldb-1.8.0.10.jar>
-[11]: <https://github.com/prrvchr/HsqlDBembeddedOOo/>
-[12]: <https://github.com/prrvchr/HsqlDBembeddedOOo/issues/new>
+[11]: <https://github.com/prrvchr/HsqlDriverOOo/>
+[12]: <https://github.com/prrvchr/HsqlDriverOOo/issues/new>
 [13]: <http://hsqldb.org/>
 [14]: <https://wiki.documentfoundation.org/Documentation/HowTo/Install_the_correct_JRE_-_LibreOffice_on_Windows_10>
 [15]: <https://adoptium.net/releases.html?variant=openjdk11>
-[16]: <https://prrvchr.github.io/jdbcDriverOOo/img/jdbcDriverOOo.png>
+[16]: <https://prrvchr.github.io/jdbcDriverOOo/img/jdbcDriverOOo.svg>
 [17]: <https://github.com/prrvchr/jdbcDriverOOo/raw/master/jdbcDriverOOo.oxt>
-[18]: <img/HsqlDBembeddedOOo.png>
-[19]: <https://github.com/prrvchr/HsqlDBembeddedOOo/raw/master/HsqlDBembeddedOOo.oxt>
-[20]: <img/HsqlDBembeddedOOo-1.png>
-[21]: <img/HsqlDBembeddedOOo-2.png>
-[22]: <img/HsqlDBembeddedOOo-3.png>
-[23]: <https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.4.0/hsqldb-2.4.0.jar>
-[24]: <https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.4.1/hsqldb-2.4.1.jar>
-[25]: <https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.5.0/hsqldb-2.5.0.jar>
-[26]: <https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.5.1/hsqldb-2.5.1.jar>
-[27]: <https://forum.openoffice.org/en/forum/viewtopic.php?f=13&t=103912>
-[28]: <https://github.com/prrvchr/HsqlDBembeddedOOo/blob/master/source/HsqlDBembeddedOOo/service/Driver.py>
-[29]: <https://github.com/prrvchr/HsqlDBembeddedOOo/blob/master/uno/lib/uno/database/documenthandler.py>
+[18]: <https://github.com/prrvchr/HsqlDriverOOo/raw/master/HsqlDriverOOo.oxt>
+[19]: <img/HsqlDriverOOo-1.png>
+[20]: <img/HsqlDriverOOo-2.png>
+[21]: <img/HsqlDriverOOo-3.png>
+[22]: <https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.4.0/hsqldb-2.4.0.jar>
+[23]: <https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.4.1/hsqldb-2.4.1.jar>
+[24]: <https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.5.0/hsqldb-2.5.0.jar>
+[25]: <https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.5.1/hsqldb-2.5.1.jar>
+[26]: <https://forum.openoffice.org/en/forum/viewtopic.php?f=13&t=103912>
+[27]: <https://github.com/prrvchr/HsqlDriverOOo/blob/master/source/HsqlDriverOOo/service/Driver.py>
+[28]: <https://github.com/prrvchr/HsqlDriverOOo/blob/master/uno/lib/uno/database/documenthandler.py>

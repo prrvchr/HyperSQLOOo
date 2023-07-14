@@ -1,7 +1,5 @@
-#!
-# -*- coding: utf_8 -*-
-
-"""
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
 ╔════════════════════════════════════════════════════════════════════════════════════╗
 ║                                                                                    ║
 ║   Copyright (c) 2020 https://prrvchr.github.io                                     ║
@@ -25,14 +23,16 @@
 ║   OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                                    ║
 ║                                                                                    ║
 ╚════════════════════════════════════════════════════════════════════════════════════╝
-"""
-
-# General configuration
-g_extension = 'HsqlDBembeddedOOo'
-g_identifier = 'io.github.prrvchr.%s' % g_extension
-g_resource = 'resource'
-g_basename = 'Driver'
-g_defaultlog = 'HsqlDBembeddedLogger'
-g_errorlog = 'HsqlDBembeddedError'
-
-
+-->
+<oor:component-schema
+  xml:lang="en-US"
+  xmlns:oor="http://openoffice.org/2001/registry"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  oor:package="io.github.prrvchr"
+  oor:name="HsqlDriverOOo">
+    <component>
+        <prop oor:name="DriverService" oor:type="xs:string"/>
+        <prop oor:name="ConnectionService" oor:type="xs:string"/>
+    </component>
+</oor:component-schema>
