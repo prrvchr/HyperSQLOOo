@@ -24,6 +24,7 @@ Being free software I encourage you:
 In short, to participate in the development of this extension.  
 Because it is together that we can make Free Software smarter.
 
+___
 ## Requirement:
 
 [HsqlDB][13] is a database written in Java.  
@@ -36,6 +37,7 @@ If you are using **LibreOffice on Linux**, then you are subject to [bug 139538][
 
 OpenOffice and LibreOffice on Windows are not subject to this malfunction.
 
+___
 ## Installation:
 
 It seems important that the file was not renamed when it was downloaded.
@@ -48,6 +50,7 @@ This extension is necessary to use HsqlDB version 2.5.1 with all its features.
 
 Restart LibreOffice / OpenOffice after installation.
 
+___
 ## Use:
 
 ### How to create a new database:
@@ -85,6 +88,7 @@ If you want to migrate an integrated database (HsqlDB version 1.8.0) to a newer 
 - Repeat this procedure at step 5 using version [2.5.1][25].
 - To finish, repeat step 5 then 6.
 
+___
 ## Has been tested with:
 
 * OpenOffice 4.1.8 - Ubuntu 20.04 - LxQt 0.14.1
@@ -99,6 +103,7 @@ I encourage you in case of problem :confused:
 to create an [issue][12]  
 I will try to solve it :smile:
 
+___
 ## Historical:
 
 ### What has been done for version 0.0.1:
