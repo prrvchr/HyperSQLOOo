@@ -118,7 +118,7 @@ ___
 
 ### What has been done for version 0.0.2:
 
-- Now the driver automatically splits an odb when opened... This allow conversion of odb files produced by the built-in LibreOffice / OpenOffice HsqlDB driver ;-)
+- Now the driver automatically splits an odb when opened... This allow conversion of odb files produced by the built-in LibreOffice / OpenOffice HsqlDB driver :wink:
 
 - Many other fix...
 

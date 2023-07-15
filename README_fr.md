@@ -118,7 +118,7 @@ ___
 
 ### Ce qui a été fait pour la version 0.0.2:
 
-- Maintenant, le pilote divise automatiquement un odb lorsqu'il est ouvert... Cela permet la conversion des fichiers odb produits par le pilote LibreOffice / OpenOffice HsqlDB intégré ;-)
+- Maintenant, le pilote divise automatiquement un odb lorsqu'il est ouvert... Cela permet la conversion des fichiers odb produits par le pilote LibreOffice / OpenOffice HsqlDB intégré :wink:
 
 - Beaucoup d'autres correctifs...
 
