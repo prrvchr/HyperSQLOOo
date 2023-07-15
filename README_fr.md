@@ -77,12 +77,12 @@ Maintenant à vous d'en profiter...
 ### Comment migrer une base de données intégrée:
 
 Si vous souhaitez migrer une base de données intégrée (HsqlDB version 1.8.0) vers une version plus récente (par exemple 2.7.2), procédez comme suit:
-- 1 - Faite une copie (sauvegarde) de votre base de données (fichier odb).
-- 2 - Si elles ne sont pas déjà installées, installez cette extension et l'extension [jdbcDriverOOo][9].
-- 3 - Changez l'archive du pilote HsqlDB dans: **Outils -> Options -> Pilotes Base -> Pilote JDBC -> Options des pilotes JDBC -> Archive -> Changer**, par une version [1.8.1.10][10].
-- 4 - Redémarrer LibreOffice / OpenOffice aprés le changement du pilote (hsqldb.jar).
-- 5 - Ouvrir le fichier odb dans Base (double clique sur le fichier odb).
-- 6 - Dans Base allez à: **Outils -> SQL** et tapez la commande SQL: `SHUTDOWN COMPACT` ou `SHUTDOWN SCRIPT`.
+1. Faite une copie (sauvegarde) de votre base de données (fichier odb).
+2. Si elles ne sont pas déjà installées, installez cette extension et l'extension [jdbcDriverOOo][9].
+3. Changez l'archive du pilote HsqlDB dans: **Outils -> Options -> Pilotes Base -> Pilote JDBC -> Options des pilotes JDBC -> Archive -> Changer**, par une version [1.8.1.10][10].
+4. Redémarrer LibreOffice / OpenOffice aprés le changement du pilote (hsqldb.jar).
+5. Ouvrir le fichier odb dans Base (double clique sur le fichier odb).
+6. Dans Base allez à: **Outils -> SQL** et tapez la commande SQL: `SHUTDOWN COMPACT` ou `SHUTDOWN SCRIPT`.
 - Recommencez cette procédure à l'étape 3 en utilisant une version [2.4.0][22] ou [2.4.1][23] ou [2.5.0][24].
 - Recommencez cette procédure à l'étape 3 en utilisant la version [2.7.2][25].
 
