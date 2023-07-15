@@ -83,6 +83,7 @@ Si vous souhaitez migrer une base de données intégrée (HsqlDB version 1.8.0) 
 4. Redémarrer LibreOffice / OpenOffice aprés le changement du pilote (hsqldb.jar).
 5. Ouvrir le fichier odb dans Base (double clique sur le fichier odb).
 6. Dans Base allez à: **Outils -> SQL** et tapez la commande SQL: `SHUTDOWN COMPACT` ou `SHUTDOWN SCRIPT`.
+
 - Recommencez cette procédure à l'étape 3 en utilisant une version [2.4.0][22] ou [2.4.1][23] ou [2.5.0][24].
 - Recommencez cette procédure à l'étape 3 en utilisant la version [2.7.2][25].
 
