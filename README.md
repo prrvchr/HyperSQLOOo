@@ -43,7 +43,7 @@ ___
 It seems important that the file was not renamed when it was downloaded.
 If necessary, rename it before installing it.
 
-- Install ![jdbcDriverOOo logo][16] **[jdbcDriverOOo.oxt][17]** extension version 0.0.4.  
+- Install ![jdbcDriverOOo logo][16] **[jdbcDriverOOo.oxt][17]** extension version 1.0.0.  
 This extension is necessary to use HsqlDB version 2.5.1 with all its features.
 
 - Install ![HsqlDriverOOo logo][1] **[HsqlDriverOOo.oxt][18]** extension version 1.0.0.
