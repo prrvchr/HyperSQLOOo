@@ -44,7 +44,7 @@ Il semble important que le fichier n'ait pas été renommé lors de son téléch
 Si nécessaire, renommez-le avant de l'installer.
 
 - Installer l'extension ![jdbcDriverOOo logo][16] **[jdbcDriverOOo.oxt][17]** version 1.0.0.  
-Cette extension est nécessaire pour utiliser HsqlDB version 2.5.1 avec toutes ses fonctionnalités.
+Cette extension est nécessaire pour utiliser HsqlDB version 2.7.2 avec toutes ses fonctionnalités.
 
 - Installer l'extension ![HsqlDriverOOo logo][1] **[HsqlDriverOOo.oxt][18]** version 1.0.0.
 
@@ -76,17 +76,15 @@ Maintenant à vous d'en profiter...
 
 ### Comment migrer une base de données intégrée:
 
-Si vous souhaitez migrer une base de données intégrée (HsqlDB version 1.8.0) vers une version plus récente (par exemple 2.5.1), procédez comme suit:
+Si vous souhaitez migrer une base de données intégrée (HsqlDB version 1.8.0) vers une version plus récente (par exemple 2.7.2), procédez comme suit:
 - 1 - Faite une copie (sauvegarde) de votre base de données (fichier odb).
 - 2 - Si elles ne sont pas déjà installées, installez cette extension et l'extension [jdbcDriverOOo][9].
-- 3 - Changez l'archive du pilote HsqlDB dans: **Outils -> Options -> Pilotes Base -> Pilote JDBC -> Options des pilotes JDBC**, par une version [1.8.1.10][10].
+- 3 - Changez l'archive du pilote HsqlDB dans: **Outils -> Options -> Pilotes Base -> Pilote JDBC -> Options des pilotes JDBC -> Archive -> Changer**, par une version [1.8.1.10][10].
 - 4 - Redémarrer LibreOffice / OpenOffice aprés le changement du pilote (hsqldb.jar).
 - 5 - Ouvrir le fichier odb dans Base (double clique sur le fichier odb).
 - 6 - Dans Base allez à: **Outils -> SQL** et tapez la commande SQL: `SHUTDOWN COMPACT` ou `SHUTDOWN SCRIPT`.
-- 7 - Changez l'archive du pilote HsqlDB dans: **Outils -> Options -> Pilotes Base -> Pilote JDBC -> Options des pilotes JDBC**, par une version [2.4.0][22] ou [2.4.1][23] ou [2.5.0][24].
-- 8 - Redémarrer LibreOffice / OpenOffice aprés le changement du pilote (hsqldb.jar).
-- Recommencez cette procédure à l'étape 5 en utilisant la version [2.5.1][25].
-- Pour finir, répétez l'étape 5 puis 6.
+- Recommencez cette procédure à l'étape 3 en utilisant une version [2.4.0][22] ou [2.4.1][23] ou [2.5.0][24].
+- Recommencez cette procédure à l'étape 3 en utilisant la version [2.7.2][25].
 
 ___
 ## A été testé avec:
@@ -186,7 +184,7 @@ ___
 [22]: <https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.4.0/hsqldb-2.4.0.jar>
 [23]: <https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.4.1/hsqldb-2.4.1.jar>
 [24]: <https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.5.0/hsqldb-2.5.0.jar>
-[25]: <https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.5.1/hsqldb-2.5.1.jar>
+[25]: <https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.7.2/hsqldb-2.7.2.jar>
 [26]: <https://forum.openoffice.org/en/forum/viewtopic.php?f=13&t=103912>
 [27]: <https://github.com/prrvchr/HsqlDriverOOo/blob/master/source/HsqlDriverOOo/service/Driver.py>
 [28]: <https://github.com/prrvchr/HsqlDriverOOo/blob/master/uno/lib/uno/database/documenthandler.py>
