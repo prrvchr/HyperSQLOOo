@@ -12,8 +12,11 @@
 
 Cette extension vous permet:
 - De surmonter le [dysfonctionnement 139538][8] pour les utilisateurs de **LibreOffice sur Linux**.
-- D'utiliser HsqlDB en mode intégré, rendant la base de donnée portable (un seul fichier odb), avec la version du pilote HsqlDB de votre choix.
-- De profitez des améliorations offertes par l'extension [jdbcDriverOOo][9] avec la gestion des utilisateurs et des rôles (groupes).
+- D'utiliser la base de données HyperSQL en mode intégré, rendant la base de donnée portable (un seul fichier odb).
+- De profitez des améliorations offertes par l'extension [jdbcDriverOOo][9]:
+    - La gestion des utilisateurs et des rôles (groupes).
+    - La gestion des nanosecondes et des fuseaux horaires.
+    - La gestion de `java.sql.Array`, `java.sql.Blob`, `java.sql.Clob`...
 - De remplacer le pilote [HsqlDB 1.8][10] intégré fourni par LibreOffice / OpenOffice, une version qui aura bientôt plus de 20 ans, par une version HsqlDB récente et à votre choix.
 
 Etant un logiciel libre je vous encourage:

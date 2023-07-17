@@ -12,8 +12,11 @@
 
 This extension allows you:
 - To overcome [bug 139538][8] for users of **LibreOffice on Linux**.
-- To use HsqlDB in embedded mode, making the database portable (a single odb file), with the HsqlDB driver version of your choice.
-- To take advantage of the improvements offered by the [jdbcDriverOOo][9] extension with the management of users and roles (groups).
+- To use HyperSQL database in embedded mode, making the database portable (a single odb file).
+- To take advantage of the improvements offered by the [jdbcDriverOOo][9] extension:
+    - The management of users and roles (groups).
+    - The management of nanoseconds and time zones.
+    - The management of `java.sql.Array`, `java.sql.Blob`, `java.sql.Clob`...
 - To replace the integrated [HsqlDB 1.8][10] driver provided by LibreOffice / OpenOffice, a version that will soon be more than 20 years old, with a recent HsqlDB version of your choice.
 
 Being free software I encourage you:
