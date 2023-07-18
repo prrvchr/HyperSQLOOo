@@ -91,21 +91,6 @@ If you want to migrate an integrated database (HsqlDB version 1.8.0) to a newer 
 - Repeat this procedure at step 3 using version [2.7.2][25].
 
 ___
-## Has been tested with:
-
-* OpenOffice 4.1.8 - Ubuntu 20.04 - LxQt 0.14.1
-
-* OpenOffice 4.1.8 - Windows 7 SP1
-
-* LibreOffice 7.0.4.2 - Ubuntu 20.04 - LxQt 0.14.1
-
-* LibreOffice 6.4.4.2 - Windows 7 SP1
-
-I encourage you in case of problem :confused:  
-to create an [issue][12]  
-I will try to solve it :smile:
-
-___
 ## How does it work:
 
 HsqlDriverOOo is an [com.sun.star.sdbc.Driver][26] UNO service written in Python.  
@@ -119,6 +104,21 @@ Its operation is quite basic, namely:
     3. The [jdbcDriverOOo][9] extension is used to get the [com.sun.star.sdbc.XConnection][30] interface from the **subdirectory** path + `odb_file_name`.
 
 - When closing or renaming (Save as) an odb file the [DocumentHandler][27] copy all the files present in the **subdirectory** into the (new) **database** directory of the odb file (zip) and then delete the **subdirectory**.
+
+___
+## Has been tested with:
+
+* OpenOffice 4.1.8 - Ubuntu 20.04 - LxQt 0.14.1
+
+* OpenOffice 4.1.8 - Windows 7 SP1
+
+* LibreOffice 7.0.4.2 - Ubuntu 20.04 - LxQt 0.14.1
+
+* LibreOffice 6.4.4.2 - Windows 7 SP1
+
+I encourage you in case of problem :confused:  
+to create an [issue][12]  
+I will try to solve it :smile:
 
 ___
 ## Historical:

@@ -91,21 +91,6 @@ Si vous souhaitez migrer une base de données intégrée (HsqlDB version 1.8.0) 
 - Recommencez cette procédure à l'étape 3 en utilisant la version [2.7.2][25].
 
 ___
-## A été testé avec:
-
-* OpenOffice 4.1.8 - Ubuntu 20.04 - LxQt 0.14.1
-
-* OpenOffice 4.1.8 - Windows 7 SP1
-
-* LibreOffice 7.0.4.2 - Ubuntu 20.04 - LxQt 0.14.1
-
-* LibreOffice 6.4.4.2 - Windows 7 SP1
-
-Je vous encourage en cas de problème :confused:  
-de créer un [dysfonctionnement][12]  
-J'essaierai de le résoudre :smile:
-
-___
 ## Comment ça marche:
 
 HsqlDriverOOo est un service [com.sun.star.sdbc.Driver][26] UNO écrit en Python.  
@@ -119,6 +104,21 @@ Son fonctionnement est assez basique, à savoir:
     3. L'extension [jdbcDriverOOo][9] est utilisée pour obtenir l'interface [com.sun.star.sdbc.XConnection][30] à partir du chemin du **sous-répertoire** + `nom_du_fichier_odb`.
 
 - Lors de la fermeture ou du renommage (Enregistrer sous) d'un fichier odb, le [DocumentHandler][27] copie tous les fichiers présents dans le **sous-répertoire** dans le (nouveau) répertoire **database** du fichier odb (compression) puis supprime le **sous-répertoire**.
+
+___
+## A été testé avec:
+
+* OpenOffice 4.1.8 - Ubuntu 20.04 - LxQt 0.14.1
+
+* OpenOffice 4.1.8 - Windows 7 SP1
+
+* LibreOffice 7.0.4.2 - Ubuntu 20.04 - LxQt 0.14.1
+
+* LibreOffice 6.4.4.2 - Windows 7 SP1
+
+Je vous encourage en cas de problème :confused:  
+de créer un [dysfonctionnement][12]  
+J'essaierai de le résoudre :smile:
 
 ___
 ## Historique:
