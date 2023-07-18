@@ -175,7 +175,7 @@ ___
 
 ### Ce qui a été fait pour la version 1.0.0:
 
-- Renommage de l'extension en HsqlDBembeddedOOo en HsqlDriverOOo.
+- Renommage de l'extension de HsqlDBembeddedOOo en HsqlDriverOOo.
 
 - Integration de HyperSQL version 2.7.2.
 
