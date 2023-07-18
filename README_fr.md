@@ -106,11 +106,26 @@ de créer un [dysfonctionnement][12]
 J'essaierai de le résoudre :smile:
 
 ___
+## Comment ça marche:
+
+HsqlDriverOOo est une extension écrite en Python.  
+Il s'agit d'une surcouche à l'extension [jdbcDriverOOo][9] permettant de stocker la base de données HyperSQL dans un fichier odb (qui est, en fait, un fichier compressé).
+
+Son fonctionnement est assez basique, à savoir:
+
+- Lors d'une demande de connexion, trois choses sont faites:
+    1. S'il n'existe pas déjà, un **sous-répertoire** avec le nom: `.` + `nom_du_fichier_odb` + `.lck` est créé à l'emplacement du fichier odb dans lequel tous les fichiers HyperSQL sont extraits du répertoire **database** du fichier odb (décompression).
+    2. Un [DocumentHandler][26] est ajouté en tant que [com.sun.star.util.XCloseListener][27] et [com.sun.star.document.XStorageChangeListener][28] au fichier odb.
+    3. L'extension [jdbcDriverOOo][9] est utilisée pour obtenir l'interface [com.sun.star.sdbc.XConnection][29] à partir du chemin du **sous-répertoire** + `nom_du_fichier_odb`.
+
+- Lors de la fermeture ou du renommage (Enregistrer sous) d'un fichier odb, le [DocumentHandler][26] copie tous les fichiers présents dans le **sous-répertoire** dans le (nouveau) répertoire **database** du fichier odb (compression) puis supprime le **sous-répertoire**.
+
+___
 ## Historique:
 
 ### Ce qui a été fait pour la version 0.0.1:
 
-- La rédaction de ce pilote a été facilitée par une [discussion avec Villeroy][26], sur le forum OpenOffice, que je tiens à remercier, car la connaissance ne vaut que si elle est partagée...
+- La rédaction de ce pilote a été facilitée par une [discussion avec Villeroy][30], sur le forum OpenOffice, que je tiens à remercier, car la connaissance ne vaut que si elle est partagée...
 
 - Utilisation de l'ancienne version de HsqlDB 1.8.0 (peut être facilement mise à jour).
 
@@ -142,23 +157,29 @@ ___
 
 ### Ce qui a été fait pour la version 0.0.4:
 
-- Modification de [Driver.py][27] afin de rendre possible l'utilisation du service Uno: `com.sun.star.sdb.RowSet`.
+- Modification de [Driver.py][31] afin de rendre possible l'utilisation du service Uno: `com.sun.star.sdb.RowSet`.
 
 - Beaucoup d'autres correctifs...
 
 ### Ce qui a été fait pour la version 0.0.5:
 
-- Ecriture d'un [DocumentHandler][28] responsable:
+- Ecriture d'un [DocumentHandler][26] responsable:
   - De l'extraction des fichiers de base de données contenus dans le fichier **odb** à la connexion.
   - De la sauvegarde des fichiers de base de données dans le fichier **odb** lors de sa fermeture.
 
-- Réécriture de [Driver.py][27] afin de permettre:
+- Réécriture de [Driver.py][31] afin de permettre:
   - Son fonctionnement avec le nouveau pilote JDBC fourni par l'extension [jdbcDriverOOo][9] version 0.0.4.
-  - La prise en charge du nouveau [DocumentHandler][28] afin de rendre les fichiers **odb** portables tels qu'ils étaient dans LibreOffice / OpenOffice avec la version 1.8 de HsqlDB.
+  - La prise en charge du nouveau [DocumentHandler][26] afin de rendre les fichiers **odb** portables tels qu'ils étaient dans LibreOffice / OpenOffice avec la version 1.8 de HsqlDB.
 
 - Beaucoup d'autres correctifs...
 
-### Que reste-t-il à faire pour la version 0.0.5:
+### Ce qui a été fait pour la version 1.0.0:
+
+- Renommage de l'extension en HsqlDBembeddedOOo en HsqlDriverOOo.
+
+- Integration de HyperSQL version 2.7.2.
+
+### Que reste-t-il à faire pour la version 1.0.0:
 
 - Ajouter de nouvelles langue pour l'internationalisation...
 
@@ -189,6 +210,9 @@ ___
 [23]: <https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.4.1/hsqldb-2.4.1.jar>
 [24]: <https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.5.0/hsqldb-2.5.0.jar>
 [25]: <https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.7.2/hsqldb-2.7.2.jar>
-[26]: <https://forum.openoffice.org/en/forum/viewtopic.php?f=13&t=103912>
-[27]: <https://github.com/prrvchr/HsqlDriverOOo/blob/master/source/HsqlDriverOOo/service/Driver.py>
-[28]: <https://github.com/prrvchr/HsqlDriverOOo/blob/master/uno/lib/uno/database/documenthandler.py>
+[26]: <https://github.com/prrvchr/HsqlDriverOOo/blob/master/uno/lib/uno/database/documenthandler.py>
+[27]: <https://www.openoffice.org/api/docs/common/ref/com/sun/star/util/XCloseListener.html>
+[28]: <http://www.openoffice.org/api/docs/common/ref/com/sun/star/document/XStorageChangeListener.html>
+[29]: <https://www.openoffice.org/api/docs/common/ref/com/sun/star/sdbc/XConnection.html>
+[30]: <https://forum.openoffice.org/en/forum/viewtopic.php?f=13&t=103912>
+[31]: <https://github.com/prrvchr/HsqlDriverOOo/blob/master/source/HsqlDriverOOo/service/Driver.py>

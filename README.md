@@ -106,11 +106,26 @@ to create an [issue][12]
 I will try to solve it :smile:
 
 ___
+## How does it work:
+
+HsqlDriverOOo is an extension written in Python.  
+It is an overlay to the [jdbcDriverOOo][9] extension allowing to store the HyperSQL database in an odb file (which is, in fact, a compressed file).
+
+Its operation is quite basic, namely:
+
+- When requesting a connection, three things are done:
+    1. If it does not already exist, a **subdirectory** with name: `.` + `odb_file_name` + `.lock` is created in the location of the odb file where all HyperSQL files are extracted from the **database** directory of the odb file (unzip).
+    2. A [DocumentHandler][26] is added as an [com.sun.star.util.XCloseListener][27] and [com.sun.star.document.XStorageChangeListener][28] to the odb file.
+    3. The [jdbcDriverOOo][9] extension is used to get the [com.sun.star.sdbc.XConnection][29] interface from the **subdirectory** path + `odb_file_name`.
+
+- When closing or renaming (Save as) an odb file the [DocumentHandler][26] copy all the files present in the **subdirectory** into the (new) **database** directory of the odb file (zip) and then delete the **subdirectory**.
+
+___
 ## Historical:
 
 ### What has been done for version 0.0.1:
 
-- The writing of this driver was facilitated by a [discussion with Villeroy][26], on the OpenOffice forum, which I would like to thank, because knowledge is only worth if it is shared...
+- The writing of this driver was facilitated by a [discussion with Villeroy][30], on the OpenOffice forum, which I would like to thank, because knowledge is only worth if it is shared...
 
 - Using the old version of HsqlDB 1.8.0 (can be easily updated).
 
@@ -142,23 +157,29 @@ ___
 
 ### What has been done for version 0.0.4:
 
-- Modification of [Driver.py][27] in order to make possible the use of the Uno service: `com.sun.star.sdb.RowSet`.
+- Modification of [Driver.py][31] in order to make possible the use of the Uno service: `com.sun.star.sdb.RowSet`.
 
 - Many other fix...
 
 ### What has been done for version 0.0.5:
 
-- Writing a [DocumentHandler][28] to allow:
+- Writing a [DocumentHandler][26] to allow:
   - The extraction of the database files contained in the **odb** file on connection.
   - Saving database files to **odb** file when closing it.
 
-- Rewrote [Driver.py][27] to allow:
+- Rewrote [Driver.py][31] to allow:
   - Its operation with the new JDBC driver provided by the extension [jdbcDriverOOo][9] version 0.0.4.
-  - The support for the new [DocumentHandler][28] to make **odb** files portable as they were in LibreOffice / OpenOffice with version 1.8 of HsqlDB.
+  - The support for the new [DocumentHandler][26] to make **odb** files portable as they were in LibreOffice / OpenOffice with version 1.8 of HsqlDB.
 
 - Many other fix...
 
-### What remains to be done for version 0.0.5:
+### What has been done for version 1.0.0:
+
+- Renamed the extension from HsqlDBembeddedOOo to HsqlDriverOOo.
+
+- Integration of HyperSQL version 2.7.2.
+
+### What remains to be done for version 1.0.0:
 
 - Add new language for internationalization...
 
@@ -189,6 +210,9 @@ ___
 [23]: <https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.4.1/hsqldb-2.4.1.jar>
 [24]: <https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.5.0/hsqldb-2.5.0.jar>
 [25]: <https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.7.2/hsqldb-2.7.2.jar>
-[26]: <https://forum.openoffice.org/en/forum/viewtopic.php?f=13&t=103912>
-[27]: <https://github.com/prrvchr/HsqlDriverOOo/blob/master/source/HsqlDriverOOo/service/Driver.py>
-[28]: <https://github.com/prrvchr/HsqlDriverOOo/blob/master/uno/lib/uno/database/documenthandler.py>
+[26]: <https://github.com/prrvchr/HsqlDriverOOo/blob/master/uno/lib/uno/database/documenthandler.py>
+[27]: <https://www.openoffice.org/api/docs/common/ref/com/sun/star/util/XCloseListener.html>
+[28]: <http://www.openoffice.org/api/docs/common/ref/com/sun/star/document/XStorageChangeListener.html>
+[29]: <https://www.openoffice.org/api/docs/common/ref/com/sun/star/sdbc/XConnection.html>
+[30]: <https://forum.openoffice.org/en/forum/viewtopic.php?f=13&t=103912>
+[31]: <https://github.com/prrvchr/HsqlDriverOOo/blob/master/source/HsqlDriverOOo/service/Driver.py>
