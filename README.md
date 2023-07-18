@@ -114,7 +114,7 @@ It is an overlay to the [jdbcDriverOOo][9] extension allowing to store the Hyper
 Its operation is quite basic, namely:
 
 - When requesting a connection, three things are done:
-    1. If it does not already exist, a **subdirectory** with name: `.` + `odb_file_name` + `.lock` is created in the location of the odb file where all HyperSQL files are extracted from the **database** directory of the odb file (unzip).
+    1. If it does not already exist, a **subdirectory** with name: `.` + `odb_file_name` + `.lck` is created in the location of the odb file where all HyperSQL files are extracted from the **database** directory of the odb file (unzip).
     2. A [DocumentHandler][26] is added as an [com.sun.star.util.XCloseListener][27] and [com.sun.star.document.XStorageChangeListener][28] to the odb file.
     3. The [jdbcDriverOOo][9] extension is used to get the [com.sun.star.sdbc.XConnection][29] interface from the **subdirectory** path + `odb_file_name`.
 
