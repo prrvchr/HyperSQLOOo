@@ -130,7 +130,7 @@ class OptionsModel(unohelper.Base):
             logger = getLogger(self._ctx, g_defaultlog, g_basename)
             logger.logprb(SEVERE, 'OptionsModel', '_getDriverVersion()', 141, e.Message)
         except Exception as e:
-            print("OptionsModel._getDriverVersion() Error: %s - Traceback: %s" % (e, traceback.print_exc()))
+            print("OptionsModel._getDriverVersion() Error: %s - Traceback: %s" % (e, traceback.format_exc()))
             logger = getLogger(self._ctx, g_defaultlog, g_basename)
-            logger.logprb(SEVERE, 'OptionsModel', '_getDriverVersion()', 142, str(e), traceback.print_exc())
+            logger.logprb(SEVERE, 'OptionsModel', '_getDriverVersion()', 142, str(e), traceback.format_exc())
 

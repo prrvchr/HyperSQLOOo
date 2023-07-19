@@ -63,7 +63,7 @@ class ResultSet(unohelper.Base,
             #self.result = statement.statement.executeQuery()
             print("ResultSet.__init__() 2")
         except Exception as e:
-            print("ResultSet.__init__() ERROR: %s - %s" % (e, traceback.print_exc()))
+            print("ResultSet.__init__() ERROR: %s - %s" % (e, traceback.format_exc()))
 
     @property
     def CursorName(self):

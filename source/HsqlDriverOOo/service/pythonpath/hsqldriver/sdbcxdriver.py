@@ -58,7 +58,7 @@ class SdbcxDriver(Driver,
         except SQLException as e:
             raise e
         except Exception as e:
-            self._logger.logprb(SEVERE, 'SdbcxDriver', 'getDataDefinitionByConnection()', 142, e, traceback.print_exc())
+            self._logger.logprb(SEVERE, 'SdbcxDriver', 'getDataDefinitionByConnection()', 142, e, traceback.format_exc())
 
     def getDataDefinitionByURL(self, url, infos):
         self._logger.logprb(INFO, 'SdbcxDriver', 'getDataDefinitionByURL()', 151, url)

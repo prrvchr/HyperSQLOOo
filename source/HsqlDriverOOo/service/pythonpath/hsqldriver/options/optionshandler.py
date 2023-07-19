@@ -45,7 +45,7 @@ class OptionsListener(unohelper.Base,
         try:
             self._manager.dispose()
         except Exception as e:
-            msg = "OptionsHandler.disposing() Error: %s" % traceback.print_exc()
+            msg = "OptionsHandler.disposing() Error: %s" % traceback.format_exc()
             print(msg)
 
 
@@ -75,7 +75,7 @@ class Tab1Handler(unohelper.Base,
                 handled = True
             return handled
         except Exception as e:
-            msg = "Tab1Handler.callHandlerMethod() Error: %s" % traceback.print_exc()
+            msg = "Tab1Handler.callHandlerMethod() Error: %s" % traceback.format_exc()
             print(msg)
 
     def getSupportedMethodNames(self):
@@ -137,7 +137,7 @@ class Tab2Handler(unohelper.Base,
                 handled = True
             return handled
         except Exception as e:
-            msg = "Tab2Handler.callHandlerMethod() Error: %s" % traceback.print_exc()
+            msg = "Tab2Handler.callHandlerMethod() Error: %s" % traceback.format_exc()
             print(msg)
 
     def getSupportedMethodNames(self):

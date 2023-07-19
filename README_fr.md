@@ -216,4 +216,4 @@ ___
 [29]: <http://www.openoffice.org/api/docs/common/ref/com/sun/star/document/XStorageChangeListener.html>
 [30]: <https://www.openoffice.org/api/docs/common/ref/com/sun/star/sdbc/XConnection.html>
 [31]: <https://forum.openoffice.org/en/forum/viewtopic.php?f=13&t=103912>
-[32]: <https://github.com/prrvchr/HsqlDriverOOo/blob/master/source/HsqlDriverOOo/service/Driver.py>
+[32]: <https://github.com/prrvchr/HsqlDriverOOo/blob/master/source/HsqlDriverOOo/service/pythonpath/hsqldriver/driver.py>

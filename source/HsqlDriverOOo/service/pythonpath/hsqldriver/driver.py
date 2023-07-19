@@ -99,7 +99,8 @@ class Driver(unohelper.Base,
             self._logger.logp(SEVERE, 'Driver', 'connect()', e.Message)
             raise e
         except Exception as e:
-            self._logger.logprb(SEVERE, 'Driver', 'connect()', 117, e, traceback.print_exc())
+            self._logger.logprb(SEVERE, 'Driver', 'connect()', 117, e, traceback.format_exc())
+            raise e
 
     def acceptsURL(self, url):
         accept = url.startswith(self._supportedProtocol)
@@ -115,9 +116,11 @@ class Driver(unohelper.Base,
                 self._logger.logprb(INFO, 'Driver', 'getPropertyInfo()', 132, info.Name, info.Value)
             return drvinfo
         except SQLException as e:
+            self._logger.logp(SEVERE, 'Driver', 'getPropertyInfo()', e.Message)
             raise e
         except Exception as e:
-            self._logger.logprb(SEVERE, 'Driver', 'getPropertyInfo()', 133, e, traceback.print_exc())
+            self._logger.logprb(SEVERE, 'Driver', 'getPropertyInfo()', 133, e, traceback.format_exc())
+            raise e
 
     def getMajorVersion(self):
         return 1

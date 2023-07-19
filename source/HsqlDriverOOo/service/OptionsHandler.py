@@ -83,7 +83,7 @@ class OptionsHandler(unohelper.Base,
                 handled = True
             return handled
         except Exception as e:
-            print("ERROR: %s - %s" % (e, traceback.print_exc()))
+            print("ERROR: %s - %s" % (e, traceback.format_exc()))
 
     def getSupportedMethodNames(self):
         return ('external_event',
