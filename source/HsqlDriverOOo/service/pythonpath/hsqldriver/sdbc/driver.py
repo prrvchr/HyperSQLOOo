@@ -30,45 +30,15 @@
 from com.sun.star.logging.LogLevel import INFO
 from com.sun.star.logging.LogLevel import SEVERE
 
-from com.sun.star.sdbcx import XDataDefinitionSupplier
-from com.sun.star.sdbcx import XCreateCatalog
-from com.sun.star.sdbcx import XDropCatalog
-
-from .driver import Driver
+from ..driver import Driver as DriverBase
 
 import traceback
 
 
-class SdbcxDriver(Driver,
-                  XDataDefinitionSupplier,
-                  XCreateCatalog,
-                  XDropCatalog):
+class Driver(DriverBase):
 
     def __init__(self, ctx, lock, service, name):
-        Driver.__init__(self, ctx, lock, service, name)
-        self._services = ('com.sun.star.sdbc.Driver', 'com.sun.star.sdbcx.Driver')
-        self._logger.logprb(INFO, 'SdbcxDriver', '__init__()', 101)
-
-    # XDataDefinitionSupplier
-    def getDataDefinitionByConnection(self, connection):
-        try:
-            self._logger.logprb(INFO, 'SdbcxDriver', 'getDataDefinitionByConnection()', 141)
-            driver = self._getDriver()
-            return driver.getDataDefinitionByConnection(connection)
-        except SQLException as e:
-            raise e
-        except Exception as e:
-            self._logger.logprb(SEVERE, 'SdbcxDriver', 'getDataDefinitionByConnection()', 142, e, traceback.format_exc())
-
-    def getDataDefinitionByURL(self, url, infos):
-        self._logger.logprb(INFO, 'SdbcxDriver', 'getDataDefinitionByURL()', 151, url)
-        return self.getDataDefinitionByConnection(connect(url, infos))
-
-    # XCreateCatalog
-    def createCatalog(self, info):
-        self._logger.logprb(INFO, 'SdbcxDriver', 'createCatalog()', 161)
-
-    # XDropCatalog
-    def dropCatalog(self, name, info):
-        self._logger.logprb(INFO, 'SdbcxDriver', 'dropCatalog()', 171, name)
+        DriverBase.__init__(self, ctx, lock, service, name)
+        self._services = ('com.sun.star.sdbc.Driver', )
+        self._logger.logprb(INFO, 'Driver', '__init__()', 101)
 

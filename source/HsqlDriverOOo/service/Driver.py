@@ -32,8 +32,8 @@ import unohelper
 
 from com.sun.star.lang import XServiceInfo
 
-from hsqldriver import SdbcDriver
-from hsqldriver import SdbcxDriver
+from hsqldriver import sdbc
+from hsqldriver import sdbcx
 
 from hsqldriver import getConfiguration
 
@@ -56,9 +56,9 @@ class Driver(unohelper.Base,
                     print("Driver.__new__() *******************************")
                     service = getConfiguration(ctx, g_identifier).getByName('DriverService')
                     if service == 'io.github.prrvchr.jdbcdriver.sdbc.Driver':
-                        instance = SdbcDriver(ctx, cls._lock, service, g_ImplementationName)
+                        instance = sdbc.Driver(ctx, cls._lock, service, g_ImplementationName)
                     else:
-                        instance = SdbcxDriver(ctx, cls._lock, service, g_ImplementationName)
+                        instance = sdbcx.Driver(ctx, cls._lock, service, g_ImplementationName)
                     cls._instance = instance
         return cls._instance
 

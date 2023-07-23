@@ -65,7 +65,7 @@ class Driver(unohelper.Base,
 
     def __init__(self, ctx, lock, service, name):
         self._ctx = ctx
-        self._supportedProtocol = 'sdbc:embedded:hsqldb'
+        self._protocol = 'sdbc:embedded:hsqldb'
         self._user = 'SA'
         self._password = ''
         self._lock = lock
@@ -89,9 +89,9 @@ class Driver(unohelper.Base,
                 raise self._getException(code, 1001, msg, self)
             driver = self._getDriver()
             handler = self._getDocumentHandler(location)
-            datasource, path = handler.getDocumentInfo(document, storage, location)
+            path = handler.getConnectionUrl(document, storage, location)
             self._logger.logprb(INFO, 'Driver', 'connect()', 113, location)
-            connection = self._getConnection(driver.connect(path, newinfos), datasource, url, infos)
+            connection = driver.connect(path, newinfos)
             version = connection.getMetaData().getDriverVersion()
             self._logger.logprb(INFO, 'Driver', 'connect()', 114, version, self._user)
             return connection
@@ -103,7 +103,7 @@ class Driver(unohelper.Base,
             raise e
 
     def acceptsURL(self, url):
-        accept = url.startswith(self._supportedProtocol)
+        accept = url.startswith(self._protocol)
         self._logger.logprb(INFO, 'Driver', 'acceptsURL()', 121, url, accept)
         return accept
 
@@ -151,7 +151,7 @@ class Driver(unohelper.Base,
     def _getConnectionInfo(self, infos):
         document = storage = url = None
         service = getConfiguration(self._ctx, g_identifier).getByName('ConnectionService')
-        newinfos = {'ConnectionService': service}
+        newinfos = {'Url': self._protocol, 'ConnectionService': service}
         for info in infos:
             if info.Name == 'URL':
                 url = info.Value
@@ -181,14 +181,6 @@ class Driver(unohelper.Base,
                 handler = DocumentHandler(self._ctx, self._lock, location)
                 self._handlers.append(handler)
             return handler
-
-    def _getConnection(self, connection, datasource, url, infos):
-        if connection.supportsService('com.sun.star.sdb.Connection'):
-            return SdbConnection(connection, datasource, url, infos, self._user, self._password)
-        elif connection.supportsService('com.sun.star.sdbcx.Connection'):
-            return SdbcxConnection(connection, datasource, url, infos, self._user, self._password)
-        elif connection.supportsService('com.sun.star.sdbc.Connection'):
-            return SdbcConnection(connection, datasource, url, infos, self._user, self._password)
 
     def _getException(self, state, code, message, context=None, exception=None):
         error = SQLException()

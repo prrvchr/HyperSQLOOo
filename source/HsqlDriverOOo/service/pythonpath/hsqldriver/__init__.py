@@ -26,8 +26,9 @@
 ║                                                                                    ║
 ╚════════════════════════════════════════════════════════════════════════════════════╝
 """
-from .sdbcdriver import SdbcDriver
-from .sdbcxdriver import SdbcxDriver
+
+from . import sdbc
+from . import sdbcx
 
 from .unotool import createService
 from .unotool import getConfiguration

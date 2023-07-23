@@ -27,15 +27,48 @@
 ╚════════════════════════════════════════════════════════════════════════════════════╝
 """
 
-# DataSource configuration
-g_folder = 'hsqldb'
-g_protocol = 'xdbc:hsqldb:'
-g_path = 'hsqldb'
-g_jar = 'hsqldb.jar'
-g_class = 'org.hsqldb.jdbcDriver'
-g_options = ';hsqldb.default_table_type=cached;get_column_name=false;ifexists=false'
-g_shutdown = ';shutdown=true'
-g_csv = '%s.csv;fs=|;ignore_first=true;encoding=UTF-8;quoted=true'
-g_version = '2.5.1'
-g_role = 'FrontOffice'
-g_dba = 'AD'
+from com.sun.star.logging.LogLevel import INFO
+from com.sun.star.logging.LogLevel import SEVERE
+
+from com.sun.star.sdbcx import XDataDefinitionSupplier
+from com.sun.star.sdbcx import XCreateCatalog
+from com.sun.star.sdbcx import XDropCatalog
+
+from ..driver import Driver as DriverBase
+
+import traceback
+
+
+class Driver(DriverBase,
+             XDataDefinitionSupplier,
+             XCreateCatalog,
+             XDropCatalog):
+
+    def __init__(self, ctx, lock, service, name):
+        DriverBase.__init__(self, ctx, lock, service, name)
+        self._services = ('com.sun.star.sdbc.Driver', 'com.sun.star.sdbcx.Driver')
+        self._logger.logprb(INFO, 'Driver', '__init__()', 101)
+
+    # XDataDefinitionSupplier
+    def getDataDefinitionByConnection(self, connection):
+        try:
+            self._logger.logprb(INFO, 'Driver', 'getDataDefinitionByConnection()', 141)
+            driver = self._getDriver()
+            return driver.getDataDefinitionByConnection(connection)
+        except SQLException as e:
+            raise e
+        except Exception as e:
+            self._logger.logprb(SEVERE, 'Driver', 'getDataDefinitionByConnection()', 142, e, traceback.format_exc())
+
+    def getDataDefinitionByURL(self, url, infos):
+        self._logger.logprb(INFO, 'Driver', 'getDataDefinitionByURL()', 151, url)
+        return self.getDataDefinitionByConnection(connect(url, infos))
+
+    # XCreateCatalog
+    def createCatalog(self, info):
+        self._logger.logprb(INFO, 'Driver', 'createCatalog()', 161)
+
+    # XDropCatalog
+    def dropCatalog(self, name, info):
+        self._logger.logprb(INFO, 'Driver', 'dropCatalog()', 171, name)
+

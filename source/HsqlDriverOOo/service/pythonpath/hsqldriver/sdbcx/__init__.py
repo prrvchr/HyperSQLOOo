@@ -27,18 +27,5 @@
 ╚════════════════════════════════════════════════════════════════════════════════════╝
 """
 
-from com.sun.star.logging.LogLevel import INFO
-from com.sun.star.logging.LogLevel import SEVERE
-
 from .driver import Driver
-
-import traceback
-
-
-class SdbcDriver(Driver):
-
-    def __init__(self, ctx, lock, service, name):
-        Driver.__init__(self, ctx, lock, service, name)
-        self._services = ('com.sun.star.sdbc.Driver')
-        self._logger.logprb(INFO, 'SdbcDriver', '__init__()', 101)
 

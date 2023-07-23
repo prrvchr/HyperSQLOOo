@@ -27,25 +27,5 @@
 ╚════════════════════════════════════════════════════════════════════════════════════╝
 """
 
-from com.sun.star.sdbcx import XTablesSupplier
-from com.sun.star.sdbcx import XViewsSupplier
-
-from .sdbcconnection import SdbcConnection
-
-import traceback
-
-
-class SdbcxConnection(SdbcConnection,
-                      XTablesSupplier,
-                      XViewsSupplier):
-    def __init__(self, connection, datasource, url, infos, user, password):
-        SdbcConnection.__init__(self, connection, datasource, url, infos, user, password)
-
-    # XTablesSupplier
-    def getTables(self):
-        return self._connection.getTables()
-
-    # XViewsSupplier
-    def getViews(self):
-        return self._connection.getViews()
+from .driver import Driver
 
