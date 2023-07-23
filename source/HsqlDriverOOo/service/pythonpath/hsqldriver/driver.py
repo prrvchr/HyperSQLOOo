@@ -38,10 +38,6 @@ from com.sun.star.logging.LogLevel import SEVERE
 from com.sun.star.sdbc import XDriver
 from com.sun.star.sdbc import SQLException
 
-from .sdbconnection import SdbConnection
-from .sdbcconnection import SdbcConnection
-from .sdbcxconnection import SdbcxConnection
-
 from .documenthandler import DocumentHandler
 
 from .unotool import createService
