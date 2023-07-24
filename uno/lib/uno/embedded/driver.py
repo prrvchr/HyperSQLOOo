@@ -59,11 +59,11 @@ class Driver(unohelper.Base,
              XServiceInfo,
              XDriver):
 
-    def __init__(self, ctx, lock, service, name):
+    def __init__(self, ctx, protocol, user, pwd, lock, service, name):
         self._ctx = ctx
-        self._protocol = 'sdbc:embedded:hsqldb'
-        self._user = 'SA'
-        self._password = ''
+        self._protocol = protocol
+        self._user = user
+        self._password = pwd
         self._lock = lock
         self._service = service
         self._name = name
