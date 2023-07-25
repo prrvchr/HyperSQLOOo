@@ -35,4 +35,10 @@ g_basename = 'Driver'
 g_defaultlog = 'HsqlDriverLogger'
 g_errorlog = 'HsqlDriverError'
 
+# DataBase configuration
+g_protocol = 'xdbc:hsqldb:'
+g_url = 'sdbc:embedded:hsqldb'
+g_user = 'SA'
+g_options = ';hsqldb.default_table_type=cached;get_column_name=false;ifexists=false'
+g_shutdown = ';shutdown=true'
 

@@ -54,12 +54,11 @@ class Driver(unohelper.Base,
             with cls._lock:
                 if cls._instance is None:
                     print("Driver.__new__() *******************************")
-                    protocol = 'sdbc:embedded:hsqldb'
                     service = getConfiguration(ctx, g_identifier).getByName('DriverService')
                     if service == 'io.github.prrvchr.jdbcdriver.sdbc.Driver':
-                        instance = sdbc.Driver(ctx, protocol, 'SA', '', cls._lock, service, g_ImplementationName)
+                        instance = sdbc.Driver(ctx, cls._lock, service, g_ImplementationName)
                     else:
-                        instance = sdbcx.Driver(ctx, protocol, 'SA', '', cls._lock, service, g_ImplementationName)
+                        instance = sdbcx.Driver(ctx, cls._lock, service, g_ImplementationName)
                     cls._instance = instance
         return cls._instance
 
