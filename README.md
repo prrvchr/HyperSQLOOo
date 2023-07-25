@@ -211,9 +211,9 @@ ___
 [24]: <https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.5.0/hsqldb-2.5.0.jar>
 [25]: <https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.7.2/hsqldb-2.7.2.jar>
 [26]: <https://www.openoffice.org/api/docs/common/ref/com/sun/star/sdbc/Driver.html>
-[27]: <https://github.com/prrvchr/HsqlDriverOOo/blob/master/uno/lib/uno/database/documenthandler.py>
+[27]: <https://github.com/prrvchr/HsqlDriverOOo/blob/master/uno/lib/uno/embedded/documenthandler.py>
 [28]: <https://www.openoffice.org/api/docs/common/ref/com/sun/star/util/XCloseListener.html>
 [29]: <http://www.openoffice.org/api/docs/common/ref/com/sun/star/document/XStorageChangeListener.html>
 [30]: <https://www.openoffice.org/api/docs/common/ref/com/sun/star/sdbc/XConnection.html>
 [31]: <https://forum.openoffice.org/en/forum/viewtopic.php?f=13&t=103912>
-[32]: <https://github.com/prrvchr/HsqlDriverOOo/blob/master/source/HsqlDriverOOo/service/pythonpath/hsqldriver/driver.py>
+[32]: <https://github.com/prrvchr/HsqlDriverOOo/blob/master/uno/lib/uno/embedded/driver.py>
