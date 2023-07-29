@@ -116,6 +116,8 @@ ___
 
 * LibreOffice 6.4.4.2 - Windows 7 SP1
 
+* **Does not work with LibreOffice 7.6.x or higher** (see [bug 156511][31])
+
 I encourage you in case of problem :confused:  
 to create an [issue][12]  
 I will try to solve it :smile:
@@ -125,7 +127,7 @@ ___
 
 ### What has been done for version 0.0.1:
 
-- The writing of this driver was facilitated by a [discussion with Villeroy][31], on the OpenOffice forum, which I would like to thank, because knowledge is only worth if it is shared...
+- The writing of this driver was facilitated by a [discussion with Villeroy][32], on the OpenOffice forum, which I would like to thank, because knowledge is only worth if it is shared...
 
 - Using the old version of HsqlDB 1.8.0 (can be easily updated).
 
@@ -157,7 +159,7 @@ ___
 
 ### What has been done for version 0.0.4:
 
-- Modification of [Driver.py][32] in order to make possible the use of the Uno service: `com.sun.star.sdb.RowSet`.
+- Modification of [Driver.py][33] in order to make possible the use of the Uno service: `com.sun.star.sdb.RowSet`.
 
 - Many other fix...
 
@@ -167,7 +169,7 @@ ___
   - The extraction of the database files contained in the **odb** file on connection.
   - Saving database files to **odb** file when closing it.
 
-- Rewrote [Driver.py][32] to allow:
+- Rewrote [Driver.py][33] to allow:
   - Its operation with the new JDBC driver provided by the extension [jdbcDriverOOo][9] version 0.0.4.
   - The support for the new [DocumentHandler][27] to make **odb** files portable as they were in LibreOffice / OpenOffice with version 1.8 of HsqlDB.
 
@@ -215,5 +217,6 @@ ___
 [28]: <https://www.openoffice.org/api/docs/common/ref/com/sun/star/util/XCloseListener.html>
 [29]: <http://www.openoffice.org/api/docs/common/ref/com/sun/star/document/XStorageChangeListener.html>
 [30]: <https://www.openoffice.org/api/docs/common/ref/com/sun/star/sdbc/XConnection.html>
-[31]: <https://forum.openoffice.org/en/forum/viewtopic.php?f=13&t=103912>
-[32]: <https://github.com/prrvchr/HsqlDriverOOo/blob/master/uno/lib/uno/embedded/driver.py>
+[31]: <https://bugs.documentfoundation.org/show_bug.cgi?id=156511>
+[32]: <https://forum.openoffice.org/en/forum/viewtopic.php?f=13&t=103912>
+[33]: <https://github.com/prrvchr/HsqlDriverOOo/blob/master/uno/lib/uno/embedded/driver.py>
