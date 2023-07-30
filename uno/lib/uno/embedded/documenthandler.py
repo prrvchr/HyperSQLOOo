@@ -71,19 +71,18 @@ class DocumentHandler(unohelper.Base,
     # XCloseListener
     def queryClosing(self, event, owner):
         print("DocumentHandler.queryClosing() 1 ******************************")
-
-    def notifyClosing(self, event):
-        print("DocumentHandler.notifyClosing() 1 ******************************")
         with self._lock:
-            print("DocumentHandler.notifyClosing() 2 ******************************")
+            print("DocumentHandler.queryClosing() 2 ******************************")
             document = event.Source
             if self._closeDataBase(document):
                 sf = getSimpleFile(self._ctx)
                 if sf.isFolder(self._path):
                     sf.kill(self._path)
             self._url = None
-        print("DocumentHandler.notifyClosing() 3 ******************************")
+        print("DocumentHandler.queryClosing() 3 ******************************")
 
+    def notifyClosing(self, event):
+        pass
 
     # XStorageChangeListener
     def notifyStorageChange(self, document, storage):
