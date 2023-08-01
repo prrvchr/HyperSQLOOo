@@ -4,7 +4,7 @@
 
 **L'utilisation de ce logiciel vous soumet à nos [Conditions d'utilisation][3].**
 
-# version [1.0.0][4]
+# version [1.0.1][4]
 
 ## Introduction:
 
@@ -46,10 +46,10 @@ ___
 Il semble important que le fichier n'ait pas été renommé lors de son téléchargement.  
 Si nécessaire, renommez-le avant de l'installer.
 
-- Installer l'extension ![jdbcDriverOOo logo][16] **[jdbcDriverOOo.oxt][17]** version 1.0.0.  
+- Installer l'extension ![jdbcDriverOOo logo][16] **[jdbcDriverOOo.oxt][17]** version 1.0.1.  
 Cette extension est nécessaire pour utiliser HsqlDB version 2.7.2 avec toutes ses fonctionnalités.
 
-- Installer l'extension ![HsqlDriverOOo logo][1] **[HsqlDriverOOo.oxt][18]** version 1.0.0.
+- Installer l'extension ![HsqlDriverOOo logo][1] **[HsqlDriverOOo.oxt][18]** version 1.0.1.
 
 Redémarrez LibreOffice / OpenOffice après l'installation.
 
@@ -116,7 +116,9 @@ ___
 
 * LibreOffice 6.4.4.2 - Windows 7 SP1
 
-* **Ne fonctionne pas avec LibreOffice 7.6.x ou supérieur** (voir [bug 156511][31])
+* LibreOffice 7.6.0.1 - Windows 10
+
+* LibreOffice 7.6.0.1 - Ubuntu 22.04
 
 Je vous encourage en cas de problème :confused:  
 de créer un [dysfonctionnement][12]  
@@ -127,7 +129,7 @@ ___
 
 ### Ce qui a été fait pour la version 0.0.1:
 
-- La rédaction de ce pilote a été facilitée par une [discussion avec Villeroy][32], sur le forum OpenOffice, que je tiens à remercier, car la connaissance ne vaut que si elle est partagée...
+- La rédaction de ce pilote a été facilitée par une [discussion avec Villeroy][31], sur le forum OpenOffice, que je tiens à remercier, car la connaissance ne vaut que si elle est partagée...
 
 - Utilisation de l'ancienne version de HsqlDB 1.8.0 (peut être facilement mise à jour).
 
@@ -159,7 +161,7 @@ ___
 
 ### Ce qui a été fait pour la version 0.0.4:
 
-- Modification de [Driver.py][33] afin de rendre possible l'utilisation du service Uno: `com.sun.star.sdb.RowSet`.
+- Modification de [Driver.py][32] afin de rendre possible l'utilisation du service Uno: `com.sun.star.sdb.RowSet`.
 
 - Beaucoup d'autres correctifs...
 
@@ -169,7 +171,7 @@ ___
   - De l'extraction des fichiers de base de données contenus dans le fichier **odb** à la connexion.
   - De la sauvegarde des fichiers de base de données dans le fichier **odb** lors de sa fermeture.
 
-- Réécriture de [Driver.py][33] afin de permettre:
+- Réécriture de [Driver.py][32] afin de permettre:
   - Son fonctionnement avec le nouveau pilote JDBC fourni par l'extension [jdbcDriverOOo][9] version 0.0.4.
   - La prise en charge du nouveau [DocumentHandler][27] afin de rendre les fichiers **odb** portables tels qu'ils étaient dans LibreOffice / OpenOffice avec la version 1.8 de HsqlDB.
 
@@ -181,7 +183,11 @@ ___
 
 - Integration de HyperSQL version 2.7.2.
 
-### Que reste-t-il à faire pour la version 1.0.0:
+### Ce qui a été fait pour la version 1.0.1:
+
+- Résolution du [dysfonctionnement 156511][33] survenant lors de l'utilisation de l'interface com.sun.star.embed.XStorage. Le contournement consiste à utiliser la méthode copyElementTo() au lieu de moveElementTo().
+
+### Que reste-t-il à faire pour la version 1.0.1:
 
 - Ajouter de nouvelles langue pour l'internationalisation...
 
@@ -217,6 +223,6 @@ ___
 [28]: <https://www.openoffice.org/api/docs/common/ref/com/sun/star/util/XCloseListener.html>
 [29]: <http://www.openoffice.org/api/docs/common/ref/com/sun/star/document/XStorageChangeListener.html>
 [30]: <https://www.openoffice.org/api/docs/common/ref/com/sun/star/sdbc/XConnection.html>
-[31]: <https://bugs.documentfoundation.org/show_bug.cgi?id=156511>
-[32]: <https://forum.openoffice.org/en/forum/viewtopic.php?f=13&t=103912>
-[33]: <https://github.com/prrvchr/HsqlDriverOOo/blob/master/uno/lib/uno/embedded/driver.py>
+[31]: <https://forum.openoffice.org/en/forum/viewtopic.php?f=13&t=103912>
+[32]: <https://github.com/prrvchr/HsqlDriverOOo/blob/master/uno/lib/uno/embedded/driver.py>
+[33]: <https://bugs.documentfoundation.org/show_bug.cgi?id=156511>
