@@ -185,7 +185,7 @@ ___
 
 ### Ce qui a été fait pour la version 1.0.1:
 
-- Résolution du [dysfonctionnement 156511][33] survenant lors de l'utilisation de l'interface com.sun.star.embed.XStorage. Le contournement consiste à utiliser la méthode copyElementTo() au lieu de moveElementTo().
+- Résolution du [dysfonctionnement 156511][33] survenant lors de l'utilisation de l'interface com.sun.star.embed.XStorage. Le [contournement][34] consiste à utiliser la méthode copyElementTo() au lieu de moveElementTo(). Les versions de LibreOffice 7.6.x et supérieures deviennent utilisables.
 
 ### Que reste-t-il à faire pour la version 1.0.1:
 
@@ -226,3 +226,4 @@ ___
 [31]: <https://forum.openoffice.org/en/forum/viewtopic.php?f=13&t=103912>
 [32]: <https://github.com/prrvchr/HsqlDriverOOo/blob/master/uno/lib/uno/embedded/driver.py>
 [33]: <https://bugs.documentfoundation.org/show_bug.cgi?id=156511>
+[34]: <https://github.com/prrvchr/uno/commit/a2fa9f5975a35e8447907e51b0f78ac1b1b76e17>

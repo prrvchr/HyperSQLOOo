@@ -185,7 +185,7 @@ ___
 
 ### What has been done for version 1.0.1:
 
-- Fixed [bug 156511][33] occurring when using the com.sun.star.embed.XStorage interface. The workaround is to use the copyElementTo() method instead of moveElementTo().
+- Fixed [bug 156511][33] occurring when using the com.sun.star.embed.XStorage interface. The [workaround][34] is to use the copyElementTo() method instead of moveElementTo(). Versions of LibreOffice 7.6.x and higher become usable.
 
 ### What remains to be done for version 1.0.1:
 
@@ -226,3 +226,4 @@ ___
 [31]: <https://forum.openoffice.org/en/forum/viewtopic.php?f=13&t=103912>
 [32]: <https://github.com/prrvchr/HsqlDriverOOo/blob/master/uno/lib/uno/embedded/driver.py>
 [33]: <https://bugs.documentfoundation.org/show_bug.cgi?id=156511>
+[34]: <https://github.com/prrvchr/uno/commit/a2fa9f5975a35e8447907e51b0f78ac1b1b76e17>
