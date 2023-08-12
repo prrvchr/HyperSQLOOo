@@ -46,7 +46,7 @@ ___
 It seems important that the file was not renamed when it was downloaded.
 If necessary, rename it before installing it.
 
-- Install ![jdbcDriverOOo logo][16] **[jdbcDriverOOo.oxt][17]** extension version 1.0.1.  
+- Install ![jdbcDriverOOo logo][16] **[jdbcDriverOOo.oxt][17]** extension version 1.0.3.  
 This extension is necessary to use HsqlDB version 2.7.2 with all its features.
 
 - Install ![HyperSQLOOo logo][1] **[HyperSQLOOo.oxt][18]** extension version 1.0.1.
