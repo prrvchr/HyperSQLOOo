@@ -24,14 +24,42 @@
 ║                                                                                    ║
 ╚════════════════════════════════════════════════════════════════════════════════════╝
 -->
-<!DOCTYPE manifest:manifest PUBLIC "-//OpenOffice.org//DTD Manifest 1.0//EN" "Manifest.dtd">
-<manifest:manifest xmlns:manifest="http://openoffice.org/2001/manifest">
-    <manifest:file-entry manifest:media-type="application/vnd.sun.star.uno-typelibrary;type=RDB" manifest:full-path="types.rdb"/>
-    <manifest:file-entry manifest:media-type="application/vnd.sun.star.basic-library" manifest:full-path="HsqlDriverOOo/"/>
-    <manifest:file-entry manifest:media-type="application/vnd.sun.star.configuration-schema" manifest:full-path="Options.xcs"/>
-    <manifest:file-entry manifest:media-type="application/vnd.sun.star.configuration-data" manifest:full-path="Options.xcu"/>
-    <manifest:file-entry manifest:media-type="application/vnd.sun.star.configuration-data" manifest:full-path="OptionsDialog.xcu"/>
-    <manifest:file-entry manifest:media-type="application/vnd.sun.star.configuration-data" manifest:full-path="Drivers.xcu"/>
-    <manifest:file-entry manifest:media-type="application/vnd.sun.star.uno-component;type=Python" manifest:full-path="service/OptionsHandler.py"/>
-    <manifest:file-entry manifest:media-type="application/vnd.sun.star.uno-component;type=Python" manifest:full-path="service/Driver.py"/>
-</manifest:manifest>
+<description
+  xmlns="http://openoffice.org/extensions/description/2006"
+  xmlns:d="http://openoffice.org/extensions/description/2006"
+  xmlns:xlink="http://www.w3.org/1999/xlink">
+    <version value="1.0.1"/>
+    <identifier value="io.github.prrvchr.HyperSQLOOo"/>
+    <platform value="all"/>
+    <dependencies>
+        <OpenOffice.org-minimal-version value="4.1" d:name="OpenOffice.org 4.1"/>
+    </dependencies>
+    <update-information>
+        <src xlink:href="https://prrvchr.github.io/HyperSQLOOo/HyperSQLOOo.update.xml"/>
+    </update-information>
+    <publisher>
+        <name xlink:href="https://prrvchr.github.io/HyperSQLOOo/" lang="en-US">Embedded Hsqldb driver for LibreOffice / OpenOffice</name>
+        <name xlink:href="https://prrvchr.github.io/HyperSQLOOo/README_fr" lang="fr-FR">Pilote Hsqldb intégré pour LibreOffice / OpenOffice</name>
+    </publisher>
+    <registration>
+        <simple-license accept-by="admin" suppress-on-update="true">
+            <license-text xlink:href="registration/TermsOfUse_en.md" lang="en-US"/>
+            <license-text xlink:href="registration/TermsOfUse_fr.md" lang="fr-FR"/>
+        </simple-license>
+    </registration>
+    <release-notes>
+        <src xlink:href="https://prrvchr.github.io/HyperSQLOOo/" lang="en-US"/>
+        <src xlink:href="https://prrvchr.github.io/HyperSQLOOo/README_fr" lang="fr-FR"/>
+    </release-notes>
+    <display-name>
+        <name lang="en-US">HyperSQLOOo</name>
+    </display-name>
+    <icon>
+        <default xlink:href="HyperSQLOOo/HyperSQLOOo.svg"/>
+        <high-contrast xlink:href="HyperSQLOOo/HyperSQLOOo.svg"/>
+    </icon>
+    <extension-description>
+        <src xlink:href="description/desc_en.txt" lang="en-US"/>
+        <src xlink:href="description/desc_fr.txt" lang="fr-FR"/>
+    </extension-description>
+</description>

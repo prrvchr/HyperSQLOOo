@@ -1,5 +1,7 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<!--
+#!
+# -*- coding: utf_8 -*-
+
+"""
 ╔════════════════════════════════════════════════════════════════════════════════════╗
 ║                                                                                    ║
 ║   Copyright (c) 2020 https://prrvchr.github.io                                     ║
@@ -23,18 +25,20 @@
 ║   OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                                    ║
 ║                                                                                    ║
 ╚════════════════════════════════════════════════════════════════════════════════════╝
--->
-<oor:component-data
-  xml:lang="en-US"
-  xmlns:oor="http://openoffice.org/2001/registry"
-  xmlns:xs="http://www.w3.org/2001/XMLSchema"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  oor:package="io.github.prrvchr"
-  oor:name="HsqlDriverOOo">
-    <prop oor:name="DriverService" oor:op="fuse">
-        <value>io.github.prrvchr.jdbcdriver.sdbcx.Driver</value>
-    </prop>
-    <prop oor:name="ConnectionService" oor:op="fuse">
-        <value>com.sun.star.sdb.Connection</value>
-    </prop>
-</oor:component-data>
+"""
+
+# General configuration
+g_extension = 'HyperSQLOOo'
+g_identifier = 'io.github.prrvchr.%s' % g_extension
+g_resource = 'resource'
+g_basename = 'Driver'
+g_defaultlog = 'HyperSQLLogger'
+g_errorlog = 'HyperSQLError'
+
+# DataBase configuration
+g_protocol = 'xdbc:hsqldb:'
+g_url = 'sdbc:embedded:hsqldb'
+g_user = 'SA'
+g_options = ';hsqldb.default_table_type=cached;get_column_name=false;ifexists=false'
+g_shutdown = ';shutdown=true'
+

@@ -30,7 +30,7 @@
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   oor:package="io.github.prrvchr"
-  oor:name="HsqlDriverOOo">
+  oor:name="HyperSQLOOo">
     <component>
         <prop oor:name="DriverService" oor:type="xs:string"/>
         <prop oor:name="ConnectionService" oor:type="xs:string"/>

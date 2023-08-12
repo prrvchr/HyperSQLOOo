@@ -30,68 +30,40 @@
 import uno
 import unohelper
 
-from com.sun.star.awt import XContainerWindowEventHandler
-
 from com.sun.star.lang import XServiceInfo
 
-from hsqldriver import OptionsManager
+from hypersql import sdbc
+from hypersql import sdbcx
 
-from hsqldriver import g_identifier
+from hypersql import getConfiguration
 
+from hypersql import g_identifier
+
+from threading import Lock
 import traceback
 
 # pythonloader looks for a static g_ImplementationHelper variable
 g_ImplementationHelper = unohelper.ImplementationHelper()
-g_ImplementationName = '%s.OptionsHandler' % g_identifier
+g_ImplementationName = '%s.Driver' % g_identifier
 
 
-class OptionsHandler(unohelper.Base,
-                     XServiceInfo,
-                     XContainerWindowEventHandler):
-    def __init__(self, ctx):
-        self._ctx = ctx
-        self._manager = None
+class Driver(unohelper.Base,
+             XServiceInfo):
+    def __new__(cls, ctx, *args, **kwargs):
+        if cls._instance is None:
+            with cls._lock:
+                if cls._instance is None:
+                    print("Driver.__new__() *******************************")
+                    service = getConfiguration(ctx, g_identifier).getByName('DriverService')
+                    if service == 'io.github.prrvchr.jdbcdriver.sdbc.Driver':
+                        instance = sdbc.Driver(ctx, cls._lock, service, g_ImplementationName)
+                    else:
+                        instance = sdbcx.Driver(ctx, cls._lock, service, g_ImplementationName)
+                    cls._instance = instance
+        return cls._instance
 
-    # XContainerWindowEventHandler
-    def callHandlerMethod(self, window, event, method):
-        try:
-            handled = False
-            if method == 'external_event':
-                if event == 'initialize':
-                    self._manager = OptionsManager(self._ctx, window)
-                    handled = True
-                elif event == 'ok':
-                    self._manager.saveSetting()
-                    handled = True
-                elif event == 'back':
-                    self._manager.loadSetting()
-                    handled = True
-            elif method == 'Base':
-                self._manager.setDriverService(0)
-                handled = True
-            elif method == 'Enhanced':
-                self._manager.setDriverService(1)
-                handled = True
-            elif method == 'Level0':
-                self._manager.setConnectionService(0)
-                handled = True
-            elif method == 'Level1':
-                self._manager.setConnectionService(1)
-                handled = True
-            elif method == 'Level2':
-                self._manager.setConnectionService(2)
-                handled = True
-            return handled
-        except Exception as e:
-            print("ERROR: %s - %s" % (e, traceback.format_exc()))
-
-    def getSupportedMethodNames(self):
-        return ('external_event',
-                'Base',
-                'Enhanced',
-                'Level0',
-                'Level1',
-                'Level2')
+    _instance = None
+    _lock = Lock()
 
     # XServiceInfo
     def supportsService(self, service):
@@ -102,6 +74,8 @@ class OptionsHandler(unohelper.Base,
         return g_ImplementationHelper.getSupportedServiceNames(g_ImplementationName)
 
 
-g_ImplementationHelper.addImplementation(OptionsHandler,                            # UNO object class
-                                         g_ImplementationName,                      # Implementation name
-                                         (g_ImplementationName,))                   # List of implemented services
+g_ImplementationHelper.addImplementation(Driver,
+                                         g_ImplementationName,
+                                        (g_ImplementationName,
+                                        'com.sun.star.sdbc.Driver'))
+

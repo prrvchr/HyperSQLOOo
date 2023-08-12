@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!--
 ╔════════════════════════════════════════════════════════════════════════════════════╗
 ║                                                                                    ║
@@ -24,42 +24,17 @@
 ║                                                                                    ║
 ╚════════════════════════════════════════════════════════════════════════════════════╝
 -->
-<description
-  xmlns="http://openoffice.org/extensions/description/2006"
-  xmlns:d="http://openoffice.org/extensions/description/2006"
-  xmlns:xlink="http://www.w3.org/1999/xlink">
-    <version value="1.0.1"/>
-    <identifier value="io.github.prrvchr.HsqlDriverOOo"/>
-    <platform value="all"/>
-    <dependencies>
-        <OpenOffice.org-minimal-version value="4.1" d:name="OpenOffice.org 4.1"/>
-    </dependencies>
-    <update-information>
-        <src xlink:href="https://prrvchr.github.io/HsqlDriverOOo/HsqlDriverOOo.update.xml"/>
-    </update-information>
-    <publisher>
-        <name xlink:href="https://prrvchr.github.io/HsqlDriverOOo/" lang="en-US">Embedded Hsqldb driver for LibreOffice / OpenOffice</name>
-        <name xlink:href="https://prrvchr.github.io/HsqlDriverOOo/README_fr" lang="fr-FR">Pilote Hsqldb intégré pour LibreOffice / OpenOffice</name>
-    </publisher>
-    <registration>
-        <simple-license accept-by="admin" suppress-on-update="true">
-            <license-text xlink:href="registration/TermsOfUse_en.md" lang="en-US"/>
-            <license-text xlink:href="registration/TermsOfUse_fr.md" lang="fr-FR"/>
-        </simple-license>
-    </registration>
-    <release-notes>
-        <src xlink:href="https://prrvchr.github.io/HsqlDriverOOo/" lang="en-US"/>
-        <src xlink:href="https://prrvchr.github.io/HsqlDriverOOo/README_fr" lang="fr-FR"/>
-    </release-notes>
-    <display-name>
-        <name lang="en-US">HsqlDriverOOo</name>
-    </display-name>
-    <icon>
-        <default xlink:href="HsqlDriverOOo/HsqlDriverOOo.svg"/>
-        <high-contrast xlink:href="HsqlDriverOOo/HsqlDriverOOo.svg"/>
-    </icon>
-    <extension-description>
-        <src xlink:href="description/desc_en.txt" lang="en-US"/>
-        <src xlink:href="description/desc_fr.txt" lang="fr-FR"/>
-    </extension-description>
-</description>
+<oor:component-data
+  xml:lang="en-US"
+  xmlns:oor="http://openoffice.org/2001/registry"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  oor:package="io.github.prrvchr"
+  oor:name="HyperSQLOOo">
+    <prop oor:name="DriverService" oor:op="fuse">
+        <value>io.github.prrvchr.jdbcdriver.sdbcx.Driver</value>
+    </prop>
+    <prop oor:name="ConnectionService" oor:op="fuse">
+        <value>com.sun.star.sdb.Connection</value>
+    </prop>
+</oor:component-data>

@@ -1,7 +1,5 @@
-#!
-# -*- coding: utf_8 -*-
-
-"""
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
 ╔════════════════════════════════════════════════════════════════════════════════════╗
 ║                                                                                    ║
 ║   Copyright (c) 2020 https://prrvchr.github.io                                     ║
@@ -25,20 +23,15 @@
 ║   OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                                    ║
 ║                                                                                    ║
 ╚════════════════════════════════════════════════════════════════════════════════════╝
-"""
-
-# General configuration
-g_extension = 'HsqlDriverOOo'
-g_identifier = 'io.github.prrvchr.%s' % g_extension
-g_resource = 'resource'
-g_basename = 'Driver'
-g_defaultlog = 'HsqlDriverLogger'
-g_errorlog = 'HsqlDriverError'
-
-# DataBase configuration
-g_protocol = 'xdbc:hsqldb:'
-g_url = 'sdbc:embedded:hsqldb'
-g_user = 'SA'
-g_options = ';hsqldb.default_table_type=cached;get_column_name=false;ifexists=false'
-g_shutdown = ';shutdown=true'
-
+-->
+<!DOCTYPE manifest:manifest PUBLIC "-//OpenOffice.org//DTD Manifest 1.0//EN" "Manifest.dtd">
+<manifest:manifest xmlns:manifest="http://openoffice.org/2001/manifest">
+    <manifest:file-entry manifest:media-type="application/vnd.sun.star.uno-typelibrary;type=RDB" manifest:full-path="types.rdb"/>
+    <manifest:file-entry manifest:media-type="application/vnd.sun.star.basic-library" manifest:full-path="HyperSQLOOo/"/>
+    <manifest:file-entry manifest:media-type="application/vnd.sun.star.configuration-schema" manifest:full-path="Options.xcs"/>
+    <manifest:file-entry manifest:media-type="application/vnd.sun.star.configuration-data" manifest:full-path="Options.xcu"/>
+    <manifest:file-entry manifest:media-type="application/vnd.sun.star.configuration-data" manifest:full-path="OptionsDialog.xcu"/>
+    <manifest:file-entry manifest:media-type="application/vnd.sun.star.configuration-data" manifest:full-path="Drivers.xcu"/>
+    <manifest:file-entry manifest:media-type="application/vnd.sun.star.uno-component;type=Python" manifest:full-path="service/OptionsHandler.py"/>
+    <manifest:file-entry manifest:media-type="application/vnd.sun.star.uno-component;type=Python" manifest:full-path="service/Driver.py"/>
+</manifest:manifest>

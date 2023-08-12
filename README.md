@@ -8,7 +8,7 @@
 
 ## Introduction:
 
-**HsqlDriverOOo** is part of a [Suite][5] of [LibreOffice][6] and/or [OpenOffice][7] extensions allowing to offer you innovative services in these office suites.  
+**HyperSQLOOo** is part of a [Suite][5] of [LibreOffice][6] and/or [OpenOffice][7] extensions allowing to offer you innovative services in these office suites.  
 
 This extension allows you:
 - To overcome [bug 139538][8] for users of **LibreOffice on Linux**.
@@ -49,7 +49,7 @@ If necessary, rename it before installing it.
 - Install ![jdbcDriverOOo logo][16] **[jdbcDriverOOo.oxt][17]** extension version 1.0.1.  
 This extension is necessary to use HsqlDB version 2.7.2 with all its features.
 
-- Install ![HsqlDriverOOo logo][1] **[HsqlDriverOOo.oxt][18]** extension version 1.0.1.
+- Install ![HyperSQLOOo logo][1] **[HyperSQLOOo.oxt][18]** extension version 1.0.1.
 
 Restart LibreOffice / OpenOffice after installation.
 
@@ -60,20 +60,20 @@ ___
 
 In LibreOffice / OpenOffice go to File -> New -> Database...:
 
-![HsqlDriverOOo screenshot 1][19]
+![HyperSQLOOo screenshot 1][19]
 
 In step: Select database:
 - select: Create a new database
 - in: Emdedded database: choose: Embedded HsqlDB Driver
 - click on button: Next
 
-![HsqlDriverOOo screenshot 2][20]
+![HyperSQLOOo screenshot 2][20]
 
 In step: Save and proceed:
 - adjust the parameters according to your needs...
 - click on button: Finish
 
-![HsqlDriverOOo screenshot 3][21]
+![HyperSQLOOo screenshot 3][21]
 
 Have fun...
 
@@ -93,7 +93,7 @@ If you want to migrate an integrated database (HsqlDB version 1.8.0) to a newer 
 ___
 ## How does it work:
 
-HsqlDriverOOo is an [com.sun.star.sdbc.Driver][26] UNO service written in Python.  
+HyperSQLOOo is an [com.sun.star.sdbc.Driver][26] UNO service written in Python.  
 It is an overlay to the [jdbcDriverOOo][9] extension allowing to store the HyperSQL database in an odb file (which is, in fact, a compressed file).
 
 Its operation is quite basic, namely:
@@ -185,6 +185,8 @@ ___
 
 ### What has been done for version 1.0.1:
 
+- Renamed the extension from HsqlDriverOOo to HyperSQLOOo.
+
 - Fixed [bug 156511][33] occurring when using the com.sun.star.embed.XStorage interface. The [workaround][34] is to use the copyElementTo() method instead of moveElementTo(). Versions of LibreOffice 7.6.x and higher become usable.
 
 ### What remains to be done for version 1.0.1:
@@ -193,37 +195,37 @@ ___
 
 - Anything welcome...
 
-[1]: <img/HsqlDriverOOo.svg>
-[2]: <https://prrvchr.github.io/HsqlDriverOOo/README_fr>
-[3]: <https://prrvchr.github.io/HsqlDriverOOo/source/HsqlDriverOOo/registration/TermsOfUse_en>
-[4]: <https://prrvchr.github.io/HsqlDriverOOo#historical>
+[1]: <img/HyperSQLOOo.svg>
+[2]: <https://prrvchr.github.io/HyperSQLOOo/README_fr>
+[3]: <https://prrvchr.github.io/HyperSQLOOo/source/HyperSQLOOo/registration/TermsOfUse_en>
+[4]: <https://prrvchr.github.io/HyperSQLOOo#historical>
 [5]: <https://prrvchr.github.io/>
 [6]: <https://www.libreoffice.org/download/download/>
 [7]: <https://www.openoffice.org/download/index.html>
 [8]: <https://bugs.documentfoundation.org/show_bug.cgi?id=139538>
 [9]: <https://prrvchr.github.io/jdbcDriverOOo/>
 [10]: <https://repo1.maven.org/maven2/org/hsqldb/hsqldb/1.8.0.10/hsqldb-1.8.0.10.jar>
-[11]: <https://github.com/prrvchr/HsqlDriverOOo/>
-[12]: <https://github.com/prrvchr/HsqlDriverOOo/issues/new>
+[11]: <https://github.com/prrvchr/HyperSQLOOo/>
+[12]: <https://github.com/prrvchr/HyperSQLOOo/issues/new>
 [13]: <http://hsqldb.org/>
 [14]: <https://wiki.documentfoundation.org/Documentation/HowTo/Install_the_correct_JRE_-_LibreOffice_on_Windows_10>
 [15]: <https://adoptium.net/releases.html?variant=openjdk11>
 [16]: <https://prrvchr.github.io/jdbcDriverOOo/img/jdbcDriverOOo.svg>
 [17]: <https://github.com/prrvchr/jdbcDriverOOo/raw/master/jdbcDriverOOo.oxt>
-[18]: <https://github.com/prrvchr/HsqlDriverOOo/raw/master/HsqlDriverOOo.oxt>
-[19]: <img/HsqlDriverOOo-1.png>
-[20]: <img/HsqlDriverOOo-2.png>
-[21]: <img/HsqlDriverOOo-3.png>
+[18]: <https://github.com/prrvchr/HyperSQLOOo/raw/master/HyperSQLOOo.oxt>
+[19]: <img/HyperSQLOOo-1.png>
+[20]: <img/HyperSQLOOo-2.png>
+[21]: <img/HyperSQLOOo-3.png>
 [22]: <https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.4.0/hsqldb-2.4.0.jar>
 [23]: <https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.4.1/hsqldb-2.4.1.jar>
 [24]: <https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.5.0/hsqldb-2.5.0.jar>
 [25]: <https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.7.2/hsqldb-2.7.2.jar>
 [26]: <https://www.openoffice.org/api/docs/common/ref/com/sun/star/sdbc/Driver.html>
-[27]: <https://github.com/prrvchr/HsqlDriverOOo/blob/master/uno/lib/uno/embedded/documenthandler.py>
+[27]: <https://github.com/prrvchr/HyperSQLOOo/blob/master/uno/lib/uno/embedded/documenthandler.py>
 [28]: <https://www.openoffice.org/api/docs/common/ref/com/sun/star/util/XCloseListener.html>
 [29]: <http://www.openoffice.org/api/docs/common/ref/com/sun/star/document/XStorageChangeListener.html>
 [30]: <https://www.openoffice.org/api/docs/common/ref/com/sun/star/sdbc/XConnection.html>
 [31]: <https://forum.openoffice.org/en/forum/viewtopic.php?f=13&t=103912>
-[32]: <https://github.com/prrvchr/HsqlDriverOOo/blob/master/uno/lib/uno/embedded/driver.py>
+[32]: <https://github.com/prrvchr/HyperSQLOOo/blob/master/uno/lib/uno/embedded/driver.py>
 [33]: <https://bugs.documentfoundation.org/show_bug.cgi?id=156511>
 [34]: <https://github.com/prrvchr/uno/commit/a2fa9f5975a35e8447907e51b0f78ac1b1b76e17>
