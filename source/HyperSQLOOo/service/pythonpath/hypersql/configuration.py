@@ -28,12 +28,13 @@
 """
 
 # General configuration
-g_extension = 'HyperSQLOOo'
+g_dbname = 'HyperSQL'
+g_extension = '%sOOo' % g_dbname
 g_identifier = 'io.github.prrvchr.%s' % g_extension
 g_resource = 'resource'
 g_basename = 'Driver'
-g_defaultlog = 'HyperSQLLogger'
-g_errorlog = 'HyperSQLError'
+g_defaultlog = '%sLogger' % g_dbname
+g_errorlog = '%sError'  % g_dbname
 
 # DataBase configuration
 g_protocol = 'xdbc:hsqldb:'
