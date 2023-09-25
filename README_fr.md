@@ -4,7 +4,7 @@
 
 **L'utilisation de ce logiciel vous soumet à nos [Conditions d'utilisation][3].**
 
-# version [1.0.1][4]
+# version [1.0.2][4]
 
 ## Introduction:
 
@@ -46,10 +46,10 @@ ___
 Il semble important que le fichier n'ait pas été renommé lors de son téléchargement.  
 Si nécessaire, renommez-le avant de l'installer.
 
-- Installer l'extension ![jdbcDriverOOo logo][16] **[jdbcDriverOOo.oxt][17]** version 1.0.3.  
+- Installer l'extension ![jdbcDriverOOo logo][16] **[jdbcDriverOOo.oxt][17]** version 1.0.5.  
 Cette extension est nécessaire pour utiliser HsqlDB version 2.7.2 avec toutes ses fonctionnalités.
 
-- Installer l'extension ![HyperSQLOOo logo][1] **[HyperSQLOOo.oxt][18]** version 1.0.1.
+- Installer l'extension ![HyperSQLOOo logo][1] **[HyperSQLOOo.oxt][18]** version 1.0.2.
 
 Redémarrez LibreOffice / OpenOffice après l'installation.
 
@@ -189,7 +189,13 @@ ___
 
 - Résolution du [dysfonctionnement 156511][33] survenant lors de l'utilisation de l'interface com.sun.star.embed.XStorage. Le [contournement][34] consiste à utiliser la méthode copyElementTo() au lieu de moveElementTo(). Les versions de LibreOffice 7.6.x et supérieures deviennent utilisables.
 
-### Que reste-t-il à faire pour la version 1.0.1:
+### Ce qui a été fait pour la version 1.0.2:
+
+- L'absence ou l'obsolescence de l'extension **jdbcDriverOOo** nécessaires au bon fonctionnement de **HyperSQLOOo** affiche désormais un message d'erreur.
+
+- Encore plein d'autres choses...
+
+### Que reste-t-il à faire pour la version 1.0.2:
 
 - Ajouter de nouvelles langue pour l'internationalisation...
 
