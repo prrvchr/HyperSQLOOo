@@ -49,7 +49,7 @@ If necessary, rename it before installing it.
 - Install ![jdbcDriverOOo logo][16] **[jdbcDriverOOo.oxt][17]** extension version 1.0.5.  
 This extension is necessary to use HsqlDB version 2.7.2 with all its features.
 
-- Install ![HyperSQLOOo logo][1] **[HyperSQLOOo.oxt][18]** extension version 1.0.2.
+- Install ![HyperSQLOOo logo][1] **[HyperSQLOOo.oxt][18]** extension version [![Version][0]][18]
 
 Restart LibreOffice / OpenOffice after installation.
 
@@ -201,6 +201,7 @@ ___
 
 - Anything welcome...
 
+[0]: <https://img.shields.io/github/downloads/prrvchr/HyperSQLOOo/latest/total?label=v1.0.2>
 [1]: <img/HyperSQLOOo.svg>
 [2]: <https://prrvchr.github.io/HyperSQLOOo/README_fr>
 [3]: <https://prrvchr.github.io/HyperSQLOOo/source/HyperSQLOOo/registration/TermsOfUse_en>
@@ -217,8 +218,8 @@ ___
 [14]: <https://wiki.documentfoundation.org/Documentation/HowTo/Install_the_correct_JRE_-_LibreOffice_on_Windows_10>
 [15]: <https://adoptium.net/releases.html?variant=openjdk11>
 [16]: <https://prrvchr.github.io/jdbcDriverOOo/img/jdbcDriverOOo.svg>
-[17]: <https://github.com/prrvchr/jdbcDriverOOo/raw/master/jdbcDriverOOo.oxt>
-[18]: <https://github.com/prrvchr/HyperSQLOOo/raw/master/HyperSQLOOo.oxt>
+[17]: <https://github.com/prrvchr/jdbcDriverOOo/releases/latest/download/jdbcDriverOOo.oxt>
+[18]: <https://github.com/prrvchr/HyperSQLOOo/releases/latest/download/HyperSQLOOo.oxt>
 [19]: <img/HyperSQLOOo-1.png>
 [20]: <img/HyperSQLOOo-2.png>
 [21]: <img/HyperSQLOOo-3.png>
