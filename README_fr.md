@@ -48,11 +48,11 @@ ___
 Il semble important que le fichier n'ait pas été renommé lors de son téléchargement.  
 Si nécessaire, renommez-le avant de l'installer.
 
-- Installer l'extension ![jdbcDriverOOo logo][15] **[jdbcDriverOOo.oxt][16]** [![Version][17]][16]
+- [![jdbcDriverOOo logo][15]][8] Installer l'extension **[jdbcDriverOOo.oxt][16]** [![Version][17]][16]
 
     Cette extension est nécessaire pour utiliser HsqlDB version 2.7.2 avec toutes ses fonctionnalités.
 
-- Installer l'extension ![HyperSQLOOo logo][18] **[HyperSQLOOo.oxt][19]** version [![Version][20]][19]
+- ![HyperSQLOOo logo][18] Installer l'extension **[HyperSQLOOo.oxt][19]** version [![Version][20]][19]
 
 Redémarrez LibreOffice / OpenOffice après l'installation.
 
