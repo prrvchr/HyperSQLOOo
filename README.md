@@ -224,7 +224,7 @@ ___
 [12]: <http://hsqldb.org/>
 [13]: <https://wiki.documentfoundation.org/Documentation/HowTo/Install_the_correct_JRE_-_LibreOffice_on_Windows_10>
 [14]: <https://adoptium.net/releases.html?variant=openjdk11>
-[15]: <https://prrvchr.github.io/SQLiteOOo/>
+[15]: <https://prrvchr.github.io/SQLiteOOo/#requirement>
 [16]: <https://prrvchr.github.io/jdbcDriverOOo/img/jdbcDriverOOo.svg#middle>
 [17]: <https://github.com/prrvchr/jdbcDriverOOo/releases/latest/download/jdbcDriverOOo.oxt>
 [18]: <https://img.shields.io/github/v/tag/prrvchr/jdbcDriverOOo?label=latest#right>
