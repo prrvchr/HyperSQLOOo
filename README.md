@@ -239,7 +239,7 @@ ___
 [-1]: <https://prrvchr.github.io/HyperSQLOOo/>
 [1]: <https://prrvchr.github.io/HyperSQLOOo/README_fr>
 [2]: <https://prrvchr.github.io/HyperSQLOOo/source/HyperSQLOOo/registration/TermsOfUse_en>
-[3]: <https://prrvchr.github.io/HyperSQLOOo#historical>
+[3]: <https://prrvchr.github.io/HyperSQLOOo#what-has-been-done-for-version-100>
 [4]: <https://prrvchr.github.io/>
 [5]: <https://www.libreoffice.org/download/download/>
 [6]: <https://www.openoffice.org/download/index.html>
