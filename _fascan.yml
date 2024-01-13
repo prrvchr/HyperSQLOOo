@@ -1,0 +1,14 @@
+namespace: HyperSQLOOo
+output:
+  file_path: ./Fluid-Attacks-Results.csv
+  format: CSV
+working_dir: .
+sast:
+  include:
+    - glob(source/HyperSQLOOo/service/*.py)
+    - glob(source/HyperSQLOOo/service/pythonpath/hypersql/*)
+sca:
+  include:
+    - .
+language: EN
+strict: true

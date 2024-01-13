@@ -29,11 +29,11 @@
 
 **The use of this software subjects you to our [Terms Of Use][4].**
 
-# version [1.0.2][5]
+# version [1.1.0][5]
 
 ## Introduction:
 
-**HyperSQLOOo** is part of a [Suite][6] of [LibreOffice][7] and/or [OpenOffice][8] extensions allowing to offer you innovative services in these office suites.  
+**HyperSQLOOo** is part of a [Suite][6] of [LibreOffice][7] ~~and/or [OpenOffice][8]~~ extensions allowing to offer you innovative services in these office suites.  
 
 This extension allows you:
 - To overcome [bug 139538][9] for users of **LibreOffice on Linux**.
@@ -43,11 +43,12 @@ This extension allows you:
     - The management of nanoseconds and time zones.
     - The management of `java.sql.Array`, `java.sql.Blob`, `java.sql.Clob`...
 - To replace the integrated [HsqlDB 1.8][11] driver provided by LibreOffice / OpenOffice, a version that will soon be more than 20 years old, with a recent HsqlDB version of your choice.
+- **To support the [ACID][12] properties of the underlying [HsqlDB][13] database.**
 
 Being free software I encourage you:
-- To duplicate its [source code][12].
+- To duplicate its [source code][14].
 - To make changes, corrections, improvements.
-- To open [issue][13] if needed.
+- To open [issue][15] if needed.
 
 In short, to participate in the development of this extension.  
 Because it is together that we can make Free Software smarter.
@@ -56,32 +57,35 @@ ___
 
 ## Requirement:
 
-[HsqlDB][14] is a database written in Java.  
-Its use requires the [installation and configuration][15] in LibreOffice / OpenOffice of a **JRE version 11 or later**.  
-I recommend [Adoptium][16] as your Java installation source.
+The HyperSQLOOo extension uses the jdbcDriverOOo extension to work.  
+It must therefore meet the [requirement of the jdbcDriverOOo extension][16].
 
-This extension cannot be installed together with the [SQLiteOOo][17] extension. It's one or the other, but at the moment they can't work together.
+This extension cannot be installed together with the [SQLiteOOo][17] extension.  
+It's one or the other, but at the moment they can't work together (see [issue #156471][43]).
 
-If you are using **LibreOffice on Linux**, then you are subject to [bug 139538][9]. To work around the problem, please **uninstall the packages** with commands:
-- `sudo apt remove libreoffice-sdbc-hsqldb` (to uninstall the libreoffice-sdbc-hsqldb package)
-- `sudo apt remove libhsqldb1.8.0-java` (to uninstall the libhsqldb1.8.0-java package)
-
-OpenOffice and LibreOffice on Windows are not subject to this malfunction.
+**On Linux and macOS the Python packages** used by the extension, if already installed, may come from the system and therefore **may not be up to date**.  
+To ensure that your Python packages are up to date it is recommended to use the **System Info** option in the extension Options accessible by:  
+**Tools -> Options -> Base drivers -> Embedded HsqlDB Driver -> View log -> System Info**  
+If outdated packages appear, you can update them with the command:  
+`pip install --upgrade <package-name>`
 
 ___
 
 ## Installation:
 
-It seems important that the file was not renamed when it was downloaded.
+It seems important that the file was not renamed when it was downloaded.  
 If necessary, rename it before installing it.
 
 - [![jdbcDriverOOo logo][18]][10] Install **[jdbcDriverOOo.oxt][19]** extension [![Version][20]][19]
 
-    This extension is necessary to use HsqlDB version 2.7.2 with all its features.
+  This extension is necessary to use HsqlDB version 2.7.2 with all its features.
 
 - ![HyperSQLOOo logo][21] Install **[HyperSQLOOo.oxt][22]** extension [![Version][23]][22]
 
-Restart LibreOffice / OpenOffice after installation.
+Restart LibreOffice after installation.
+
+**On Windows, restarting LibreOffice may not be enough.**  
+To ensure that LibreOffice restarts correctly, use the Windows Task Manager to verify that no LibreOffice services are visible after LibreOffice is shut down.
 
 ___
 
@@ -179,7 +183,7 @@ ___
 
 ### What has been done for version 0.0.3:
 
-- I especially want to thank fredt at [hsqldb.org][14] for:
+- I especially want to thank fredt at [hsqldb.org][13] for:
 
     - His welcome for this project and his permission to use the HsqlDB logo in the extension.
 
@@ -229,7 +233,14 @@ ___
 
 - Many other things...
 
-### What remains to be done for version 1.0.2:
+### What has been done for version 1.1.0:
+
+- All Python packages necessary for the extension are now recorded in a [requirements.txt][40] file following [PEP 508][41].
+- Now if you are not on Windows then the Python packages necessary for the extension can be easily installed with the command:  
+  `pip install requirements.txt`
+- Modification of the [Requirement][42] section.
+
+### What remains to be done for version 1.1.0:
 
 - Add new language for internationalization...
 
@@ -246,18 +257,18 @@ ___
 [9]: <https://bugs.documentfoundation.org/show_bug.cgi?id=139538>
 [10]: <https://prrvchr.github.io/jdbcDriverOOo/>
 [11]: <https://repo1.maven.org/maven2/org/hsqldb/hsqldb/1.8.0.10/hsqldb-1.8.0.10.jar>
-[12]: <https://github.com/prrvchr/HyperSQLOOo/>
-[13]: <https://github.com/prrvchr/HyperSQLOOo/issues/new>
-[14]: <http://hsqldb.org/>
-[15]: <https://wiki.documentfoundation.org/Documentation/HowTo/Install_the_correct_JRE_-_LibreOffice_on_Windows_10>
-[16]: <https://adoptium.net/releases.html?variant=openjdk11>
+[12]: <https://en.wikipedia.org/wiki/ACID>
+[13]: <http://hsqldb.org/>
+[14]: <https://github.com/prrvchr/HyperSQLOOo/>
+[15]: <https://github.com/prrvchr/HyperSQLOOo/issues/new>
+[16]: <https://prrvchr.github.io/jdbcDriverOOo/#requirement>
 [17]: <https://prrvchr.github.io/SQLiteOOo/#requirement>
 [18]: <https://prrvchr.github.io/jdbcDriverOOo/img/jdbcDriverOOo.svg#middle>
 [19]: <https://github.com/prrvchr/jdbcDriverOOo/releases/latest/download/jdbcDriverOOo.oxt>
 [20]: <https://img.shields.io/github/v/tag/prrvchr/jdbcDriverOOo?label=latest#right>
 [21]: <img/HyperSQLOOo.svg#middle>
 [22]: <https://github.com/prrvchr/HyperSQLOOo/releases/latest/download/HyperSQLOOo.oxt>
-[23]: <https://img.shields.io/github/downloads/prrvchr/HyperSQLOOo/latest/total?label=v1.0.2#right>
+[23]: <https://img.shields.io/github/downloads/prrvchr/HyperSQLOOo/latest/total?label=v1.1.0#right>
 [24]: <img/HyperSQLOOo-1.png>
 [25]: <img/HyperSQLOOo-2.png>
 [26]: <img/HyperSQLOOo-3.png>
@@ -274,3 +285,7 @@ ___
 [37]: <https://github.com/prrvchr/HyperSQLOOo/blob/master/uno/lib/uno/embedded/driver.py>
 [38]: <https://bugs.documentfoundation.org/show_bug.cgi?id=156511>
 [39]: <https://github.com/prrvchr/uno/commit/a2fa9f5975a35e8447907e51b0f78ac1b1b76e17>
+[40]: <https://github.com/prrvchr/HyperSQLOOo/tree/master/source/HyperSQLOOo/requirements.txt>
+[41]: <https://peps.python.org/pep-0508/>
+[42]: <https://prrvchr.github.io/HyperSQLOOo/#requirement>
+[43]: <https://bugs.documentfoundation.org/show_bug.cgi?id=156471>
