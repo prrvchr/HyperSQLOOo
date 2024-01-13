@@ -235,8 +235,8 @@ ___
 
 ### Ce qui a été fait pour la version 1.1.0:
 
-- Tous les packages Python nécessaires à l'extension sont désormais enregistrés dans un fichier [requirements.txt][40] suivant la [PEP 508][41].
-- Désormais si vous n'êtes pas sous Windows alors les packages Python nécessaires à l'extension peuvent être facilement installés avec la commande:  
+- Tous les paquets Python nécessaires à l'extension sont désormais enregistrés dans un fichier [requirements.txt][40] suivant la [PEP 508][41].
+- Désormais si vous n'êtes pas sous Windows alors les paquets Python nécessaires à l'extension peuvent être facilement installés avec la commande:  
   `pip install requirements.txt`
 - Modification de la section [Prérequis][42].
 
