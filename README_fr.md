@@ -61,13 +61,15 @@ L'extension HyperSQLOOo utilise l'extension jdbcDriverOOo pour fonctionner.
 Elle doit donc répondre aux [prérequis de l'extension jdbcDriverOOo][16].
 
 Cette extension ne peut pas être installée avec l'extension [SQLiteOOo][17].  
-C'est l'une ou l'autre, mais pour le moment, elles ne peuvent pas fonctionner ensemble (voir [dysfonctionnement #156471][43]).
+C'est l'une ou l'autre, mais pour le moment, elles ne peuvent pas fonctionner ensemble (voir [dysfonctionnement #156471][40]).
 
 **Sous Linux et macOS les paquets Python** utilisés par l'extension, peuvent s'il sont déja installé provenir du système et donc, **peuvent ne pas être à jour**.  
 Afin de s'assurer que vos paquets Python sont à jour il est recommandé d'utiliser l'option **Info système** dans les Options de l'extension accessible par:  
 **Outils -> Options -> Pilotes Base -> Pilote HsqlDB intégré -> Voir journal -> Info système**  
 Si des paquets obsolètes apparaissent, vous pouvez les mettre à jour avec la commande:  
 `pip install --upgrade <package-name>`
+
+Pour plus d'information voir: [Ce qui a été fait pour la version 1.1.0][41].
 
 ___
 
@@ -235,10 +237,10 @@ ___
 
 ### Ce qui a été fait pour la version 1.1.0:
 
-- Tous les paquets Python nécessaires à l'extension sont désormais enregistrés dans un fichier [requirements.txt][40] suivant la [PEP 508][41].
+- Tous les paquets Python nécessaires à l'extension sont désormais enregistrés dans un fichier [requirements.txt][42] suivant la [PEP 508][43].
 - Désormais si vous n'êtes pas sous Windows alors les paquets Python nécessaires à l'extension peuvent être facilement installés avec la commande:  
   `pip install requirements.txt`
-- Modification de la section [Prérequis][42].
+- Modification de la section [Prérequis][44].
 
 ### Que reste-t-il à faire pour la version 1.1.0:
 
@@ -285,7 +287,8 @@ ___
 [37]: <https://github.com/prrvchr/HyperSQLOOo/blob/master/uno/lib/uno/embedded/driver.py>
 [38]: <https://bugs.documentfoundation.org/show_bug.cgi?id=156511>
 [39]: <https://github.com/prrvchr/uno/commit/a2fa9f5975a35e8447907e51b0f78ac1b1b76e17>
-[40]: <https://github.com/prrvchr/HyperSQLOOo/tree/master/source/HyperSQLOOo/requirements.txt>
-[41]: <https://peps.python.org/pep-0508/>
-[42]: <https://prrvchr.github.io/HyperSQLOOo/README_fr#pr%C3%A9requis>
-[43]: <https://bugs.documentfoundation.org/show_bug.cgi?id=156471>
+[40]: <https://bugs.documentfoundation.org/show_bug.cgi?id=156471>
+[41]: <https://prrvchr.github.io/HyperSQLOOo/README_fr#ce-qui-a-%C3%A9t%C3%A9-fait-pour-la-version-110>
+[42]: <https://github.com/prrvchr/HyperSQLOOo/tree/master/source/HyperSQLOOo/requirements.txt>
+[43]: <https://peps.python.org/pep-0508/>
+[44]: <https://prrvchr.github.io/HyperSQLOOo/README_fr#pr%C3%A9requis>
