@@ -289,6 +289,6 @@ ___
 [39]: <https://github.com/prrvchr/uno/commit/a2fa9f5975a35e8447907e51b0f78ac1b1b76e17>
 [40]: <https://bugs.documentfoundation.org/show_bug.cgi?id=156471>
 [41]: <https://prrvchr.github.io/HyperSQLOOo/#what-has-been-done-for-version-110>
-[42]: <https://github.com/prrvchr/HyperSQLOOo/tree/master/source/HyperSQLOOo/requirements.txt>
+[42]: <https://github.com/prrvchr/HyperSQLOOo/releases/latest/download/requirements.txt>
 [43]: <https://peps.python.org/pep-0508/>
 [44]: <https://prrvchr.github.io/HyperSQLOOo/#requirement>
