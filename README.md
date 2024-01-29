@@ -119,7 +119,7 @@ Have fun...
 If you want to migrate an integrated database (HsqlDB version 1.8.0) to a newer version (for example 2.7.2), follow these steps:
 1. Make a copy (backup) of your database (odb file).
 2. If not already installed, install this extension and the [jdbcDriverOOo][10] extension.
-3. Update driver archive of the HsqlDB driver in: **Tools -> Options -> Base drivers -> JDBC driver -> JDBC drivers settings -> Driver archive -> Update**, with a version [1.8.0.10][9].
+3. Update driver archive of the HsqlDB driver in: **Tools -> Options -> Base drivers -> JDBC driver -> JDBC drivers settings -> Driver archive -> Update**, with a version [1.8.0.10][11].
 4. Restart LibreOffice / OpenOffice after changing the driver (hsqldb.jar).
 5. Open the odb file in Base (double click on the odb file).
 6. In Base go to: **Tools -> SQL** and type the SQL command: `SHUTDOWN COMPACT` or `SHUTDOWN SCRIPT`.
@@ -160,7 +160,7 @@ ___
 * LibreOffice 7.6.0.1 - Ubuntu 22.04
 
 I encourage you in case of problem :confused:  
-to create an [issue][12]  
+to create an [issue][15]  
 I will try to solve it :smile:
 
 ___
