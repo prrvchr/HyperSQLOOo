@@ -29,7 +29,7 @@
 
 **The use of this software subjects you to our [Terms Of Use][4].**
 
-# version [1.1.0][5]
+# version [1.1.1][5]
 
 ## Introduction:
 
@@ -242,7 +242,11 @@ ___
   `pip install requirements.txt`
 - Modification of the [Requirement][44] section.
 
-### What remains to be done for version 1.1.0:
+### What has been done for version 1.1.1:
+
+- Support for [new features][45] in **jdbcDriverOOo 1.1.2**.
+
+### What remains to be done for version 1.1.1:
 
 - Add new language for internationalization...
 
@@ -252,7 +256,7 @@ ___
 [2]: <https://prrvchr.github.io/HyperSQLOOo/>
 [3]: <https://prrvchr.github.io/HyperSQLOOo/README_fr>
 [4]: <https://prrvchr.github.io/HyperSQLOOo/source/HyperSQLOOo/registration/TermsOfUse_en>
-[5]: <https://prrvchr.github.io/HyperSQLOOo#what-has-been-done-for-version-100>
+[5]: <https://prrvchr.github.io/HyperSQLOOo#what-has-been-done-for-version-110>
 [6]: <https://prrvchr.github.io/>
 [7]: <https://www.libreoffice.org/download/download/>
 [8]: <https://www.openoffice.org/download/index.html>
@@ -292,3 +296,4 @@ ___
 [42]: <https://github.com/prrvchr/HyperSQLOOo/releases/latest/download/requirements.txt>
 [43]: <https://peps.python.org/pep-0508/>
 [44]: <https://prrvchr.github.io/HyperSQLOOo/#requirement>
+[45]: <https://prrvchr.github.io/jdbcDriverOOo/#what-has-been-done-for-version-112>

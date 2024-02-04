@@ -29,7 +29,7 @@
 
 **L'utilisation de ce logiciel vous soumet à nos [Conditions d'utilisation][4].**
 
-# version [1.1.0][5]
+# version [1.1.1][5]
 
 ## Introduction:
 
@@ -242,7 +242,11 @@ ___
   `pip install requirements.txt`
 - Modification de la section [Prérequis][44].
 
-### Que reste-t-il à faire pour la version 1.1.0:
+### Ce qui a été fait pour la version 1.1.1:
+
+- Prise en charge des [nouvelles fonctionnalités][45] de **jdbcDriverOOo 1.1.2**.
+
+### Que reste-t-il à faire pour la version 1.1.1:
 
 - Ajouter de nouvelles langue pour l'internationalisation...
 
@@ -252,7 +256,7 @@ ___
 [2]: <https://prrvchr.github.io/HyperSQLOOo/>
 [3]: <https://prrvchr.github.io/HyperSQLOOo/>
 [4]: <https://prrvchr.github.io/HyperSQLOOo/source/HyperSQLOOo/registration/TermsOfUse_fr>
-[5]: <https://prrvchr.github.io/HyperSQLOOo/README_fr#ce-qui-a-%C3%A9t%C3%A9-fait-pour-la-version-100>
+[5]: <https://prrvchr.github.io/HyperSQLOOo/README_fr#ce-qui-a-%C3%A9t%C3%A9-fait-pour-la-version-110>
 [6]: <https://prrvchr.github.io/README_fr>
 [7]: <https://fr.libreoffice.org/download/telecharger-libreoffice/>
 [8]: <https://www.openoffice.org/fr/Telecharger/>
@@ -292,3 +296,4 @@ ___
 [42]: <https://github.com/prrvchr/HyperSQLOOo/releases/latest/download/requirements.txt>
 [43]: <https://peps.python.org/pep-0508/>
 [44]: <https://prrvchr.github.io/HyperSQLOOo/README_fr#pr%C3%A9requis>
+[45]: <https://prrvchr.github.io/jdbcDriverOOo/README_fr#ce-qui-a-%C3%A9t%C3%A9-fait-pour-la-version-112>
