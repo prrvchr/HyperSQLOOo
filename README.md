@@ -274,7 +274,7 @@ ___
 [20]: <https://img.shields.io/github/v/tag/prrvchr/jdbcDriverOOo?label=latest#right>
 [21]: <img/HyperSQLOOo.svg#middle>
 [22]: <https://github.com/prrvchr/HyperSQLOOo/releases/latest/download/HyperSQLOOo.oxt>
-[23]: <https://img.shields.io/github/downloads/prrvchr/HyperSQLOOo/latest/total?label=v1.1.0#right>
+[23]: <https://img.shields.io/github/downloads/prrvchr/HyperSQLOOo/latest/total?label=v1.1.1#right>
 [24]: <img/HyperSQLOOo-1.png>
 [25]: <img/HyperSQLOOo-2.png>
 [26]: <img/HyperSQLOOo-3.png>
