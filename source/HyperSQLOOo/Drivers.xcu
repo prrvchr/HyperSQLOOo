@@ -38,8 +38,66 @@
                 <value xml:lang="en-US">Embedded HsqlDB Driver</value>
                 <value xml:lang="fr-FR">Pilote HsqlDB intégré</value>
             </prop>
-            <node oor:name="Properties">
+            <node oor:name="Features">
+                <node oor:name="UseDOSLineEnds" oor:op="replace">
+                    <prop oor:name="Value" oor:type="xs:boolean">
+                        <value>true</value>
+                    </prop>
+                </node>
+                <node oor:name="FormsCheckRequiredFields" oor:op="replace">
+                    <prop oor:name="Value" oor:type="xs:boolean">
+                        <value>true</value>
+                    </prop>
+                </node>
+                <node oor:name="EscapeDateTime" oor:op="replace">
+                    <prop oor:name="Value" oor:type="xs:boolean">
+                        <value>true</value>
+                    </prop>
+                </node>
+                <!-- Corresponds to GenerateASBeforeCorrelationName in Properties - see connectivity/registry/README -->
+                <node oor:name="UseKeywordAsBeforeAlias" oor:op="replace">
+                    <prop oor:name="Value" oor:type="xs:boolean">
+                        <value>true</value>
+                    </prop>
+                </node>
                 <node oor:name="GeneratedValues" oor:op="replace">
+                    <prop oor:name="Value" oor:type="xs:boolean">
+                        <value>true</value>
+                    </prop>
+                </node>
+                <node oor:name="RespectDriverResultSetType" oor:op="replace">
+                    <prop oor:name="Value" oor:type="xs:boolean">
+                        <value>true</value>
+                    </prop>
+                </node>
+                <node oor:name="PrimaryKeySupport" oor:op="replace">
+                    <prop oor:name="Value" oor:type="xs:boolean">
+                        <value>true</value>
+                    </prop>
+                </node>
+                <node oor:name="IgnoreCurrency" oor:op="replace">
+                    <prop oor:name="Value" oor:type="xs:boolean">
+                        <value>true</value>
+                    </prop>
+                </node>
+                <node oor:name="AddIndexAppendix" oor:op="replace">
+                    <prop oor:name="Value" oor:type="xs:boolean">
+                        <value>false</value>
+                    </prop>
+                </node>
+                <node oor:name="IgnoreDriverPrivileges" oor:op="replace">
+                    <prop oor:name="Value" oor:type="xs:boolean">
+                        <value>false</value>
+                    </prop>
+                </node>
+            </node>
+            <node oor:name="Properties">
+                <node oor:name="TypeInfoSettings" oor:op="replace">
+                    <prop oor:name="Value" oor:type="oor:string-list">
+                        <value oor:separator="|">Column(1) = TIME|Column(6) = SCALE|Column(1) = TIME|Column(14) = 0|Column(1) = TIME|Column(15) = 6|Column(1) = TIMESTAMP|Column(6) = SCALE|Column(1) = TIMESTAMP|Column(14) = 0|Column(1) = TIMESTAMP|Column(15) = 6|Column(1) = TIME WITH TIME ZONE|Column(6) = SCALE|Column(1) = TIME WITH TIME ZONE|Column(14) = 0|Column(1) = TIME WITH TIME ZONE|Column(15) = 6|Column(1) = TIMESTAMP WITH TIME ZONE|Column(6) = SCALE|Column(1) = TIMESTAMP WITH TIME ZONE|Column(14) = 0|Column(1) = TIMESTAMP WITH TIME ZONE|Column(15) = 6</value>
+                    </prop>
+                </node>
+                <node oor:name="AddIndexAppendix" oor:op="replace">
                     <prop oor:name="Value" oor:type="xs:boolean">
                         <value>true</value>
                     </prop>
@@ -59,56 +117,34 @@
                         <value>SELECT * FROM %s WHERE %s</value>
                     </prop>
                 </node>
-                <node oor:name="TypeInfoSettings" oor:op="replace">
-                    <prop oor:name="Value" oor:type="oor:string-list">
-                        <value oor:separator=",">COLUMN(2) = 92,COLUMN(6) = SCALE,COLUMN(2) = 92,COLUMN(14) = 0,COLUMN(2) = 92,COLUMN(15) = 9,COLUMN(2) = 93,COLUMN(6) = SCALE,COLUMN(2) = 93,COLUMN(14) = 0,COLUMN(2) = 93,COLUMN(15) = 9,COLUMN(2) = 2013,COLUMN(6) = SCALE,COLUMN(2) = 2013,COLUMN(14) = 0,COLUMN(2) = 2013,COLUMN(15) = 9,COLUMN(2) = 2014,COLUMN(6) = SCALE,COLUMN(2) = 2014,COLUMN(14) = 0,COLUMN(2) = 2014,COLUMN(15) = 9</value>
-                    </prop>
-                </node>
-            </node>
-            <node oor:name="Features">
-                <node oor:name="GeneratedValues" oor:op="replace">
-                    <prop oor:name="Value" oor:type="xs:boolean">
-                        <value>true</value>
-                    </prop>
-                </node>
-                <node oor:name="EscapeDateTime" oor:op="replace">
-                    <prop oor:name="Value" oor:type="xs:boolean">
-                        <value>true</value>
-                    </prop>
-                </node>
-                <node oor:name="UseDOSLineEnds" oor:op="replace">
-                    <prop oor:name="Value" oor:type="xs:boolean">
-                        <value>true</value>
-                    </prop>
-                </node>
-                <node oor:name="AddIndexAppendix" oor:op="replace">
+                <node oor:name="IgnoreDriverPrivileges" oor:op="replace">
                     <prop oor:name="Value" oor:type="xs:boolean">
                         <value>false</value>
                     </prop>
                 </node>
-                <node oor:name="UseKeywordAsBeforeAlias" oor:op="replace">
-                    <prop oor:name="Value" oor:type="xs:boolean">
-                        <value>true</value>
+                <node oor:name="TablePrivilegesSettings" oor:op="replace">
+                    <prop oor:name="Value" oor:type="oor:string-list">
+                        <value oor:separator="|">SELECT|1|INSERT|2|UPDATE|4|DELETE|8|REFERENCES|128</value>
                     </prop>
                 </node>
-                <node oor:name="FormsCheckRequiredFields" oor:op="replace">
+                <node oor:name="GeneratedValues" oor:op="replace">
                     <prop oor:name="Value" oor:type="xs:boolean">
                         <value>true</value>
                     </prop>
                 </node>
             </node>
             <node oor:name="MetaData">
+                <node oor:name="AutoIncrementIsPrimaryKey" oor:op="replace">
+                    <prop oor:name="Value" oor:type="xs:boolean">
+                        <value>false</value>
+                    </prop>
+                </node>
                 <node oor:name="SupportsBrowsing" oor:op="replace">
                     <prop oor:name="Value" oor:type="xs:boolean">
                         <value>true</value>
                     </prop>
                 </node>
                 <node oor:name="SupportsTableCreation" oor:op="replace">
-                    <prop oor:name="Value" oor:type="xs:boolean">
-                        <value>true</value>
-                    </prop>
-                </node>
-                <node oor:name="AutoIncrementIsPrimaryKey" oor:op="replace">
                     <prop oor:name="Value" oor:type="xs:boolean">
                         <value>true</value>
                     </prop>

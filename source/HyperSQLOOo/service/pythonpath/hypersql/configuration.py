@@ -34,7 +34,7 @@ g_identifier = 'io.github.prrvchr.%s' % g_extension
 g_resource = 'resource'
 g_basename = 'Driver'
 g_defaultlog = '%sLogger' % g_dbname
-g_errorlog = '%sError'  % g_dbname
+g_errorlog = '%sError' % g_dbname
 
 # DataBase configuration
 g_protocol = 'xdbc:hsqldb:'
