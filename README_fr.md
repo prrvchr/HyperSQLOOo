@@ -250,6 +250,7 @@ ___
 
 - Prise en charge de la dernière version de **jdbcDriverOOo 1.3.1**.
 - Lors de l'enregistrement sous un nom différent, la base de données si ouverte sera fermée correctement.
+- Lors de l'ouverture d'un fichier odb, si la connexion échoue, pour éviter la destruction des données, la recompression des fichiers de la base de données n'aura pas lieu. Merci à Robert d'avoir su détecter ce [dysfonctionnement][46].
 
 ### Que reste-t-il à faire pour la version 1.1.2:
 
@@ -302,3 +303,4 @@ ___
 [43]: <https://peps.python.org/pep-0508/>
 [44]: <https://prrvchr.github.io/HyperSQLOOo/README_fr#pr%C3%A9requis>
 [45]: <https://prrvchr.github.io/jdbcDriverOOo/README_fr#ce-qui-a-%C3%A9t%C3%A9-fait-pour-la-version-112>
+[46]: <https://bugs.documentfoundation.org/show_bug.cgi?id=156471#c54>

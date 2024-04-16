@@ -38,7 +38,6 @@ from hypersql import sdbcx
 from hypersql import getConfiguration
 
 from hypersql import g_identifier
-from hypersql import g_catalog
 
 from threading import Lock
 import traceback
@@ -56,9 +55,9 @@ class Driver(unohelper.Base,
                 if cls._instance is None:
                     service = getConfiguration(ctx, g_identifier).getByName('DriverService')
                     if service == 'io.github.prrvchr.jdbcdriver.sdbc.Driver':
-                        instance = sdbc.Driver(ctx, cls._lock, service, g_ImplementationName, g_catalog)
+                        instance = sdbc.Driver(ctx, cls._lock, service, g_ImplementationName)
                     else:
-                        instance = sdbcx.Driver(ctx, cls._lock, service, g_ImplementationName, g_catalog)
+                        instance = sdbcx.Driver(ctx, cls._lock, service, g_ImplementationName)
                     cls._instance = instance
         return cls._instance
 

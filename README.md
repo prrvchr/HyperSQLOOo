@@ -250,6 +250,7 @@ ___
 
 - Support for the latest version of **jdbcDriverOOo 1.3.1**.
 - When saving under a different name, the database if open will be closed correctly.
+- When opening an odb file, if the connection fails, to avoid data destruction, recompression of the database files will not take place. Thanks to Robert for being able to detect this [issue][46].
 
 ### What remains to be done for version 1.1.2:
 
@@ -302,3 +303,4 @@ ___
 [43]: <https://peps.python.org/pep-0508/>
 [44]: <https://prrvchr.github.io/HyperSQLOOo/#requirement>
 [45]: <https://prrvchr.github.io/jdbcDriverOOo/#what-has-been-done-for-version-112>
+[46]: <https://bugs.documentfoundation.org/show_bug.cgi?id=156471#c54>
