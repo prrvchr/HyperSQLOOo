@@ -32,7 +32,7 @@
         <OpenOffice.org-minimal-version value="4.1" d:name="OpenOffice.org 4.1"/>
     </dependencies>
     <update-information>
-        <src xlink:href="https://prrvchr.github.io/HyperSQLOOo/HyperSQLOOo.update.xml"/>
+        <src xlink:href="https://github.com/prrvchr/HyperSQLOOo/releases/latest/download/HyperSQLOOo.update.xml"/>
     </update-information>
     <publisher>
         <name xlink:href="https://prrvchr.github.io/HyperSQLOOo/" lang="en-US">Embedded Hsqldb driver for LibreOffice</name>
