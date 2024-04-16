@@ -41,6 +41,7 @@ g_errorlog = '%sError' % g_dbname
 g_protocol = 'xdbc:hsqldb:'
 g_url = 'sdbc:embedded:hsqldb'
 g_user = 'SA'
-g_options = ';hsqldb.default_table_type=cached;get_column_name=false;ifexists=false'
-g_shutdown = ';shutdown=true'
+g_options = ';hsqldb.default_table_type=cached;shutdown=true'
+g_create = ';create=true'
+g_exist = ';create=false'
 
