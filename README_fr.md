@@ -29,7 +29,7 @@
 
 **L'utilisation de ce logiciel vous soumet à nos [Conditions d'utilisation][4].**
 
-# version [1.1.2][5]
+# version [1.1.3][5]
 
 ## Introduction:
 
@@ -254,7 +254,11 @@ ___
 - Lors de l'enregistrement sous un nom différent, la base de données si ouverte sera fermée correctement.
 - Lors de l'ouverture d'un fichier odb, si la connexion échoue, pour éviter la destruction des données, la recompression des fichiers de la base de données n'aura pas lieu. Merci à Robert d'avoir su détecter ce [dysfonctionnement][47].
 
-### Que reste-t-il à faire pour la version 1.1.2:
+### Ce qui a été fait pour la version 1.1.3:
+
+- Utilisation du nouveau format de données implémenté dans la version 1.1.2. Par conséquent, si vous devez ouvrir des fichiers odb créés avec une version inférieure à 1.1.2, vous devez d'abord les ouvrir avec la version 1.1.2, sinon une erreur sera générée.
+
+### Que reste-t-il à faire pour la version 1.1.3:
 
 - Ajouter de nouvelles langue pour l'internationalisation...
 
@@ -264,7 +268,7 @@ ___
 [2]: <https://prrvchr.github.io/HyperSQLOOo/>
 [3]: <https://prrvchr.github.io/HyperSQLOOo/>
 [4]: <https://prrvchr.github.io/HyperSQLOOo/source/HyperSQLOOo/registration/TermsOfUse_fr>
-[5]: <https://prrvchr.github.io/HyperSQLOOo/README_fr#ce-qui-a-%C3%A9t%C3%A9-fait-pour-la-version-112>
+[5]: <https://prrvchr.github.io/HyperSQLOOo/README_fr#ce-qui-a-%C3%A9t%C3%A9-fait-pour-la-version-113>
 [6]: <https://prrvchr.github.io/README_fr>
 [7]: <https://fr.libreoffice.org/download/telecharger-libreoffice/>
 [8]: <https://www.openoffice.org/fr/Telecharger/>
@@ -285,7 +289,7 @@ ___
 [23]: <https://img.shields.io/github/v/tag/prrvchr/jdbcDriverOOo?label=latest#right>
 [24]: <img/HyperSQLOOo.svg#middle>
 [25]: <https://github.com/prrvchr/HyperSQLOOo/releases/latest/download/HyperSQLOOo.oxt>
-[26]: <https://img.shields.io/github/downloads/prrvchr/HyperSQLOOo/latest/total?label=v1.1.2#right>
+[26]: <https://img.shields.io/github/downloads/prrvchr/HyperSQLOOo/latest/total?label=v1.1.3#right>
 [27]: <img/HyperSQLOOo-1_fr.png>
 [28]: <img/HyperSQLOOo-2_fr.png>
 [29]: <img/HyperSQLOOo-3_fr.png>
