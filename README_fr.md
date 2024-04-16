@@ -29,7 +29,7 @@
 
 **L'utilisation de ce logiciel vous soumet à nos [Conditions d'utilisation][4].**
 
-# version [1.1.1][5]
+# version [1.1.2][5]
 
 ## Introduction:
 
@@ -246,7 +246,12 @@ ___
 
 - Prise en charge des [nouvelles fonctionnalités][45] de **jdbcDriverOOo 1.1.2**.
 
-### Que reste-t-il à faire pour la version 1.1.1:
+### Ce qui a été fait pour la version 1.1.2:
+
+- Prise en charge de la dernière version de **jdbcDriverOOo 1.3.1**.
+- Lors de l'enregistrement sous un nom différent, la base de données si ouverte sera fermée correctement.
+
+### Que reste-t-il à faire pour la version 1.1.2:
 
 - Ajouter de nouvelles langue pour l'internationalisation...
 
@@ -256,7 +261,7 @@ ___
 [2]: <https://prrvchr.github.io/HyperSQLOOo/>
 [3]: <https://prrvchr.github.io/HyperSQLOOo/>
 [4]: <https://prrvchr.github.io/HyperSQLOOo/source/HyperSQLOOo/registration/TermsOfUse_fr>
-[5]: <https://prrvchr.github.io/HyperSQLOOo/README_fr#ce-qui-a-%C3%A9t%C3%A9-fait-pour-la-version-110>
+[5]: <https://prrvchr.github.io/HyperSQLOOo/README_fr#ce-qui-a-%C3%A9t%C3%A9-fait-pour-la-version-112>
 [6]: <https://prrvchr.github.io/README_fr>
 [7]: <https://fr.libreoffice.org/download/telecharger-libreoffice/>
 [8]: <https://www.openoffice.org/fr/Telecharger/>
@@ -274,7 +279,7 @@ ___
 [20]: <https://img.shields.io/github/v/tag/prrvchr/jdbcDriverOOo?label=latest#right>
 [21]: <img/HyperSQLOOo.svg#middle>
 [22]: <https://github.com/prrvchr/HyperSQLOOo/releases/latest/download/HyperSQLOOo.oxt>
-[23]: <https://img.shields.io/github/downloads/prrvchr/HyperSQLOOo/latest/total?label=v1.1.1#right>
+[23]: <https://img.shields.io/github/downloads/prrvchr/HyperSQLOOo/latest/total?label=v1.1.2#right>
 [24]: <img/HyperSQLOOo-1_fr.png>
 [25]: <img/HyperSQLOOo-2_fr.png>
 [26]: <img/HyperSQLOOo-3_fr.png>
