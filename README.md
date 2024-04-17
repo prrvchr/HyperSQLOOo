@@ -145,6 +145,9 @@ Its operation is quite basic, namely:
   - If the connection is unsuccessful and the files was extracted in phase 1, the **subdirectory** will be deleted.
 - When closing or renaming (Save As) the odb file, if the connection was successful, the [DocumentHandler][36] copies all files present in the **subdirectory** into the (new) **database** directory of the odb file (zip), then delete the **subdirectory**.
 
+The main purpose of this mode of operation is to take advantage of the ACID characteristics of the underlying database in the event of an abnormal closure of LibreOffice.
+On the other hand, the function: **file -> Save** has **no effect on the underlying database**. Only closing the odb file or saving it under a different name (File -> Save As) will save the database in the odb file.
+
 ___
 
 ## Has been tested with:
