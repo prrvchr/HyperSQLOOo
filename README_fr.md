@@ -134,16 +134,16 @@ ___
 ## Comment ça marche:
 
 HyperSQLOOo est un service [com.sun.star.sdbc.Driver][34] UNO écrit en Python.  
-Il s'agit d'une surcouche à l'extension [jdbcDriverOOo][10] permettant de stocker la base de données HyperSQL dans un fichier odb (qui est, en fait, un fichier compressé).
+Il s'agit d'une surcouche à l'extension [jdbcDriverOOo][10] permettant de stocker la base de données HsqlDB dans un fichier odb (qui est, en fait, un fichier compressé).
 
 Son fonctionnement est assez basique, à savoir:
 
-- Lors d'une demande de connexion, trois choses sont faites:
-    1. S'il n'existe pas déjà, un **sous-répertoire** avec le nom: `.` + `nom_du_fichier_odb` + `.lck` est créé à l'emplacement du fichier odb dans lequel tous les fichiers HyperSQL sont extraits du répertoire **database** du fichier odb (décompression).
-    2. Un [DocumentHandler][35] est ajouté en tant que [com.sun.star.util.XCloseListener][36] et [com.sun.star.document.XStorageChangeListener][37] au fichier odb.
-    3. L'extension [jdbcDriverOOo][10] est utilisée pour obtenir l'interface [com.sun.star.sdbc.XConnection][38] à partir du chemin du **sous-répertoire** + `nom_du_fichier_odb`.
-
-- Lors de la fermeture ou du renommage (Enregistrer sous) d'un fichier odb, le [DocumentHandler][35] copie tous les fichiers présents dans le **sous-répertoire** dans le (nouveau) répertoire **database** du fichier odb (compression) puis supprime le **sous-répertoire**.
+- Lors d'une demande de connexion, plusieurs choses sont faites:
+  - S'il n'existe pas déjà, un **sous-répertoire** avec le nom: `.` + `nom_du_fichier_odb` + `.lck` est créé à l'emplacement du fichier odb dans lequel tous les fichiers HsqlDB sont extraits du répertoire **database** du fichier odb (décompression).
+  - L'extension [jdbcDriverOOo][10] est utilisée pour obtenir l'interface [com.sun.star.sdbc.XConnection][35] à partir du chemin du **sous-répertoire** + `hsqldb`.
+  - Si la connexion réussi, un [DocumentHandler][36] est ajouté en tant que [com.sun.star.util.XCloseListener][37] et [com.sun.star.document.XStorageChangeListener][38] au fichier odb.
+  - Si la connexion échoue et que les fichiers ont été extraits lors de la phase 1, le **sous-répertoire** est supprimé.
+- Lors de la fermeture ou du changement de nom (Enregistrer sous) du fichier odb, si la connexion a réussi, le [DocumentHandler][36] copie tous les fichiers présents dans le **sous-répertoire** dans le (nouveau) répertoire **database** du fichier odb (zip), puis supprime le **sous-répertoire**.
 
 ___
 
@@ -209,13 +209,13 @@ ___
 
 ### Ce qui a été fait pour la version 0.0.5:
 
-- Ecriture d'un [DocumentHandler][35] responsable:
+- Ecriture d'un [DocumentHandler][36] responsable:
     - De l'extraction des fichiers de base de données contenus dans le fichier **odb** à la connexion.
     - De la sauvegarde des fichiers de base de données dans le fichier **odb** lors de sa fermeture.
 
 - Réécriture de [Driver.py][40] afin de permettre:
     - Son fonctionnement avec le nouveau pilote JDBC fourni par l'extension [jdbcDriverOOo][10] version 0.0.4.
-    - La prise en charge du nouveau [DocumentHandler][35] afin de rendre les fichiers **odb** portables tels qu'ils étaient dans LibreOffice / OpenOffice avec la version 1.8 de HsqlDB.
+    - La prise en charge du nouveau [DocumentHandler][36] afin de rendre les fichiers **odb** portables tels qu'ils étaient dans LibreOffice / OpenOffice avec la version 1.8 de HsqlDB.
 
 - Beaucoup d'autres correctifs...
 
@@ -298,10 +298,10 @@ ___
 [32]: <https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.5.0/hsqldb-2.5.0.jar>
 [33]: <https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.7.2/hsqldb-2.7.2.jar>
 [34]: <https://www.openoffice.org/api/docs/common/ref/com/sun/star/sdbc/Driver.html>
-[35]: <https://github.com/prrvchr/HyperSQLOOo/blob/master/uno/lib/uno/embedded/documenthandler.py>
-[36]: <https://www.openoffice.org/api/docs/common/ref/com/sun/star/util/XCloseListener.html>
-[37]: <http://www.openoffice.org/api/docs/common/ref/com/sun/star/document/XStorageChangeListener.html>
-[38]: <https://www.openoffice.org/api/docs/common/ref/com/sun/star/sdbc/XConnection.html>
+[35]: <https://www.openoffice.org/api/docs/common/ref/com/sun/star/sdbc/XConnection.html>
+[36]: <https://github.com/prrvchr/HyperSQLOOo/blob/master/uno/lib/uno/embedded/documenthandler.py>
+[37]: <https://www.openoffice.org/api/docs/common/ref/com/sun/star/util/XCloseListener.html>
+[38]: <http://www.openoffice.org/api/docs/common/ref/com/sun/star/document/XStorageChangeListener.html>
 [39]: <https://forum.openoffice.org/en/forum/viewtopic.php?f=13&t=103912>
 [40]: <https://github.com/prrvchr/HyperSQLOOo/blob/master/uno/lib/uno/embedded/driver.py>
 [41]: <https://bugs.documentfoundation.org/show_bug.cgi?id=156511>
