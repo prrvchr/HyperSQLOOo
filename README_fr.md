@@ -140,7 +140,7 @@ Son fonctionnement est assez basique, à savoir:
 
 - Lors d'une demande de connexion, plusieurs choses sont faites:
   - S'il n'existe pas déjà, un **sous-répertoire** avec le nom: `.` + `nom_du_fichier_odb` + `.lck` est créé à l'emplacement du fichier odb dans lequel tous les fichiers HsqlDB sont extraits du répertoire **database** du fichier odb (décompression).
-  - L'extension [jdbcDriverOOo][10] est utilisée pour obtenir l'interface [com.sun.star.sdbc.XConnection][35] à partir du chemin du **sous-répertoire** + `hsqldb`.
+  - L'extension [jdbcDriverOOo][10] est utilisée pour obtenir l'interface [com.sun.star.sdbc.XConnection][35] à partir du chemin du **sous-répertoire** + `/hsqldb`.
   - Si la connexion réussi, un [DocumentHandler][36] est ajouté en tant que [com.sun.star.util.XCloseListener][37] et [com.sun.star.document.XStorageChangeListener][38] au fichier odb.
   - Si la connexion échoue et que les fichiers ont été extraits lors de la phase 1, le **sous-répertoire** est supprimé.
 - Lors de la fermeture ou du changement de nom (Enregistrer sous) du fichier odb, si la connexion a réussi, le [DocumentHandler][36] copie tous les fichiers présents dans le **sous-répertoire** dans le (nouveau) répertoire **database** du fichier odb (zip), puis supprime le **sous-répertoire**.
