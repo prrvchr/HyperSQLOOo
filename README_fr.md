@@ -152,17 +152,11 @@ ___
 
 ## A été testé avec:
 
-* OpenOffice 4.1.8 - Ubuntu 20.04 - LxQt 0.14.1
-
-* OpenOffice 4.1.8 - Windows 7 SP1
-
-* LibreOffice 7.0.4.2 - Ubuntu 20.04 - LxQt 0.14.1
-
-* LibreOffice 6.4.4.2 - Windows 7 SP1
-
 * LibreOffice 7.6.0.1 - Windows 10
 
 * LibreOffice 7.6.0.1 - Ubuntu 22.04
+
+* LibreOffice 24.2.1.2 - Ubuntu 22.04
 
 Je vous encourage en cas de problème :confused:  
 de créer un [dysfonctionnement][16]  
