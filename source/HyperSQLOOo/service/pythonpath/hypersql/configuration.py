@@ -42,6 +42,9 @@ g_protocol = 'xdbc:hsqldb:'
 g_url = 'sdbc:embedded:hsqldb'
 g_user = 'SA'
 g_options = ';hsqldb.default_table_type=cached;shutdown=true'
-g_create = ';create=true'
+g_create = ''
 g_exist = ';create=false'
+
+# LibreOffice configuration
+g_lover = '5.0'
 
