@@ -258,7 +258,7 @@ ___
 ### What has been done for version 1.1.4:
 
 - Updated the [Python packaging][48] package to version 24.1.
-- Updated the [Python setuptools][49] package to version 72.1.0 in order to respond to the [Dependabot security alert][50].
+- Updated the [Python setuptools][49] package to version 72.1.0.
 - The extension will ask you to install the jdbcDriverOOo extension in versions 1.4.2 minimum.
 
 ### What remains to be done for version 1.1.4:
@@ -316,4 +316,3 @@ ___
 [47]: <https://bugs.documentfoundation.org/show_bug.cgi?id=156471#c54>
 [48]: <https://pypi.org/project/packaging/>
 [49]: <https://pypi.org/project/setuptools/>
-[50]: <https://github.com/prrvchr/HyperSQLOOo/security/dependabot/1>
