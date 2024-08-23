@@ -55,7 +55,6 @@ from .configuration import g_options
 from .configuration import g_create
 from .configuration import g_exist
 from .configuration import g_path
-from .configuration import g_sep
 
 import traceback
 
@@ -68,6 +67,7 @@ class DocumentHandler(unohelper.Base,
         self._directory = 'database'
         self._prefix = '.'
         self._suffix = '.lck'
+        self._sep = '/'
         self._lock = lock
         self._logger = logger
         self._created = False
@@ -178,9 +178,9 @@ class DocumentHandler(unohelper.Base,
         return name if sep else extension
 
     def _getConnectionUrl(self, exist):
-        url = self._getDataBaseUrl()
+        url = self._getDataBaseUrl() + self._sep + g_catalog
         path = uno.fileUrlToSystemPath(url) if g_path else url
-        url = g_protocol + path + g_sep + g_catalog + g_options
+        url = g_protocol + path + g_options
         return url + g_exist if exist else url + g_create
 
     def _closeDataBase(self, document, target, cls, method, resource):
@@ -231,7 +231,7 @@ class DocumentHandler(unohelper.Base,
         return count
 
     def _getPath(self, path, name):
-        return path + g_sep + name
+        return path + self._sep + name
 
     def _removeFolder(self):
         url = self._getDataBaseUrl()
