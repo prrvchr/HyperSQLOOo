@@ -44,7 +44,7 @@ g_user = 'SA'
 g_options = ';hsqldb.default_table_type=cached;shutdown=true'
 g_create = ''
 g_exist = ';create=false'
-g_path = False;
+g_path = False
 g_driver = ''
 
 # LibreOffice configuration

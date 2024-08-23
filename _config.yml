@@ -7,6 +7,7 @@ plugins:
 favicon: true
 logo: /img/hypersql.svg
 email: prrvchr@gmail.com
+google_analytics: G-52077WP9MQ
 title: HyperSQLOOo
 blank_title: true
 description: The latest version of HyperSQL database in a single odb file.
