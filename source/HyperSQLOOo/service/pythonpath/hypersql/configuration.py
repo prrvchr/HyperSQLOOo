@@ -46,6 +46,7 @@ g_create = ''
 g_exist = ';create=false'
 g_path = False
 g_driver = ''
+g_shutdown = ''
 
 # LibreOffice configuration
 g_lover = '5.0'
