@@ -55,6 +55,7 @@ from .configuration import g_options
 from .configuration import g_create
 from .configuration import g_exist
 from .configuration import g_path
+from .configuration import g_shutdown
 
 import traceback
 
@@ -62,7 +63,7 @@ import traceback
 class DocumentHandler(unohelper.Base,
                       XCloseListener,
                       XStorageChangeListener):
-    def __init__(self, ctx, lock, logger, url):
+    def __init__(self, ctx, lock, logger, driver, url):
         self._ctx = ctx
         self._directory = 'database'
         self._prefix = '.'
@@ -72,6 +73,7 @@ class DocumentHandler(unohelper.Base,
         self._logger = logger
         self._created = False
         self._path, self._folder = self._getDataBaseInfo(url)
+        self._driver = driver
         self._url = url
 
     @property
@@ -112,9 +114,9 @@ class DocumentHandler(unohelper.Base,
 
     # XEventListener
     def disposing(self, event):
-        url = self._url
-        self._logger.logprb(INFO, 'DocumentHandler', 'disposing()', 221, url)
         document = event.Source
+        url = document.getLocation()
+        self._logger.logprb(INFO, 'DocumentHandler', 'disposing()', 221, url)
         document.removeCloseListener(self)
         document.removeStorageChangeListener(self)
         self._url = None
@@ -178,13 +180,18 @@ class DocumentHandler(unohelper.Base,
         return name if sep else extension
 
     def _getConnectionUrl(self, exist):
-        url = self._getDataBaseUrl() + self._sep + g_catalog
-        path = uno.fileUrlToSystemPath(url) if g_path else url
+        path = self._getConnectionPath()
         url = g_protocol + path + g_options
         return url + g_exist if exist else url + g_create
 
+    def _getConnectionPath(self):
+        url = self._getDataBaseUrl() + self._sep + g_catalog
+        return uno.fileUrlToSystemPath(url) if g_path else url
+
     def _closeDataBase(self, document, target, cls, method, resource):
         try:
+            if g_shutdown:
+                self._shutdownDataBase()
             service = 'com.sun.star.embed.FileSystemStorageFactory'
             args = (self._getDataBaseUrl(), SEEKABLEREAD)
             source = createService(self._ctx, service).createInstanceWithArguments(args)
@@ -195,6 +202,15 @@ class DocumentHandler(unohelper.Base,
         except Exception as e:
             self._logger.logprb(SEVERE, cls, method, resource + 1, self._url, traceback.format_exc())
             return False
+
+    def _shutdownDataBase(self):
+        # XXX: Some databases need to be shutdown if we want all files to be closed (ie: Derby)
+        path = self._getConnectionPath()
+        url = g_protocol + path + g_shutdown
+        try:
+            self._driver.connect(url, ())
+        except Exception as e:
+            pass
 
     # DocumentHandler private setter methods
     def _copyStorage(self, source, target):
