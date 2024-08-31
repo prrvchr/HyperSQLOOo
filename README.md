@@ -266,6 +266,7 @@ ___
 - Fixed [issue #2][50] which appears to be a regression related to the release of JaybirdOOo. Thanks to TeddyBoomer for reporting it.
 - Updated the [Python setuptools][49] package to version 73.0.1.
 - Logging accessible in extension options now displays correctly on Windows.
+- The extension options are now accessible via: **Tools -> Options... -> LibreOffice Base -> Embedded HsqlDB Driver**
 
 ### What remains to be done for version 1.1.5:
 

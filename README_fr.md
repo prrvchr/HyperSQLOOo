@@ -266,6 +266,7 @@ ___
 - Correction du [problème n°2][50] qui semble être une régression liée à la sortie de JaybirdOOo. Merci à TeddyBoomer de l'avoir signalé.
 - Mise à jour du paquet [Python setuptools][49] vers la version 73.0.1.
 - La journalisation accessible dans les options de l’extension s’affiche désormais correctement sous Windows.
+- Les options de l'extension sont désormais accessibles via: **Outils -> Options... -> LibreOffice Base -> Pilote HsqlDB intégré**
 
 ### Que reste-t-il à faire pour la version 1.1.5:
 
