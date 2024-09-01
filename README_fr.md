@@ -272,7 +272,7 @@ ___
 ### Ce qui a été fait pour la version 1.1.6:
 
 - La journalisation accessible dans les options de l’extension s’affiche désormais correctement sous Windows.
-- Les modifications apportées aux options d'extension, qui nécessitent un redémarrage de LibreOffice, entraîneront l'affichage d'un message.
+- Les modifications apportées aux options de l'extension, qui nécessitent un redémarrage de LibreOffice, entraîneront l'affichage d'un message.
 - Support de LibreOffice version 24.8.x.
 
 ### Que reste-t-il à faire pour la version 1.1.6:
