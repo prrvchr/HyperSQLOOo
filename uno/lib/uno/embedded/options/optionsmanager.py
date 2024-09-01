@@ -85,7 +85,6 @@ class OptionsManager():
         if self._logmanager.saveSetting() or self._model.saveSetting():
             OptionsManager._restart = True
             self._view.setRestart(True)
-        self._logmanager.saveSetting()
 
     def loadSetting(self):
         self._logmanager.loadSetting()
