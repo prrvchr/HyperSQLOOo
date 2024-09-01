@@ -24,7 +24,7 @@
                         <value xml:lang="fr-FR">Pilote HsqlDB intégré</value>
                     </prop>
                     <prop oor:name="OptionsPage">
-                        <value>%origin%/HyperSQLOOo/OptionsDialog.xdl</value>
+                        <value>%origin%/dialogs/OptionsDialog.xdl</value>
                     </prop>
                     <prop oor:name="EventHandlerService">
                         <value>io.github.prrvchr.HyperSQLOOo.OptionsHandler</value>

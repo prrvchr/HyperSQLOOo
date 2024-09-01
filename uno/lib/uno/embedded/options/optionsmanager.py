@@ -52,9 +52,11 @@ class OptionsManager():
         self._disabled = False
         self._model = OptionsModel(ctx, url)
         window.addEventListener(OptionsListener(self))
-        self._view = OptionsView(window)
+        self._view = OptionsView(window, OptionsManager._restart)
         self._view.initView(*self._model.getViewData())
         self._logmanager = LogManager(ctx, window.getPeer(), 'requirements.txt', g_defaultlog)
+
+    _restart = False
 
     def dispose(self):
         self._logmanager.dispose()
@@ -80,9 +82,10 @@ class OptionsManager():
                     self._view.setVersion(versions[protocol])
 
     def saveSetting(self):
+        if self._logmanager.saveSetting() or self._model.saveSetting():
+            OptionsManager._restart = True
+            self._view.setRestart(True)
         self._logmanager.saveSetting()
-        if self._model.saveSetting() and self._model.isUpdated():
-            self._view.disableDriverLevel()
 
     def loadSetting(self):
         self._logmanager.loadSetting()

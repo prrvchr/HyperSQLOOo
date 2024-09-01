@@ -29,7 +29,7 @@
 
 **L'utilisation de ce logiciel vous soumet à nos [Conditions d'utilisation][4].**
 
-# version [1.1.5][5]
+# version [1.1.6][5]
 
 ## Introduction:
 
@@ -158,6 +158,8 @@ ___
 
 * LibreOffice 24.2.1.2 - Lubuntu 22.04
 
+* LibreOffice 24.8.0.3 (X86_64) - Windows 10(x64) - Python version 3.9.19 (sous Lubuntu 22.04 / VirtualBox 6.1.38)
+
 Je vous encourage en cas de problème :confused:  
 de créer un [dysfonctionnement][16]  
 J'essaierai de le résoudre :smile:
@@ -265,10 +267,15 @@ ___
 
 - Correction du [problème n°2][50] qui semble être une régression liée à la sortie de JaybirdOOo. Merci à TeddyBoomer de l'avoir signalé.
 - Mise à jour du paquet [Python setuptools][49] vers la version 73.0.1.
-- La journalisation accessible dans les options de l’extension s’affiche désormais correctement sous Windows.
 - Les options de l'extension sont désormais accessibles via: **Outils -> Options... -> LibreOffice Base -> Pilote HsqlDB intégré**
 
-### Que reste-t-il à faire pour la version 1.1.5:
+### Ce qui a été fait pour la version 1.1.6:
+
+- La journalisation accessible dans les options de l’extension s’affiche désormais correctement sous Windows.
+- Les modifications apportées aux options d'extension, qui nécessitent un redémarrage de LibreOffice, entraîneront l'affichage d'un message.
+- Support de LibreOffice version 24.8.x.
+
+### Que reste-t-il à faire pour la version 1.1.6:
 
 - Ajouter de nouvelles langue pour l'internationalisation...
 
@@ -278,7 +285,7 @@ ___
 [2]: <https://prrvchr.github.io/HyperSQLOOo/>
 [3]: <https://prrvchr.github.io/HyperSQLOOo/>
 [4]: <https://prrvchr.github.io/HyperSQLOOo/source/HyperSQLOOo/registration/TermsOfUse_fr>
-[5]: <https://prrvchr.github.io/HyperSQLOOo/README_fr#ce-qui-a-%C3%A9t%C3%A9-fait-pour-la-version-115>
+[5]: <https://prrvchr.github.io/HyperSQLOOo/README_fr#ce-qui-a-%C3%A9t%C3%A9-fait-pour-la-version-116>
 [6]: <https://prrvchr.github.io/README_fr>
 [7]: <https://fr.libreoffice.org/download/telecharger-libreoffice/>
 [8]: <https://www.openoffice.org/fr/Telecharger/>
@@ -299,7 +306,7 @@ ___
 [23]: <https://img.shields.io/github/v/tag/prrvchr/jdbcDriverOOo?label=latest#right>
 [24]: <img/HyperSQLOOo.svg#middle>
 [25]: <https://github.com/prrvchr/HyperSQLOOo/releases/latest/download/HyperSQLOOo.oxt>
-[26]: <https://img.shields.io/github/downloads/prrvchr/HyperSQLOOo/latest/total?label=v1.1.5#right>
+[26]: <https://img.shields.io/github/downloads/prrvchr/HyperSQLOOo/latest/total?label=v1.1.6#right>
 [27]: <img/HyperSQLOOo-1_fr.png>
 [28]: <img/HyperSQLOOo-2_fr.png>
 [29]: <img/HyperSQLOOo-3_fr.png>

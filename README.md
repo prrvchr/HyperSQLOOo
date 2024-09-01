@@ -29,7 +29,7 @@
 
 **The use of this software subjects you to our [Terms Of Use][4].**
 
-# version [1.1.5][5]
+# version [1.1.6][5]
 
 ## Introduction:
 
@@ -158,6 +158,8 @@ ___
 
 * LibreOffice 24.2.1.2 - Lubuntu 22.04
 
+* LibreOffice 24.8.0.3 (x86_64) - Windows 10(x64) - Python version 3.9.19 (under Lubuntu 22.04 / VirtualBox 6.1.38)
+
 I encourage you in case of problem :confused:  
 to create an [issue][16]  
 I will try to solve it :smile:
@@ -265,10 +267,15 @@ ___
 
 - Fixed [issue #2][50] which appears to be a regression related to the release of JaybirdOOo. Thanks to TeddyBoomer for reporting it.
 - Updated the [Python setuptools][49] package to version 73.0.1.
-- Logging accessible in extension options now displays correctly on Windows.
 - The extension options are now accessible via: **Tools -> Options... -> LibreOffice Base -> Embedded HsqlDB Driver**
 
-### What remains to be done for version 1.1.5:
+### What has been done for version 1.1.6:
+
+- Logging accessible in extension options now displays correctly on Windows.
+- Changes to extension options that require a restart of LibreOffice will result in a message being displayed.
+- Support for LibreOffice version 24.8.x.
+
+### What remains to be done for version 1.1.6:
 
 - Add new language for internationalization...
 
@@ -278,7 +285,7 @@ ___
 [2]: <https://prrvchr.github.io/HyperSQLOOo/>
 [3]: <https://prrvchr.github.io/HyperSQLOOo/README_fr>
 [4]: <https://prrvchr.github.io/HyperSQLOOo/source/HyperSQLOOo/registration/TermsOfUse_en>
-[5]: <https://prrvchr.github.io/HyperSQLOOo#what-has-been-done-for-version-115>
+[5]: <https://prrvchr.github.io/HyperSQLOOo#what-has-been-done-for-version-116>
 [6]: <https://prrvchr.github.io/>
 [7]: <https://www.libreoffice.org/download/download/>
 [8]: <https://www.openoffice.org/download/index.html>
@@ -299,7 +306,7 @@ ___
 [23]: <https://img.shields.io/github/v/tag/prrvchr/jdbcDriverOOo?label=latest#right>
 [24]: <img/HyperSQLOOo.svg#middle>
 [25]: <https://github.com/prrvchr/HyperSQLOOo/releases/latest/download/HyperSQLOOo.oxt>
-[26]: <https://img.shields.io/github/downloads/prrvchr/HyperSQLOOo/latest/total?label=v1.1.5#right>
+[26]: <https://img.shields.io/github/downloads/prrvchr/HyperSQLOOo/latest/total?label=v1.1.6#right>
 [27]: <img/HyperSQLOOo-1.png>
 [28]: <img/HyperSQLOOo-2.png>
 [29]: <img/HyperSQLOOo-3.png>
