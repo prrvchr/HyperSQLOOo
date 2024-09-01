@@ -42,31 +42,19 @@ from .loghandler import PoolListener
 
 from ..loghelper import getLoggerName
 
-from ...unotool import getDialog
-from ...unotool import getFileSequence
-
-from ...configuration import g_extension
-from ...configuration import g_identifier
-
 
 class LogManager():
     def __init__(self, ctx, parent, requirements, *defaults):
         self._ctx = ctx
         self._requirements = requirements
         self._dialog = None
-        self._disabled = False
         self._model = LogModel(ctx, PoolListener(self), defaults)
         self._view = LogWindow(ctx, parent, WindowHandler(self))
-        self._view.initLogger(self._model.getLoggerNames())
-
-    # TODO: One shot disabler handler
-    def isHandlerEnabled(self):
-        if self._disabled:
-            self._disabled = False
-            return False
-        return True
-    def disableHandler(self):
-        self._disabled = True
+        # FIXME: If we want to load data using handlers,
+        # FIXME: it is necessary to devalidate all resulting updates
+        self._update = False
+        self._view.initView(self._model.getLoggerNames())
+        self._update = True
 
 # LogManager setter methods
     def dispose(self):
@@ -74,12 +62,13 @@ class LogManager():
 
     # LogManager setter methods called by OptionsManager
     def saveSetting(self):
-        self._model.saveSetting()
+        return self._model.saveSetting()
 
     # LogManager setter methods called by OptionsHandler
     def loadSetting(self):
-        self.disableHandler()
+        self._update = False
         self._view.setLogSetting(*self._model.loadSetting())
+        self._update = True
 
     # LogManager setter methods called by LoggerListener
     def updateLoggers(self):
@@ -87,8 +76,9 @@ class LogManager():
         loggers = self._model.getLoggerNames()
         self._view.updateLoggers(loggers)
         if logger in loggers:
-            self.disableHandler()
+            self._update = False
             self._view.setLogger(logger)
+            self._update = True
 
     # LogManager setter methods called by WindowHandler
     def setLogger(self, name):
@@ -96,15 +86,18 @@ class LogManager():
         self._view.setLogSetting(*self._model.getLoggerSetting(logger))
 
     def enableLogger(self, enabled):
-        self._model.enableLogger(enabled, self._view.getLogLevel())
+        if self._update:
+            self._model.enableLogger(enabled, self._view.getLogLevel())
         self._view.enableLogger(enabled)
 
     def toggleHandler(self, index):
-        self._model.toggleHandler(index)
+        if self._update:
+            self._model.toggleHandler(index)
         self._view.enableViewer(index == 2)
 
     def setLevel(self, level):
-        self._model.setLevel(level)
+        if self._update:
+            self._model.setLevel(level)
 
     def viewLog(self):
         handler = DialogHandler(self)
@@ -113,9 +106,8 @@ class LogManager():
         self._dialog = LogDialog(self._ctx, handler, parent, *data)
         listener = LoggerListener(self)
         self._model.addModifyListener(listener)
-        dialog = self._dialog.getDialog()
-        dialog.execute()
-        dialog.dispose()
+        self._dialog.execute()
+        self._dialog.dispose()
         self._model.removeModifyListener(listener)
         self._dialog = None
 
