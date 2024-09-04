@@ -29,7 +29,7 @@
 
 **L'utilisation de ce logiciel vous soumet à nos [Conditions d'utilisation][4].**
 
-# version [1.1.6][5]
+# version [1.1.7][5]
 
 ## Introduction:
 
@@ -275,7 +275,12 @@ ___
 - Les modifications apportées aux options de l'extension, qui nécessitent un redémarrage de LibreOffice, entraîneront l'affichage d'un message.
 - Support de LibreOffice version 24.8.x.
 
-### Que reste-t-il à faire pour la version 1.1.6:
+### Ce qui a été fait pour la version 1.1.7:
+
+- Nécessite la dernière version de **jdbcDriverOOo 1.4.4**.
+- Dans les options de l'extension il est possible de définir les options: **Afficher les tables système**, **Utiliser les signets** et **Forcer le mode SQL** qui seront spécifiques à ce pilote.
+
+### Que reste-t-il à faire pour la version 1.1.7:
 
 - Ajouter de nouvelles langue pour l'internationalisation...
 

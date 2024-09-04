@@ -29,7 +29,7 @@
 
 **The use of this software subjects you to our [Terms Of Use][4].**
 
-# version [1.1.6][5]
+# version [1.1.7][5]
 
 ## Introduction:
 
@@ -275,7 +275,12 @@ ___
 - Changes to extension options that require a restart of LibreOffice will result in a message being displayed.
 - Support for LibreOffice version 24.8.x.
 
-### What remains to be done for version 1.1.6:
+### What has been done for version 1.1.7:
+
+- Requires the latest version of **jdbcDriverOOo 1.4.4**.
+- In the extension options it is possible to define the options: **View system tables**, **Use bookmarks** and **Force SQL mode** which will be specific to this driver.
+
+### What remains to be done for version 1.1.7:
 
 - Add new language for internationalization...
 
