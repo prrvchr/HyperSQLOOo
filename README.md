@@ -322,7 +322,7 @@ ___
 [27]: <img/HyperSQLOOo-1.png>
 [28]: <img/HyperSQLOOo-2.png>
 [29]: <img/HyperSQLOOo-3.png>
-[30]: <https://prrvchr.github.io/HyperSQLOOo/#how-to-import-data-from-a-calc-file>
+[30]: <https://prrvchr.github.io/HyperSQLOOo/#how-to-create-a-new-database>
 [31]: <https://hsqldb.org/doc/guide/databaseobjects-chapt.html#dbc_schemas_schema_objects>
 [32]: <https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.4.0/hsqldb-2.4.0.jar>
 [33]: <https://repo1.maven.org/maven2/org/hsqldb/hsqldb/2.4.1/hsqldb-2.4.1.jar>
