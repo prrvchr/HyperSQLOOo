@@ -27,15 +27,67 @@
 ╚════════════════════════════════════════════════════════════════════════════════════╝
 """
 
-from .dialog import LogManager
-from .dialog import LoggerListener
+from .jdbcmodel import JdbcModel
+from .jdbcview import JdbcWindow
+from .jdbchandler import WindowHandler
 
-from .logger import Logger
+from ..logger import LogManager
 
-from .loggerpool import LoggerPool
+import traceback
 
-from .loghandler import RollerHandler
 
-from .loghelper import getLogger
+class JdbcManager():
+    def __init__(self, ctx, window, logger, *loggers):
+        self._logmanager = LogManager(ctx, window, 'requirements.txt', logger, *loggers)
+        self._model = JdbcModel(ctx, logger)
+        self._view = JdbcWindow(ctx, window, WindowHandler(self), JdbcManager._restart)
+        self._initView()
 
-from .logcontroller import LogController
+    _restart = False
+
+    def dispose(self):
+        self._logmanager.dispose()
+        self._view.dispose()
+
+# JdbcManager getter methods
+    def getDriverService(self):
+        return self._model.getDriverService()
+
+# JdbcManager setter methods
+    def saveSetting(self):
+        saved = self._logmanager.saveSetting()
+        saved |= self._model.saveSetting(*self._view.getOptions())
+        if saved:
+            JdbcManager._restart = True
+            self._view.setRestart(True)
+        return saved
+
+    def loadSetting(self):
+        self._logmanager.loadSetting()
+        self._initView()
+
+    def setDriverService(self, driver):
+        level = self._view.getApiLevel()
+        level, enabled, system, bookmark, mode = self._model.setDriverService(driver, level)
+        self._view.setApiLevel(level, enabled, bookmark, mode)
+        self._view.setSystemTable(driver, system)
+
+    def setApiLevel(self, level):
+        self._view.enableOptions(*self._model.setApiLevel(level))
+
+    def setSystemTable(self, state):
+        self._model.setSystemTable(state)
+
+    def setBookmark(self, state):
+        self._view.enableSQLMode(*self._model.setBookmark(state))
+
+    def setSQLMode(self, state):
+        self._model.setSQLMode(state)
+
+# JdbcManager private methods
+    def _initView(self):
+        driver, level, enabled, system, bookmark, mode = self._model.getViewData()
+        self._view.setDriverLevel(driver)
+        self._view.setApiLevel(level, enabled, bookmark, mode)
+        self._view.setSystemTable(driver, system)
+
