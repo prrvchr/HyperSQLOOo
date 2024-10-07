@@ -66,44 +66,12 @@ class OptionsHandler(unohelper.Base,
                 elif event == 'back':
                     self._manager.loadSetting()
                     handled = True
-            elif method == 'Base':
-                self._manager.setDriverService(0)
-                handled = True
-            elif method == 'Enhanced':
-                self._manager.setDriverService(1)
-                handled = True
-            elif method == 'Level0':
-                self._manager.setConnectionService(0)
-                handled = True
-            elif method == 'Level1':
-                self._manager.setConnectionService(1)
-                handled = True
-            elif method == 'Level2':
-                self._manager.setConnectionService(2)
-                handled = True
-            elif method == 'SystemTable':
-                self._manager.setSystemTable(event.Source.State)
-                handled = True
-            elif method == 'UseBookmark':
-                self._manager.setBookmark(event.Source.State)
-                handled = True
-            elif method == 'SQLMode':
-                self._manager.setSQLMode(event.Source.State)
-                handled = True
             return handled
         except Exception as e:
             print("ERROR: %s - %s" % (e, traceback.format_exc()))
 
     def getSupportedMethodNames(self):
-        return ('external_event',
-                'Base',
-                'Enhanced',
-                'Level0',
-                'Level1',
-                'Level2',
-                'SystemTable',
-                'UseBookmark',
-                'SQLMode')
+        return ('external_event', )
 
     # XServiceInfo
     def supportsService(self, service):
