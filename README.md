@@ -29,7 +29,7 @@
 
 **The use of this software subjects you to our [Terms Of Use][4].**
 
-# version [1.1.7][5]
+# version [1.1.8][5]
 
 ## Introduction:
 
@@ -287,7 +287,12 @@ ___
 - Requires the latest version of **jdbcDriverOOo 1.4.4**.
 - In the extension options it is possible to define the options: **View system tables**, **Use bookmarks** and **Force SQL mode** which will be specific to this driver.
 
-### What remains to be done for version 1.1.7:
+### What has been done for version 1.1.8:
+
+- The extension will ask you to install jdbcDriverOOo extension in versions 1.4.6 minimum.
+- Modification of the extension options accessible via: **Tools -> Options... -> LibreOffice Base -> Embedded HsqlDB Driver** in order to comply with the new graphic charter.
+
+### What remains to be done for version 1.1.8:
 
 - Add new language for internationalization...
 
@@ -297,7 +302,7 @@ ___
 [2]: <https://prrvchr.github.io/HyperSQLOOo/>
 [3]: <https://prrvchr.github.io/HyperSQLOOo/README_fr>
 [4]: <https://prrvchr.github.io/HyperSQLOOo/source/HyperSQLOOo/registration/TermsOfUse_en>
-[5]: <https://prrvchr.github.io/HyperSQLOOo#what-has-been-done-for-version-116>
+[5]: <https://prrvchr.github.io/HyperSQLOOo#what-has-been-done-for-version-118>
 [6]: <https://prrvchr.github.io/>
 [7]: <https://www.libreoffice.org/download/download/>
 [8]: <https://www.openoffice.org/download/index.html>
@@ -318,7 +323,7 @@ ___
 [23]: <https://img.shields.io/github/v/tag/prrvchr/jdbcDriverOOo?label=latest#right>
 [24]: <img/HyperSQLOOo.svg#middle>
 [25]: <https://github.com/prrvchr/HyperSQLOOo/releases/latest/download/HyperSQLOOo.oxt>
-[26]: <https://img.shields.io/github/downloads/prrvchr/HyperSQLOOo/latest/total?label=v1.1.7#right>
+[26]: <https://img.shields.io/github/downloads/prrvchr/HyperSQLOOo/latest/total?label=v1.1.8#right>
 [27]: <img/HyperSQLOOo-1.png>
 [28]: <img/HyperSQLOOo-2.png>
 [29]: <img/HyperSQLOOo-3.png>

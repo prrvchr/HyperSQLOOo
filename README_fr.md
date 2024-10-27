@@ -29,7 +29,7 @@
 
 **L'utilisation de ce logiciel vous soumet à nos [Conditions d'utilisation][4].**
 
-# version [1.1.7][5]
+# version [1.1.8][5]
 
 ## Introduction:
 
@@ -287,7 +287,13 @@ ___
 - Nécessite la dernière version de **jdbcDriverOOo 1.4.4**.
 - Dans les options de l'extension il est possible de définir les options: **Afficher les tables système**, **Utiliser les signets** et **Forcer le mode SQL** qui seront spécifiques à ce pilote.
 
-### Que reste-t-il à faire pour la version 1.1.7:
+### Ce qui a été fait pour la version 1.1.8:
+
+- L'extension vous demandera d'installer l'extensions jdbcDriverOOo en version 1.4.6 minimum.
+- Modification des options de l'extension accessibles via : **Outils -> Options... -> LibreOffice Base -> Pilote HsqlDB intégré** afin de respecter la nouvelle charte graphique.
+
+
+### Que reste-t-il à faire pour la version 1.1.8:
 
 - Ajouter de nouvelles langue pour l'internationalisation...
 
@@ -297,7 +303,7 @@ ___
 [2]: <https://prrvchr.github.io/HyperSQLOOo/>
 [3]: <https://prrvchr.github.io/HyperSQLOOo/>
 [4]: <https://prrvchr.github.io/HyperSQLOOo/source/HyperSQLOOo/registration/TermsOfUse_fr>
-[5]: <https://prrvchr.github.io/HyperSQLOOo/README_fr#ce-qui-a-%C3%A9t%C3%A9-fait-pour-la-version-116>
+[5]: <https://prrvchr.github.io/HyperSQLOOo/README_fr#ce-qui-a-%C3%A9t%C3%A9-fait-pour-la-version-118>
 [6]: <https://prrvchr.github.io/README_fr>
 [7]: <https://fr.libreoffice.org/download/telecharger-libreoffice/>
 [8]: <https://www.openoffice.org/fr/Telecharger/>
@@ -318,7 +324,7 @@ ___
 [23]: <https://img.shields.io/github/v/tag/prrvchr/jdbcDriverOOo?label=latest#right>
 [24]: <img/HyperSQLOOo.svg#middle>
 [25]: <https://github.com/prrvchr/HyperSQLOOo/releases/latest/download/HyperSQLOOo.oxt>
-[26]: <https://img.shields.io/github/downloads/prrvchr/HyperSQLOOo/latest/total?label=v1.1.7#right>
+[26]: <https://img.shields.io/github/downloads/prrvchr/HyperSQLOOo/latest/total?label=v1.1.8#right>
 [27]: <img/HyperSQLOOo-1_fr.png>
 [28]: <img/HyperSQLOOo-2_fr.png>
 [29]: <img/HyperSQLOOo-3_fr.png>
