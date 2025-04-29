@@ -29,13 +29,20 @@
 
 import unohelper
 
-from com.sun.star.lang import XServiceInfo
+from com.sun.star.logging.LogLevel import INFO
+from com.sun.star.logging.LogLevel import SEVERE
+
+from com.sun.star.uno import Exception as UNOException
 
 from hypersql import sdbc
 from hypersql import sdbcx
 
+from hypersql import checkConfiguration
 from hypersql import getConfiguration
+from hypersql import getLogger
 
+from hypersql import g_basename
+from hypersql import g_defaultlog
 from hypersql import g_identifier
 from hypersql import g_services
 
@@ -45,37 +52,41 @@ import traceback
 # pythonloader looks for a static g_ImplementationHelper variable
 g_ImplementationHelper = unohelper.ImplementationHelper()
 g_ImplementationName = 'io.github.prrvchr.HyperSQLOOo.Driver'
-g_ServiceNames = ("io.github.prrvchr.HyperSQLOOo.Driver", 'com.sun.star.sdbc.Driver')
+g_ServiceNames = ('io.github.prrvchr.HyperSQLOOo.Driver', 'com.sun.star.sdbc.Driver')
 
 # XXX: This class is simply a bootstrap to enable the following:
 # XXX: - Provide a single entry for different services meeting the required API levels
 
-class Driver(unohelper.Base,
-             XServiceInfo):
+class Driver():
     def __new__(cls, ctx, *args, **kwargs):
-        print("Driver.__new__() 1")
         if cls._instance is None:
             with cls._lock:
                 if cls._instance is None:
+                    logger = getLogger(ctx, g_defaultlog, g_basename)
                     apilevel = getConfiguration(ctx, g_identifier).getByName('ApiLevel')
-                    if apilevel == 'com.sun.star.sdbc':
-                        instance = sdbc.Driver(ctx, cls._lock, g_services[apilevel], g_ImplementationName)
-                    else:
-                        instance = sdbcx.Driver(ctx, cls._lock, g_services[apilevel], g_ImplementationName)
-                    cls._instance = instance
+                    try:
+                        checkConfiguration(ctx, logger)
+                        if apilevel == 'com.sun.star.sdbc':
+                            instance = sdbc.Driver(ctx, cls._lock, logger, g_services[apilevel], g_ImplementationName)
+                        else:
+                            instance = sdbcx.Driver(ctx, cls._lock, logger, g_services[apilevel], g_ImplementationName)
+                        cls._instance = instance
+                        cls._log(logger, INFO, 101, g_ImplementationName, apilevel)
+                    except UNOException as e:
+                        if cls._logger is None:
+                            cls._logger = logger
+                        cls._log(logger, SEVERE, 102, g_ImplementationName, apilevel, e.Message)
+                        raise e
         return cls._instance
 
+    # XXX: If the driver fails to load then we keep a reference
+    # XXX: to the logger so we can read the error message later
+    _logger = None
     _instance = None
     _lock = Lock()
 
-    # XServiceInfo
-    def supportsService(self, service):
-        return g_ImplementationHelper.supportsService(g_ImplementationName, service)
-    def getImplementationName(self):
-        return g_ImplementationName
-    def getSupportedServiceNames(self):
-        return g_ImplementationHelper.getSupportedServiceNames(g_ImplementationName)
-
+    def _log(logger, level, resource, *args):
+        logger.logprb(level, 'Driver', '__new__', resource, *args)
 
 g_ImplementationHelper.addImplementation(Driver,                          # UNO object class
                                          g_ImplementationName,            # Implementation name
