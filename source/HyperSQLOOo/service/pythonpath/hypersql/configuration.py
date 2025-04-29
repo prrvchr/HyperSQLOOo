@@ -27,8 +27,6 @@
 ╚════════════════════════════════════════════════════════════════════════════════════╝
 """
 
-from .jdbcdriver import g_services
-
 # General configuration
 g_catalog = 'hsqldb'
 g_dbname = 'HyperSQL'
