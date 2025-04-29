@@ -59,11 +59,10 @@ ___
 
 ## Requirement:
 
+The HyperSQLOOo extension requires **LibreOffice version 24.2.x** minimum to work.
+
 The HyperSQLOOo extension uses the jdbcDriverOOo extension to work.  
 It must therefore meet the [requirement of the jdbcDriverOOo extension][17].
-
-This extension cannot be installed together with the [SQLiteOOo][18] extension.  
-It's one or the other, but at the moment they can't work together (see [issue #156471][19]).
 
 **On Linux and macOS the Python packages** used by the extension, if already installed, may come from the system and therefore **may not be up to date**.  
 To ensure that your Python packages are up to date it is recommended to use the **System Info** option in the extension Options accessible by:  
@@ -93,10 +92,10 @@ Restart LibreOffice after installation.
 
 After restarting LibreOffice, you can ensure that the extension and its driver are correctly installed by checking that the `io.github.prrvchr.HyperSQLOOo.Driver` driver is listed in the **Connection Pool**, accessible via the menu: **Tools -> Options... -> LibreOffice Base -> Connections**. It is not necessary to enable the connection pool.
 
-If the driver is not listed, the reason for the driver failure can be found in the extension's logging. This log is accessible via the menu: **Tools -> Options... -> LibreOffice Base -> Pure Java JDBC Driver -> Logging Options**.  
-The `Driver` logging must first be enabled, then LibreOffice restarted and the **Connection Pool** checked again to force the driver to load and obtain the error message in the log.
+If the driver is not listed, the reason for the driver failure can be found in the extension's logging. This log is accessible via the menu: **Tools -> Options... -> LibreOffice Base -> Embedded HsqlDB Driver -> Logging Options**.  
+The `HyperSQLLogger` logging must first be enabled, then LibreOffice restarted and the **Connection Pool** checked again to force the driver to load and obtain the error message in the log.
 
-Remember to first update the version of the Java JRE or JDK installed on your computer, this new version of jdbcDriverOOo requires **Java version 17 or later** instead of Java 11 previously.
+Remember to first update the version of the Java JRE or JDK installed on your computer, this extension need the new version of jdbcDriverOOo that requires **Java version 17 or later** instead of Java 11 previously.
 
 ___
 

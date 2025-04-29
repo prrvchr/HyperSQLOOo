@@ -59,11 +59,10 @@ ___
 
 ## Prérequis:
 
+L'extension HyperSQLOOo nécessite **LibreOffice version 24.2.x** minimum pour fonctionner.
+
 L'extension HyperSQLOOo utilise l'extension jdbcDriverOOo pour fonctionner.  
 Elle doit donc répondre aux [prérequis de l'extension jdbcDriverOOo][17].
-
-Cette extension ne peut pas être installée avec l'extension [SQLiteOOo][18].  
-C'est l'une ou l'autre, mais pour le moment, elles ne peuvent pas fonctionner ensemble (voir [dysfonctionnement #156471][19]).
 
 **Sous Linux et macOS les paquets Python** utilisés par l'extension, peuvent s'il sont déja installé provenir du système et donc, **peuvent ne pas être à jour**.  
 Afin de s'assurer que vos paquets Python sont à jour il est recommandé d'utiliser l'option **Info système** dans les Options de l'extension accessible par:  
@@ -93,10 +92,10 @@ Redémarrez LibreOffice après l'installation.
 
 Après avoir redémarré LibreOffice, vous pouvez vous assurer que l'extension et son pilote sont correctement installés en vérifiant que le pilote `io.github.prrvchr.HyperSQLOOo.Driver` est répertorié dans le **Pool de Connexions**, accessible via le menu: **Outils -> Options... -> LibreOffice Base -> Connexions**. Il n'est pas nécessaire d'activer le pool de connexions.
 
-Si le pilote n'est pas répertorié, la raison de l'échec du chargement du pilote peut être trouvée dans la journalisation de l'extension. Cette journalisation est accessible via le menu: **Outils -> Options... -> LibreOffice Base -> Pilote JDBC Pure Java -> Options de journalisation**.  
-La journalisation `Driver` doit d'abord être activée puis LibreOffice redémarré et le **Pool de Connexions** à nouveau consulté afin de forcer le chargement du pilote et d'obtenir le message d'erreur dans le journal.
+Si le pilote n'est pas répertorié, la raison de l'échec du chargement du pilote peut être trouvée dans la journalisation de l'extension. Cette journalisation est accessible via le menu: **Outils -> Options... -> LibreOffice Base -> Pilote HslqDB intégré -> Options de journalisation**.  
+La journalisation `HyperSQLLogger` doit d'abord être activée puis LibreOffice redémarré et le **Pool de Connexions** à nouveau consulté afin de forcer le chargement du pilote et d'obtenir le message d'erreur dans le journal.
 
-N'oubliez pas au préalable de mettre à jour la version du JRE ou JDK Java installée sur votre ordinateur, cette nouvelle version de jdbcDriverOOo nécessite **Java version 17 ou ultérieure** au lieu de Java 11 auparavant.
+N'oubliez pas au préalable de mettre à jour la version du JRE ou JDK Java installée sur votre ordinateur, cette extension utilise la nouvelle version de jdbcDriverOOo qui nécessite **Java version 17 ou ultérieure** au lieu de Java 11 auparavant.
 
 ___
 
