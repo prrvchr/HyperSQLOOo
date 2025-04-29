@@ -59,14 +59,12 @@ ___
 
 ## Prérequis:
 
-L'extension HyperSQLOOo nécessite **LibreOffice version 24.2.x** minimum pour fonctionner.
+A cause du [dysfonctionnement #156471][17] et suivant le [PR#154989][18], l'extension HyperSQLOOo nécessite **LibreOffice version 24.2.x** minimum pour fonctionner.
 
 L'extension HyperSQLOOo utilise l'extension jdbcDriverOOo pour fonctionner.  
-Elle doit donc répondre aux [prérequis de l'extension jdbcDriverOOo][17].
+Elle doit donc répondre aux [prérequis de l'extension jdbcDriverOOo][19].
 
-**Sous Linux et macOS les paquets Python** utilisés par l'extension, peuvent s'il sont déja installé provenir du système et donc, **peuvent ne pas être à jour**.  
-Afin de s'assurer que vos paquets Python sont à jour il est recommandé d'utiliser l'option **Info système** dans les Options de l'extension accessible par:  
-**Outils -> Options -> Pilotes Base -> Pilote HsqlDB intégré -> Voir journal -> Info système**  
+Si vous utilisez **LibreOffice sous Linux** et que **LibreOffice a été installé avec le gestionnaire de paquets**, vos paquets Python peuvent être fournis par le système et obsolètes. La journalisation de l'extension vous permettera de verifier si c'est le cas. Elle est accessible via le menu: **Outils -> Options -> LibreOffice Base -> Pilote JDBC pur Java -> Options du pilote UNO -> Voir journal -> Info système** et nécessite le redemarrage de LibreOffice aprés son activation.  
 Si des paquets obsolètes apparaissent, vous pouvez les mettre à jour avec la commande:  
 `pip install --upgrade <package-name>`
 
@@ -317,6 +315,7 @@ ___
 
 - Déploiement de l'enregistrement passif permettant une installation beaucoup plus rapide des extensions et de différencier les services UNO enregistrés de ceux fournis par une implémentation Java ou Python. Cet enregistrement passif est assuré par l'extension [LOEclipse][41] via les [PR#152][58] et [PR#157][59].
 - Il est désormais possible de créer le fichier oxt de l'extension HyperSQLOOo uniquement avec Apache Ant et une copie du dépôt GitHub. La section [Comment créer l'extension][60] a été ajoutée à la documentation.
+- Toute erreur survenant lors du chargement du pilote sera consignée dans le journal de l'extension si la journalisation a été préalablement activé. Cela facilite l'identification des problèmes d'installation sous Windows.
 - Nécessite l'extension **jdbcDriverOOo en version 1.5.0 minimum**.
 
 ### Que reste-t-il à faire pour la version 1.2.0:
@@ -341,9 +340,9 @@ ___
 [14]: <https://prrvchr.github.io/HyperSQLOOo/README_fr#comment-migrer-une-base-de-donn%C3%A9es-int%C3%A9gr%C3%A9e>
 [15]: <https://github.com/prrvchr/HyperSQLOOo/>
 [16]: <https://github.com/prrvchr/HyperSQLOOo/issues/new>
-[17]: <https://prrvchr.github.io/jdbcDriverOOo/README_fr#pr%C3%A9requis>
-[18]: <https://prrvchr.github.io/SQLiteOOo/README_fr#prérequis>
-[19]: <https://bugs.documentfoundation.org/show_bug.cgi?id=156471>
+[17]: <https://bugs.documentfoundation.org/show_bug.cgi?id=156471>
+[18]: <https://gerrit.libreoffice.org/c/core/+/154989>
+[19]: <https://prrvchr.github.io/jdbcDriverOOo/README_fr#pr%C3%A9requis>
 [20]: <https://prrvchr.github.io/HyperSQLOOo/README_fr#ce-qui-a-%C3%A9t%C3%A9-fait-pour-la-version-110>
 [21]: <https://prrvchr.github.io/jdbcDriverOOo/img/jdbcDriverOOo.svg#middle>
 [22]: <https://github.com/prrvchr/jdbcDriverOOo/releases/latest/download/jdbcDriverOOo.oxt>

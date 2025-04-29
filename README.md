@@ -59,14 +59,12 @@ ___
 
 ## Requirement:
 
-The HyperSQLOOo extension requires **LibreOffice version 24.2.x** minimum to work.
+Due to [issue #156471][17] and following [PR#154989][18], the HyperSQLOOo extension requires **LibreOffice version 24.2.x** minimum to work.
 
 The HyperSQLOOo extension uses the jdbcDriverOOo extension to work.  
-It must therefore meet the [requirement of the jdbcDriverOOo extension][17].
+It must therefore meet the [requirement of the jdbcDriverOOo extension][19].
 
-**On Linux and macOS the Python packages** used by the extension, if already installed, may come from the system and therefore **may not be up to date**.  
-To ensure that your Python packages are up to date it is recommended to use the **System Info** option in the extension Options accessible by:  
-**Tools -> Options -> Base drivers -> Embedded HsqlDB Driver -> View log -> System Info**  
+If you are using **LibreOffice on Linux** and **LibreOffice was installed with the package manager**, Your Python packages may be system-provided and outdated. The extension's logging will allow you to check if this is the case. It is accessible via the menu: **Tools -> Options -> LibreOffice Base -> Pure Java JDBC driver -> UNO driver settings -> View log -> System Info** and requires restarting LibreOffice after activation.  
 If outdated packages appear, you can update them with the command:  
 `pip install --upgrade <package-name>`
 
@@ -317,6 +315,7 @@ ___
 
 - Passive registration deployment that allows for much faster installation of extensions and differentiation of registered UNO services from those provided by a Java or Python implementation. This passive registration is provided by the [LOEclipse][41] extension via [PR#152][58] and [PR#157][59].
 - It is now possible to build the oxt file of the HyperSQLOOo extension only with the help of Apache Ant and a copy of the GitHub repository. The [How to build the extension][60] section has been added to the documentation.
+- Any errors occurring while loading the driver will be logged in the extension's log if logging has been previously enabled. This makes it easier to identify installation problems on Windows.
 - Requires the **jdbcDriverOOo extension at least version 1.5.0**.
 
 ### What remains to be done for version 1.2.0:
@@ -341,9 +340,9 @@ ___
 [14]: <https://prrvchr.github.io/HyperSQLOOo/#how-to-migrate-an-embedded-database>
 [15]: <https://github.com/prrvchr/HyperSQLOOo/>
 [16]: <https://github.com/prrvchr/HyperSQLOOo/issues/new>
-[17]: <https://prrvchr.github.io/jdbcDriverOOo/#requirement>
-[18]: <https://prrvchr.github.io/SQLiteOOo/#requirement>
-[19]: <https://bugs.documentfoundation.org/show_bug.cgi?id=156471>
+[17]: <https://bugs.documentfoundation.org/show_bug.cgi?id=156471>
+[18]: <https://gerrit.libreoffice.org/c/core/+/154989>
+[19]: <https://prrvchr.github.io/jdbcDriverOOo/README_fr#pr%C3%A9requis>
 [20]: <https://prrvchr.github.io/HyperSQLOOo/#what-has-been-done-for-version-110>
 [21]: <https://prrvchr.github.io/jdbcDriverOOo/img/jdbcDriverOOo.svg#middle>
 [22]: <https://github.com/prrvchr/jdbcDriverOOo/releases/latest/download/jdbcDriverOOo.oxt>
