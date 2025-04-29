@@ -157,6 +157,21 @@ En contre partie, la fonction: **fichier -> Sauvegarder** n'a **aucun effet sur 
 
 ___
 
+## Comment créer l'extension:
+
+Normalement, l'extension est créée avec Eclipse pour Java et [LOEclipse][41]. Pour contourner Eclipse, j'ai modifié LOEclipse afin de permettre la création de l'extension avec Apache Ant.  
+Pour créer l'extension HyperSQLOOo avec l'aide d'Apache Ant, vous devez:
+- Installer le [SDK Java][42] version 8 ou supérieure.
+- Installer [Apache Ant][43] version 1.9.1 ou supérieure.
+- Installer [LibreOffice et son SDK][44] version 7.x ou supérieure.
+- Cloner le dépôt [HyperSQLOOo][45] sur GitHub dans un dossier.
+- Depuis ce dossier, accédez au répertoire: `source/HyperSQLOOo/`
+- Dans ce répertoire, modifiez le fichier `build.properties` afin que les propriétés `office.install.dir` et `sdk.dir` pointent vers les dossiers d'installation de LibreOffice et de son SDK, respectivement.
+- Lancez la création de l'archive avec la commande: `ant`
+- Vous trouverez l'archive générée dans le sous-dossier: `dist/`
+
+___
+
 ## A été testé avec:
 
 * LibreOffice 24.2.1.2 (x86_64)- Windows 10
@@ -177,7 +192,7 @@ ___
 
 ### Ce qui a été fait pour la version 0.0.1:
 
-- La rédaction de ce pilote a été facilitée par une [discussion avec Villeroy][41], sur le forum OpenOffice, que je tiens à remercier, car la connaissance ne vaut que si elle est partagée...
+- La rédaction de ce pilote a été facilitée par une [discussion avec Villeroy][46], sur le forum OpenOffice, que je tiens à remercier, car la connaissance ne vaut que si elle est partagée...
 
 - Utilisation de l'ancienne version de HsqlDB 1.8.0 (peut être facilement mise à jour).
 
@@ -209,7 +224,7 @@ ___
 
 ### Ce qui a été fait pour la version 0.0.4:
 
-- Modification de [Driver.py][42] afin de rendre possible l'utilisation du service Uno: `com.sun.star.sdb.RowSet`.
+- Modification de [Driver.py][47] afin de rendre possible l'utilisation du service Uno: `com.sun.star.sdb.RowSet`.
 
 - Beaucoup d'autres correctifs...
 
@@ -219,7 +234,7 @@ ___
     - De l'extraction des fichiers de base de données contenus dans le fichier **odb** à la connexion.
     - De la sauvegarde des fichiers de base de données dans le fichier **odb** lors de sa fermeture.
 
-- Réécriture de [Driver.py][42] afin de permettre:
+- Réécriture de [Driver.py][47] afin de permettre:
     - Son fonctionnement avec le nouveau pilote JDBC fourni par l'extension [jdbcDriverOOo][10] version 0.0.4.
     - La prise en charge du nouveau [DocumentHandler][38] afin de rendre les fichiers **odb** portables tels qu'ils étaient dans LibreOffice / OpenOffice avec la version 1.8 de HsqlDB.
 
@@ -235,7 +250,7 @@ ___
 
 - Renommage de l'extension de HsqlDriverOOo en HyperSQLOOo.
 
-- Résolution du [dysfonctionnement 156511][43] survenant lors de l'utilisation de l'interface com.sun.star.embed.XStorage. Le [contournement][44] consiste à utiliser la méthode copyElementTo() au lieu de moveElementTo(). Les versions de LibreOffice 7.6.x et supérieures deviennent utilisables.
+- Résolution du [dysfonctionnement 156511][48] survenant lors de l'utilisation de l'interface com.sun.star.embed.XStorage. Le [contournement][49] consiste à utiliser la méthode copyElementTo() au lieu de moveElementTo(). Les versions de LibreOffice 7.6.x et supérieures deviennent utilisables.
 
 ### Ce qui a été fait pour la version 1.0.2:
 
@@ -245,20 +260,20 @@ ___
 
 ### Ce qui a été fait pour la version 1.1.0:
 
-- Tous les paquets Python nécessaires à l'extension sont désormais enregistrés dans un fichier [requirements.txt][45] suivant la [PEP 508][46].
+- Tous les paquets Python nécessaires à l'extension sont désormais enregistrés dans un fichier [requirements.txt][50] suivant la [PEP 508][51].
 - Désormais si vous n'êtes pas sous Windows alors les paquets Python nécessaires à l'extension peuvent être facilement installés avec la commande:  
   `pip install requirements.txt`
-- Modification de la section [Prérequis][47].
+- Modification de la section [Prérequis][52].
 
 ### Ce qui a été fait pour la version 1.1.1:
 
-- Prise en charge des [nouvelles fonctionnalités][48] de **jdbcDriverOOo 1.1.2**.
+- Prise en charge des [nouvelles fonctionnalités][53] de **jdbcDriverOOo 1.1.2**.
 
 ### Ce qui a été fait pour la version 1.1.2:
 
 - Prise en charge de la dernière version de **jdbcDriverOOo 1.3.1**.
 - Lors de l'enregistrement sous un nom différent, la base de données si ouverte sera fermée correctement.
-- Lors de l'ouverture d'un fichier odb, si la connexion échoue, pour éviter la destruction des données, la recompression des fichiers de la base de données n'aura pas lieu. Merci à Robert d'avoir su détecter ce [dysfonctionnement][49].
+- Lors de l'ouverture d'un fichier odb, si la connexion échoue, pour éviter la destruction des données, la recompression des fichiers de la base de données n'aura pas lieu. Merci à Robert d'avoir su détecter ce [dysfonctionnement][54].
 
 ### Ce qui a été fait pour la version 1.1.3:
 
@@ -266,14 +281,14 @@ ___
 
 ### Ce qui a été fait pour la version 1.1.4:
 
-- Mise à jour du paquet [Python packaging][50] vers la version 24.1.
-- Mise à jour du paquet [Python setuptools][51] vers la version 72.1.0.
+- Mise à jour du paquet [Python packaging][55] vers la version 24.1.
+- Mise à jour du paquet [Python setuptools][56] vers la version 72.1.0.
 - L'extension vous demandera d'installer l'extensions jdbcDriverOOo en version 1.4.2 minimum.
 
 ### Ce qui a été fait pour la version 1.1.5:
 
-- Correction du [problème n°2][52] qui semble être une régression liée à la sortie de JaybirdOOo. Merci à TeddyBoomer de l'avoir signalé.
-- Mise à jour du paquet [Python setuptools][51] vers la version 73.0.1.
+- Correction du [problème n°2][57] qui semble être une régression liée à la sortie de JaybirdOOo. Merci à TeddyBoomer de l'avoir signalé.
+- Mise à jour du paquet [Python setuptools][56] vers la version 73.0.1.
 - Les options de l'extension sont désormais accessibles via: **Outils -> Options... -> LibreOffice Base -> Pilote HsqlDB intégré**
 
 ### Ce qui a été fait pour la version 1.1.6:
@@ -292,8 +307,13 @@ ___
 - L'extension vous demandera d'installer l'extensions jdbcDriverOOo en version 1.4.6 minimum.
 - Modification des options de l'extension accessibles via : **Outils -> Options... -> LibreOffice Base -> Pilote HsqlDB intégré** afin de respecter la nouvelle charte graphique.
 
+### Ce qui a été fait pour la version 1.2.0:
 
-### Que reste-t-il à faire pour la version 1.1.8:
+- Déploiement de l'enregistrement passif permettant une installation beaucoup plus rapide des extensions et de différencier les services UNO enregistrés de ceux fournis par une implémentation Java ou Python. Cet enregistrement passif est assuré par l'extension [LOEclipse][41] via les [PR#152][58] et [PR#157][59].
+- Il est désormais possible de créer le fichier oxt de l'extension HyperSQLOOo uniquement avec Apache Ant et une copie du dépôt GitHub. La section [Comment créer l'extension][60] a été ajoutée à la documentation.
+- Nécessite l'extension **jdbcDriverOOo en version 1.5.0 minimum**.
+
+### Que reste-t-il à faire pour la version 1.2.0:
 
 - Ajouter de nouvelles langue pour l'internationalisation...
 
@@ -303,7 +323,7 @@ ___
 [2]: <https://prrvchr.github.io/HyperSQLOOo/>
 [3]: <https://prrvchr.github.io/HyperSQLOOo/>
 [4]: <https://prrvchr.github.io/HyperSQLOOo/source/HyperSQLOOo/registration/TermsOfUse_fr>
-[5]: <https://prrvchr.github.io/HyperSQLOOo/README_fr#ce-qui-a-%C3%A9t%C3%A9-fait-pour-la-version-118>
+[5]: <https://prrvchr.github.io/HyperSQLOOo/README_fr#ce-qui-a-%C3%A9t%C3%A9-fait-pour-la-version-120>
 [6]: <https://prrvchr.github.io/README_fr>
 [7]: <https://fr.libreoffice.org/download/telecharger-libreoffice/>
 [8]: <https://www.openoffice.org/fr/Telecharger/>
@@ -339,15 +359,23 @@ ___
 [38]: <https://github.com/prrvchr/HyperSQLOOo/blob/master/uno/lib/uno/embedded/documenthandler.py>
 [39]: <https://www.openoffice.org/api/docs/common/ref/com/sun/star/util/XCloseListener.html>
 [40]: <http://www.openoffice.org/api/docs/common/ref/com/sun/star/document/XStorageChangeListener.html>
-[41]: <https://forum.openoffice.org/en/forum/viewtopic.php?f=13&t=103912>
-[42]: <https://github.com/prrvchr/HyperSQLOOo/blob/master/uno/lib/uno/embedded/driver.py>
-[43]: <https://bugs.documentfoundation.org/show_bug.cgi?id=156511>
-[44]: <https://github.com/prrvchr/uno/commit/a2fa9f5975a35e8447907e51b0f78ac1b1b76e17>
-[45]: <https://github.com/prrvchr/HyperSQLOOo/releases/latest/download/requirements.txt>
-[46]: <https://peps.python.org/pep-0508/>
-[47]: <https://prrvchr.github.io/HyperSQLOOo/README_fr#pr%C3%A9requis>
-[48]: <https://prrvchr.github.io/jdbcDriverOOo/README_fr#ce-qui-a-%C3%A9t%C3%A9-fait-pour-la-version-112>
-[49]: <https://bugs.documentfoundation.org/show_bug.cgi?id=156471#c54>
-[50]: <https://pypi.org/project/packaging/>
-[51]: <https://pypi.org/project/setuptools/>
-[52]: <https://github.com/prrvchr/HyperSQLOOo/issues/2>
+[41]: <https://github.com/LibreOffice/loeclipse>
+[42]: <https://adoptium.net/temurin/releases/?version=8&package=jdk>
+[43]: <https://ant.apache.org/manual/install.html>
+[44]: <https://downloadarchive.documentfoundation.org/libreoffice/old/7.6.7.2/>
+[45]: <https://github.com/prrvchr/HyperSQLOOo.git>
+[46]: <https://forum.openoffice.org/en/forum/viewtopic.php?f=13&t=103912>
+[47]: <https://github.com/prrvchr/HyperSQLOOo/blob/master/uno/lib/uno/embedded/driver.py>
+[48]: <https://bugs.documentfoundation.org/show_bug.cgi?id=156511>
+[49]: <https://github.com/prrvchr/uno/commit/a2fa9f5975a35e8447907e51b0f78ac1b1b76e17>
+[50]: <https://github.com/prrvchr/HyperSQLOOo/releases/latest/download/requirements.txt>
+[51]: <https://peps.python.org/pep-0508/>
+[52]: <https://prrvchr.github.io/HyperSQLOOo/README_fr#pr%C3%A9requis>
+[53]: <https://prrvchr.github.io/jdbcDriverOOo/README_fr#ce-qui-a-%C3%A9t%C3%A9-fait-pour-la-version-112>
+[54]: <https://bugs.documentfoundation.org/show_bug.cgi?id=156471#c54>
+[55]: <https://pypi.org/project/packaging/>
+[56]: <https://pypi.org/project/setuptools/>
+[57]: <https://github.com/prrvchr/HyperSQLOOo/issues/2>
+[58]: <https://github.com/LibreOffice/loeclipse/pull/152>
+[59]: <https://github.com/LibreOffice/loeclipse/pull/157>
+[60]: <https://prrvchr.github.io/HyperSQLOOo/README_fr#comment-cr%C3%A9er-lextension>

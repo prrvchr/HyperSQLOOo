@@ -157,6 +157,21 @@ On the other hand, the function: **file -> Save** has **no effect on the underly
 
 ___
 
+## How to build the extension:
+
+Normally, the extension is created with Eclipse for Java and [LOEclipse][41]. To work around Eclipse, I modified LOEclipse to allow the extension to be created with Apache Ant.  
+To create the HyperSQLOOo extension with the help of Apache Ant, you need to:
+- Install the [Java SDK][42] version 8 or higher.
+- Install [Apache Ant][43] version 1.9.1 or higher.
+- Install [LibreOffice and its SDK][44] version 7.x or higher.
+- Clone the [HyperSQLOOo][45] repository on GitHub into a folder.
+- From this folder, move to the directory: `source/HyperSQLOOo/`
+- In this directory, edit the file: `build.properties` so that the `office.install.dir` and `sdk.dir` properties point to the folders where LibreOffice and its SDK were installed, respectively.
+- Start the archive creation process using the command: `ant`
+- You will find the generated archive in the subfolder: `dist/`
+
+___
+
 ## Has been tested with:
 
 * LibreOffice 24.2.1.2 (x86_64)- Windows 10
@@ -177,7 +192,7 @@ ___
 
 ### What has been done for version 0.0.1:
 
-- The writing of this driver was facilitated by a [discussion with Villeroy][41], on the OpenOffice forum, which I would like to thank, because knowledge is only worth if it is shared...
+- The writing of this driver was facilitated by a [discussion with Villeroy][46], on the OpenOffice forum, which I would like to thank, because knowledge is only worth if it is shared...
 
 - Using the old version of HsqlDB 1.8.0 (can be easily updated).
 
@@ -209,7 +224,7 @@ ___
 
 ### What has been done for version 0.0.4:
 
-- Modification of [Driver.py][42] in order to make possible the use of the Uno service: `com.sun.star.sdb.RowSet`.
+- Modification of [Driver.py][47] in order to make possible the use of the Uno service: `com.sun.star.sdb.RowSet`.
 
 - Many other fix...
 
@@ -219,7 +234,7 @@ ___
     - The extraction of the database files contained in the **odb** file on connection.
     - Saving database files to **odb** file when closing it.
 
-- Rewrote [Driver.py][42] to allow:
+- Rewrote [Driver.py][47] to allow:
     - Its operation with the new JDBC driver provided by the extension [jdbcDriverOOo][10] version 0.0.4.
     - The support for the new [DocumentHandler][38] to make **odb** files portable as they were in LibreOffice / OpenOffice with version 1.8 of HsqlDB.
 
@@ -235,7 +250,7 @@ ___
 
 - Renamed the extension from HsqlDriverOOo to HyperSQLOOo.
 
-- Fixed [bug 156511][43] occurring when using the com.sun.star.embed.XStorage interface. The [workaround][44] is to use the copyElementTo() method instead of moveElementTo(). Versions of LibreOffice 7.6.x and higher become usable.
+- Fixed [bug 156511][48] occurring when using the com.sun.star.embed.XStorage interface. The [workaround][49] is to use the copyElementTo() method instead of moveElementTo(). Versions of LibreOffice 7.6.x and higher become usable.
 
 ### What has been done for version 1.0.2:
 
@@ -245,20 +260,20 @@ ___
 
 ### What has been done for version 1.1.0:
 
-- All Python packages necessary for the extension are now recorded in a [requirements.txt][45] file following [PEP 508][46].
+- All Python packages necessary for the extension are now recorded in a [requirements.txt][50] file following [PEP 508][51].
 - Now if you are not on Windows then the Python packages necessary for the extension can be easily installed with the command:  
   `pip install requirements.txt`
-- Modification of the [Requirement][47] section.
+- Modification of the [Requirement][52] section.
 
 ### What has been done for version 1.1.1:
 
-- Support for [new features][48] in **jdbcDriverOOo 1.1.2**.
+- Support for [new features][53] in **jdbcDriverOOo 1.1.2**.
 
 ### What has been done for version 1.1.2:
 
 - Support for the latest version of **jdbcDriverOOo 1.3.1**.
 - When saving under a different name, the database if open will be closed correctly.
-- When opening an odb file, if the connection fails, to avoid data destruction, recompression of the database files will not take place. Thanks to Robert for being able to detect this [issue][49].
+- When opening an odb file, if the connection fails, to avoid data destruction, recompression of the database files will not take place. Thanks to Robert for being able to detect this [issue][54].
 
 ### What has been done for version 1.1.3:
 
@@ -266,14 +281,14 @@ ___
 
 ### What has been done for version 1.1.4:
 
-- Updated the [Python packaging][50] package to version 24.1.
-- Updated the [Python setuptools][51] package to version 72.1.0.
+- Updated the [Python packaging][55] package to version 24.1.
+- Updated the [Python setuptools][56] package to version 72.1.0.
 - The extension will ask you to install the jdbcDriverOOo extension in versions 1.4.2 minimum.
 
 ### What has been done for version 1.1.5:
 
-- Fixed [issue #2][52] which appears to be a regression related to the release of JaybirdOOo. Thanks to TeddyBoomer for reporting it.
-- Updated the [Python setuptools][51] package to version 73.0.1.
+- Fixed [issue #2][57] which appears to be a regression related to the release of JaybirdOOo. Thanks to TeddyBoomer for reporting it.
+- Updated the [Python setuptools][56] package to version 73.0.1.
 - The extension options are now accessible via: **Tools -> Options... -> LibreOffice Base -> Embedded HsqlDB Driver**
 
 ### What has been done for version 1.1.6:
@@ -292,7 +307,13 @@ ___
 - The extension will ask you to install jdbcDriverOOo extension in versions 1.4.6 minimum.
 - Modification of the extension options accessible via: **Tools -> Options... -> LibreOffice Base -> Embedded HsqlDB Driver** in order to comply with the new graphic charter.
 
-### What remains to be done for version 1.1.8:
+### What has been done for version 1.2.0:
+
+- Passive registration deployment that allows for much faster installation of extensions and differentiation of registered UNO services from those provided by a Java or Python implementation. This passive registration is provided by the [LOEclipse][41] extension via [PR#152][58] and [PR#157][59].
+- It is now possible to build the oxt file of the HyperSQLOOo extension only with the help of Apache Ant and a copy of the GitHub repository. The [How to build the extension][60] section has been added to the documentation.
+- Requires the **jdbcDriverOOo extension at least version 1.5.0**.
+
+### What remains to be done for version 1.2.0:
 
 - Add new language for internationalization...
 
@@ -302,7 +323,7 @@ ___
 [2]: <https://prrvchr.github.io/HyperSQLOOo/>
 [3]: <https://prrvchr.github.io/HyperSQLOOo/README_fr>
 [4]: <https://prrvchr.github.io/HyperSQLOOo/source/HyperSQLOOo/registration/TermsOfUse_en>
-[5]: <https://prrvchr.github.io/HyperSQLOOo#what-has-been-done-for-version-118>
+[5]: <https://prrvchr.github.io/HyperSQLOOo#what-has-been-done-for-version-120>
 [6]: <https://prrvchr.github.io/>
 [7]: <https://www.libreoffice.org/download/download/>
 [8]: <https://www.openoffice.org/download/index.html>
@@ -338,15 +359,23 @@ ___
 [38]: <https://github.com/prrvchr/HyperSQLOOo/blob/master/uno/lib/uno/embedded/documenthandler.py>
 [39]: <https://www.openoffice.org/api/docs/common/ref/com/sun/star/util/XCloseListener.html>
 [40]: <http://www.openoffice.org/api/docs/common/ref/com/sun/star/document/XStorageChangeListener.html>
-[41]: <https://forum.openoffice.org/en/forum/viewtopic.php?f=13&t=103912>
-[42]: <https://github.com/prrvchr/HyperSQLOOo/blob/master/uno/lib/uno/embedded/driver.py>
-[43]: <https://bugs.documentfoundation.org/show_bug.cgi?id=156511>
-[44]: <https://github.com/prrvchr/uno/commit/a2fa9f5975a35e8447907e51b0f78ac1b1b76e17>
-[45]: <https://github.com/prrvchr/HyperSQLOOo/releases/latest/download/requirements.txt>
-[46]: <https://peps.python.org/pep-0508/>
-[47]: <https://prrvchr.github.io/HyperSQLOOo/#requirement>
-[48]: <https://prrvchr.github.io/jdbcDriverOOo/#what-has-been-done-for-version-112>
-[49]: <https://bugs.documentfoundation.org/show_bug.cgi?id=156471#c54>
-[50]: <https://pypi.org/project/packaging/>
-[51]: <https://pypi.org/project/setuptools/>
-[52]: <https://github.com/prrvchr/HyperSQLOOo/issues/2>
+[41]: <https://github.com/LibreOffice/loeclipse>
+[42]: <https://adoptium.net/temurin/releases/?version=8&package=jdk>
+[43]: <https://ant.apache.org/manual/install.html>
+[44]: <https://downloadarchive.documentfoundation.org/libreoffice/old/7.6.7.2/>
+[45]: <https://github.com/prrvchr/HyperSQLOOo.git>
+[46]: <https://forum.openoffice.org/en/forum/viewtopic.php?f=13&t=103912>
+[47]: <https://github.com/prrvchr/HyperSQLOOo/blob/master/uno/lib/uno/embedded/driver.py>
+[48]: <https://bugs.documentfoundation.org/show_bug.cgi?id=156511>
+[49]: <https://github.com/prrvchr/uno/commit/a2fa9f5975a35e8447907e51b0f78ac1b1b76e17>
+[50]: <https://github.com/prrvchr/HyperSQLOOo/releases/latest/download/requirements.txt>
+[51]: <https://peps.python.org/pep-0508/>
+[52]: <https://prrvchr.github.io/HyperSQLOOo/#requirement>
+[53]: <https://prrvchr.github.io/jdbcDriverOOo/#what-has-been-done-for-version-112>
+[54]: <https://bugs.documentfoundation.org/show_bug.cgi?id=156471#c54>
+[55]: <https://pypi.org/project/packaging/>
+[56]: <https://pypi.org/project/setuptools/>
+[57]: <https://github.com/prrvchr/HyperSQLOOo/issues/2>
+[58]: <https://github.com/LibreOffice/loeclipse/pull/152>
+[59]: <https://github.com/LibreOffice/loeclipse/pull/157>
+[60]: <https://prrvchr.github.io/HyperSQLOOo/#how-to-build-the-extension>
