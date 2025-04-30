@@ -45,8 +45,6 @@ Cette extension vous permet:
 - De remplacer le pilote [HsqlDB 1.8][11] intégré fourni par LibreOffice / OpenOffice, une version qui aura bientôt plus de 20 ans, par une version HsqlDB récente et à votre choix.
 - **De supporter les propriétés [ACID][12] de la base de données [HsqlDB][13] sous jancente.**
 
-**Attention : Si vous souhaitez migrer des fichiers odb créés avec LibreOffice ou OpenOffice et HsqlDB version 1.8, il est impératif d'utiliser la version 1.1.2 ou supérieure de HyperSQLOOo sinon il y a un grand risque de perte de données. La procédure de migration est donnée dans la section [Comment migrer une base de données intégrée][14]. Quoi qu'il arrive, gardez vos sauvegardes à jour.**
-
 Etant un logiciel libre je vous encourage:
 - A dupliquer son [code source][15].
 - A apporter des modifications, des corrections, des améliorations.
@@ -64,7 +62,7 @@ A cause du [dysfonctionnement #156471][17] et suivant le [PR#154989][18], l'exte
 L'extension HyperSQLOOo utilise l'extension jdbcDriverOOo pour fonctionner.  
 Elle doit donc répondre aux [prérequis de l'extension jdbcDriverOOo][19].
 
-Si vous utilisez **LibreOffice sous Linux** et que **LibreOffice a été installé avec le gestionnaire de paquets**, vos paquets Python peuvent être fournis par le système et obsolètes. La journalisation de l'extension vous permettera de verifier si c'est le cas. Elle est accessible via le menu: **Outils -> Options -> LibreOffice Base -> Pilote JDBC pur Java -> Options du pilote UNO -> Voir journal -> Info système** et nécessite le redemarrage de LibreOffice aprés son activation.  
+Si vous utilisez **LibreOffice sous Linux** et que **LibreOffice a été installé avec le gestionnaire de paquets**, vos paquets Python peuvent être fournis par le système et obsolètes. La journalisation de l'extension vous permettera de verifier si c'est le cas. Elle est accessible via le menu: **Outils -> Options -> LibreOffice Base -> Pilote HsqlDB intégré -> Options du pilote UNO -> Voir journal -> Info système** et nécessite le redemarrage de LibreOffice aprés son activation.  
 Si des paquets obsolètes apparaissent, vous pouvez les mettre à jour avec la commande:  
 `pip install --upgrade <package-name>`
 

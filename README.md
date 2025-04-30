@@ -64,7 +64,7 @@ Due to [issue #156471][17] and following [PR#154989][18], the HyperSQLOOo extens
 The HyperSQLOOo extension uses the jdbcDriverOOo extension to work.  
 It must therefore meet the [requirement of the jdbcDriverOOo extension][19].
 
-If you are using **LibreOffice on Linux** and **LibreOffice was installed with the package manager**, Your Python packages may be system-provided and outdated. The extension's logging will allow you to check if this is the case. It is accessible via the menu: **Tools -> Options -> LibreOffice Base -> Pure Java JDBC driver -> UNO driver settings -> View log -> System Info** and requires restarting LibreOffice after activation.  
+If you are using **LibreOffice on Linux** and **LibreOffice was installed with the package manager**, Your Python packages may be system-provided and outdated. The extension's logging will allow you to check if this is the case. It is accessible via the menu: **Tools -> Options -> LibreOffice Base -> Embedded HsqlD driver -> View log -> System Info** and requires restarting LibreOffice after activation.  
 If outdated packages appear, you can update them with the command:  
 `pip install --upgrade <package-name>`
 
