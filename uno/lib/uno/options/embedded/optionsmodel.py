@@ -47,6 +47,8 @@ class OptionsModel():
     def __init__(self, ctx, url=None):
         self._ctx = ctx
         self._url = url
+        self._logger = getLogger(ctx, g_defaultlog, g_basename)
+        self._logger.logprb(INFO, 'OptionsModel', '__init__', 301)
 
 # OptionsModel getter methods
     def getDriverVersion(self, apilevel):
@@ -62,7 +64,6 @@ class OptionsModel():
         except UnoException as e:
             # If the driver is None, the error is already logged
             if driver is not None:
-                logger = getLogger(self._ctx, g_defaultlog, g_basename)
-                logger.logprb(SEVERE, 'OptionsModel', 'getDriverVersion', 102, g_service, apilevel, e.Message)
+                self._logger.logprb(SEVERE, 'OptionsModel', 'getDriverVersion', 102, g_service, apilevel, e.Message)
         return version
 
