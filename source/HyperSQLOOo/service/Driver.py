@@ -65,7 +65,7 @@ class Driver():
                     logger = getLogger(ctx, g_defaultlog, g_basename)
                     apilevel = getConfiguration(ctx, g_identifier).getByName('ApiLevel')
                     try:
-                        checkConfiguration(ctx, logger)
+                        checkConfiguration(ctx)
                         if apilevel == 'com.sun.star.sdbc':
                             instance = sdbc.Driver(ctx, cls._lock, logger, g_services[apilevel], g_ImplementationName)
                         else:
@@ -91,4 +91,3 @@ class Driver():
 g_ImplementationHelper.addImplementation(Driver,                          # UNO object class
                                          g_ImplementationName,            # Implementation name
                                          g_ServiceNames)                  # List of implemented services
-

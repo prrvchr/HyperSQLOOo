@@ -1,7 +1,7 @@
 <!--
 ╔════════════════════════════════════════════════════════════════════════════════════╗
 ║                                                                                    ║
-║   Copyright (c) 2020 https://prrvchr.github.io                                     ║
+║   Copyright (c) 2020-25 https://prrvchr.github.io                                  ║
 ║                                                                                    ║
 ║   Permission is hereby granted, free of charge, to any person obtaining            ║
 ║   a copy of this software and associated documentation files (the "Software"),     ║
@@ -45,7 +45,7 @@ This extension allows you:
 - To replace the integrated [HsqlDB 1.8][11] driver provided by LibreOffice / OpenOffice, a version that will soon be more than 20 years old, with a recent HsqlDB version of your choice.
 - **To support the [ACID][12] properties of the underlying [HsqlDB][13] database.**
 
-**Attention: If you wish to migrate odb files created with LibreOffice or OpenOffice and HsqlDB version 1.8, it is imperative to use version 1.1.2 or higher of HyperSQLOOo otherwise there is a great risk of data loss. The migration procedure is given in the [How to migrate an embedded database][14] section. Whatever happens, keep your backups up to date.**
+If you wish to migrate odb files created with LibreOffice or OpenOffice and HsqlDB version 1.8, it is imperative to use the lastest version of HyperSQLOOo. The migration procedure is given in the [How to migrate an embedded database][14] section. 
 
 Being free software I encourage you:
 - To duplicate its [source code][15].
@@ -79,7 +79,7 @@ If necessary, rename it before installing it.
 
 - [![jdbcDriverOOo logo][21]][10] Install **[jdbcDriverOOo.oxt][22]** extension [![Version][23]][22]
 
-  This extension is necessary to use HsqlDB version 2.7.2 with all its features.
+  This extension is necessary to use HsqlDB version 2.7.4 with all its features.
 
 - ![HyperSQLOOo logo][24] Install **[HyperSQLOOo.oxt][25]** extension [![Version][26]][25]
 
@@ -88,9 +88,9 @@ Restart LibreOffice after installation.
 - **On Windows** to ensure that LibreOffice restarts correctly, use Windows Task Manager to verify that no LibreOffice services are visible after LibreOffice shuts down (and kill it if so).
 - **Under Linux or macOS** you can also ensure that LibreOffice restarts correctly, by launching it from a terminal with the command `soffice` and using the key combination `Ctrl + C` if after stopping LibreOffice, the terminal is not active (no command prompt).
 
-After restarting LibreOffice, you can ensure that the extension and its driver are correctly installed by checking that the `io.github.prrvchr.HyperSQLOOo.Driver` driver is listed in the **Connection Pool**, accessible via the menu: **Tools -> Options... -> LibreOffice Base -> Connections**. It is not necessary to enable the connection pool.
+After restarting LibreOffice, you can ensure that the extension and its driver are correctly installed by checking that the `io.github.prrvchr.HyperSQLOOo.Driver` driver is listed in the **Connection Pool**, accessible via the menu: **Tools -> Options -> LibreOffice Base -> Connections**. It is not necessary to enable the connection pool.
 
-If the driver is not listed, the reason for the driver failure can be found in the extension's logging. This log is accessible via the menu: **Tools -> Options... -> LibreOffice Base -> Embedded HsqlDB Driver -> Logging Options**.  
+If the driver is not listed, the reason for the driver failure can be found in the extension's logging. This log is accessible via the menu: **Tools -> Options -> LibreOffice Base -> Embedded HsqlDB Driver -> Logging Options**.  
 The `HyperSQLLogger` logging must first be enabled, then LibreOffice restarted and the **Connection Pool** checked again to force the driver to load and obtain the error message in the log.
 
 Remember to first update the version of the Java JRE or JDK installed on your computer, this extension need the new version of jdbcDriverOOo that requires **Java version 17 or later** instead of Java 11 previously.
@@ -293,7 +293,7 @@ ___
 
 - Fixed [issue #2][57] which appears to be a regression related to the release of JaybirdOOo. Thanks to TeddyBoomer for reporting it.
 - Updated the [Python setuptools][56] package to version 73.0.1.
-- The extension options are now accessible via: **Tools -> Options... -> LibreOffice Base -> Embedded HsqlDB Driver**
+- The extension options are now accessible via: **Tools -> Options -> LibreOffice Base -> Embedded HsqlDB Driver**
 
 ### What has been done for version 1.1.6:
 
@@ -309,7 +309,7 @@ ___
 ### What has been done for version 1.1.8:
 
 - The extension will ask you to install jdbcDriverOOo extension in versions 1.4.6 minimum.
-- Modification of the extension options accessible via: **Tools -> Options... -> LibreOffice Base -> Embedded HsqlDB Driver** in order to comply with the new graphic charter.
+- Modification of the extension options accessible via: **Tools -> Options -> LibreOffice Base -> Embedded HsqlDB Driver** in order to comply with the new graphic charter.
 
 ### What has been done for version 1.2.0:
 

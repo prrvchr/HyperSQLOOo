@@ -1,7 +1,7 @@
 <!--
 ╔════════════════════════════════════════════════════════════════════════════════════╗
 ║                                                                                    ║
-║   Copyright (c) 2020 https://prrvchr.github.io                                     ║
+║   Copyright (c) 2020-25 https://prrvchr.github.io                                  ║
 ║                                                                                    ║
 ║   Permission is hereby granted, free of charge, to any person obtaining            ║
 ║   a copy of this software and associated documentation files (the "Software"),     ║
@@ -45,6 +45,8 @@ Cette extension vous permet:
 - De remplacer le pilote [HsqlDB 1.8][11] intégré fourni par LibreOffice / OpenOffice, une version qui aura bientôt plus de 20 ans, par une version HsqlDB récente et à votre choix.
 - **De supporter les propriétés [ACID][12] de la base de données [HsqlDB][13] sous jancente.**
 
+Si vous souhaitez migrer des fichiers odb créés avec LibreOffice ou OpenOffice et HsqlDB version 1.8, il est impératif d'utiliser la dernière version de HyperSQLOOo. La procédure de migration est donnée dans la section [Comment migrer une base de données intégrée][14].
+
 Etant un logiciel libre je vous encourage:
 - A dupliquer son [code source][15].
 - A apporter des modifications, des corrections, des améliorations.
@@ -62,7 +64,7 @@ A cause du [dysfonctionnement #156471][17] et suivant le [PR#154989][18], l'exte
 L'extension HyperSQLOOo utilise l'extension jdbcDriverOOo pour fonctionner.  
 Elle doit donc répondre aux [prérequis de l'extension jdbcDriverOOo][19].
 
-Si vous utilisez **LibreOffice sous Linux** et que **LibreOffice a été installé avec le gestionnaire de paquets**, vos paquets Python peuvent être fournis par le système et obsolètes. La journalisation de l'extension vous permettera de verifier si c'est le cas. Elle est accessible via le menu: **Outils -> Options -> LibreOffice Base -> Pilote HsqlDB intégré -> Options du pilote UNO -> Voir journal -> Info système** et nécessite le redemarrage de LibreOffice aprés son activation.  
+Si vous utilisez **LibreOffice sous Linux** et que **LibreOffice a été installé avec le gestionnaire de paquets**, vos paquets Python peuvent être fournis par le système et obsolètes. La journalisation de l'extension vous permettera de verifier si c'est le cas. Elle est accessible via le menu: **Outils -> Options -> LibreOffice Base -> Pilote HsqlDB intégré -> Voir journal -> Info système** et nécessite le redemarrage de LibreOffice aprés son activation.  
 Si des paquets obsolètes apparaissent, vous pouvez les mettre à jour avec la commande:  
 `pip install --upgrade <package-name>`
 
@@ -77,7 +79,7 @@ Si nécessaire, renommez-le avant de l'installer.
 
 - [![jdbcDriverOOo logo][21]][10] Installer l'extension **[jdbcDriverOOo.oxt][22]** [![Version][23]][22]
 
-  Cette extension est nécessaire pour utiliser HsqlDB version 2.7.2 avec toutes ses fonctionnalités.
+  Cette extension est nécessaire pour utiliser HsqlDB version 2.7.4 avec toutes ses fonctionnalités.
 
 - ![HyperSQLOOo logo][24] Installer l'extension **[HyperSQLOOo.oxt][25]** version [![Version][26]][25]
 
@@ -86,9 +88,9 @@ Redémarrez LibreOffice après l'installation.
 - **Sous Windows** pour vous assurer que LibreOffice redémarre correctement, utilisez le Gestionnaire de tâche de Windows pour vérifier qu'aucun service LibreOffice n'est visible après l'arrêt de LibreOffice (et tuez-le si ç'est le cas).
 - **Sous Linux ou macOS** vous pouvez également vous assurer que LibreOffice redémarre correctement, en le lançant depuis un terminal avec la commande `soffice` et en utilisant la combinaison de touches `Ctrl + C` si après l'arrêt de LibreOffice, le terminal n'est pas actif (pas d'invité de commande).
 
-Après avoir redémarré LibreOffice, vous pouvez vous assurer que l'extension et son pilote sont correctement installés en vérifiant que le pilote `io.github.prrvchr.HyperSQLOOo.Driver` est répertorié dans le **Pool de Connexions**, accessible via le menu: **Outils -> Options... -> LibreOffice Base -> Connexions**. Il n'est pas nécessaire d'activer le pool de connexions.
+Après avoir redémarré LibreOffice, vous pouvez vous assurer que l'extension et son pilote sont correctement installés en vérifiant que le pilote `io.github.prrvchr.HyperSQLOOo.Driver` est répertorié dans le **Pool de Connexions**, accessible via le menu: **Outils -> Options -> LibreOffice Base -> Connexions**. Il n'est pas nécessaire d'activer le pool de connexions.
 
-Si le pilote n'est pas répertorié, la raison de l'échec du chargement du pilote peut être trouvée dans la journalisation de l'extension. Cette journalisation est accessible via le menu: **Outils -> Options... -> LibreOffice Base -> Pilote HslqDB intégré -> Options de journalisation**.  
+Si le pilote n'est pas répertorié, la raison de l'échec du chargement du pilote peut être trouvée dans la journalisation de l'extension. Cette journalisation est accessible via le menu: **Outils -> Options -> LibreOffice Base -> Pilote HslqDB intégré -> Options de journalisation**.  
 La journalisation `HyperSQLLogger` doit d'abord être activée puis LibreOffice redémarré et le **Pool de Connexions** à nouveau consulté afin de forcer le chargement du pilote et d'obtenir le message d'erreur dans le journal.
 
 N'oubliez pas au préalable de mettre à jour la version du JRE ou JDK Java installée sur votre ordinateur, cette extension utilise la nouvelle version de jdbcDriverOOo qui nécessite **Java version 17 ou ultérieure** au lieu de Java 11 auparavant.
@@ -291,7 +293,7 @@ ___
 
 - Correction du [problème n°2][57] qui semble être une régression liée à la sortie de JaybirdOOo. Merci à TeddyBoomer de l'avoir signalé.
 - Mise à jour du paquet [Python setuptools][56] vers la version 73.0.1.
-- Les options de l'extension sont désormais accessibles via: **Outils -> Options... -> LibreOffice Base -> Pilote HsqlDB intégré**
+- Les options de l'extension sont désormais accessibles via: **Outils -> Options -> LibreOffice Base -> Pilote HsqlDB intégré**
 
 ### Ce qui a été fait pour la version 1.1.6:
 
@@ -307,7 +309,7 @@ ___
 ### Ce qui a été fait pour la version 1.1.8:
 
 - L'extension vous demandera d'installer l'extensions jdbcDriverOOo en version 1.4.6 minimum.
-- Modification des options de l'extension accessibles via : **Outils -> Options... -> LibreOffice Base -> Pilote HsqlDB intégré** afin de respecter la nouvelle charte graphique.
+- Modification des options de l'extension accessibles via : **Outils -> Options -> LibreOffice Base -> Pilote HsqlDB intégré** afin de respecter la nouvelle charte graphique.
 
 ### Ce qui a été fait pour la version 1.2.0:
 

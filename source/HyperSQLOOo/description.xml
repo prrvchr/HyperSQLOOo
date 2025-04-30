@@ -32,8 +32,8 @@
   <identifier value="io.github.prrvchr.HyperSQLOOo"/>
   <platform value="all"/>
   <dependencies>
-    <OpenOffice.org-minimal-version value="LibreOffice 7.0" d:name="LibreOffice 7.0"/>
-    <l:LibreOffice-minimal-version value="7.0" d:name="LibreOffice 7.0"/>
+    <OpenOffice.org-minimal-version value="LibreOffice 24.2" d:name="LibreOffice 24.2"/>
+    <l:LibreOffice-minimal-version value="24.2" d:name="LibreOffice 24.2"/>
   </dependencies>
   <update-information>
     <src xlink:href="https://github.com/prrvchr/HyperSQLOOo/releases/latest/download/HyperSQLOOo.update.xml"/>
