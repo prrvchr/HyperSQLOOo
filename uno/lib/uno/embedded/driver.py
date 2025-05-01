@@ -27,8 +27,10 @@
 ╚════════════════════════════════════════════════════════════════════════════════════╝
 """
 
+import uno
 import unohelper
 
+from com.sun.star.lang import XComponent
 from com.sun.star.lang import XServiceInfo
 
 from com.sun.star.logging.LogLevel import INFO
@@ -70,15 +72,18 @@ import traceback
 
 
 class Driver(unohelper.Base,
+             XComponent,
              XServiceInfo,
              XDriver):
 
-    def __init__(self, ctx, lock, logger, service, implementation):
+    def __init__(self, ctx, lock, logger, service, implementation, services):
         self._ctx = ctx
         self._lock = lock
         self._implementation = implementation
+        self._services = services
         self._logger = logger
         self._driver = createService(ctx, service)
+        self._listeners = []
         # FIXME: If we want to add the StorageChangeListener only once,
         # FIXME: we need to be able to retrieve the DocumentHandler (keep a reference)
         self._handlers = []
@@ -131,6 +136,19 @@ class Driver(unohelper.Base,
         return 1
     def getMinorVersion(self):
         return 0
+
+    # XComponent
+    def dispose(self):
+        source = uno.createUnoStruct('com.sun.star.lang.EventObject', self)
+        for listener in self._listeners:
+            listener.disposing(source)
+        self._driver.dispose()
+    def addEventListener(self, listener):
+        if listener not in self._listeners:
+            self._listeners.add(listener)
+    def removeEventListener(self, listener):
+        if listener in self._listeners:
+            self._listeners.remove(listener)
 
     # XServiceInfo
     def supportsService(self, service):
