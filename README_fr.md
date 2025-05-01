@@ -59,8 +59,6 @@ ___
 
 ## Prérequis:
 
-A cause du [dysfonctionnement #156471][17] et suivant le [PR#154989][18], l'extension HyperSQLOOo nécessite **LibreOffice version 24.2.x** minimum pour fonctionner.
-
 L'extension HyperSQLOOo utilise l'extension jdbcDriverOOo pour fonctionner.  
 Elle doit donc répondre aux [prérequis de l'extension jdbcDriverOOo][19].
 
@@ -91,7 +89,7 @@ Redémarrez LibreOffice après l'installation.
 Après avoir redémarré LibreOffice, vous pouvez vous assurer que l'extension et son pilote sont correctement installés en vérifiant que le pilote `io.github.prrvchr.HyperSQLOOo.Driver` est répertorié dans le **Pool de Connexions**, accessible via le menu: **Outils -> Options -> LibreOffice Base -> Connexions**. Il n'est pas nécessaire d'activer le pool de connexions.
 
 Si le pilote n'est pas répertorié, la raison de l'échec du chargement du pilote peut être trouvée dans la journalisation de l'extension. Cette journalisation est accessible via le menu: **Outils -> Options -> LibreOffice Base -> Pilote HslqDB intégré -> Options de journalisation**.  
-La journalisation `HyperSQLLogger` doit d'abord être activée puis LibreOffice redémarré et le **Pool de Connexions** à nouveau consulté afin de forcer le chargement du pilote et d'obtenir le message d'erreur dans le journal.
+La journalisation `HyperSQLLogger` doit d'abord être activée, puis LibreOffice redémarré pour obtenir le message d'erreur dans le journal.
 
 N'oubliez pas au préalable de mettre à jour la version du JRE ou JDK Java installée sur votre ordinateur, cette extension utilise la nouvelle version de jdbcDriverOOo qui nécessite **Java version 17 ou ultérieure** au lieu de Java 11 auparavant.
 
@@ -340,8 +338,6 @@ ___
 [14]: <https://prrvchr.github.io/HyperSQLOOo/README_fr#comment-migrer-une-base-de-donn%C3%A9es-int%C3%A9gr%C3%A9e>
 [15]: <https://github.com/prrvchr/HyperSQLOOo/>
 [16]: <https://github.com/prrvchr/HyperSQLOOo/issues/new>
-[17]: <https://bugs.documentfoundation.org/show_bug.cgi?id=156471>
-[18]: <https://gerrit.libreoffice.org/c/core/+/154989>
 [19]: <https://prrvchr.github.io/jdbcDriverOOo/README_fr#pr%C3%A9requis>
 [20]: <https://prrvchr.github.io/HyperSQLOOo/README_fr#ce-qui-a-%C3%A9t%C3%A9-fait-pour-la-version-110>
 [21]: <https://prrvchr.github.io/jdbcDriverOOo/img/jdbcDriverOOo.svg#middle>

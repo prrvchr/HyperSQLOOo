@@ -51,4 +51,3 @@ g_shutdown = ''
 
 # LibreOffice configuration
 g_lover = '5.0'
-

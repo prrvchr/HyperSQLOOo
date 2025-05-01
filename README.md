@@ -59,8 +59,6 @@ ___
 
 ## Requirement:
 
-Due to [issue #156471][17] and following [PR#154989][18], the HyperSQLOOo extension requires **LibreOffice version 24.2.x** minimum to work.
-
 The HyperSQLOOo extension uses the jdbcDriverOOo extension to work.  
 It must therefore meet the [requirement of the jdbcDriverOOo extension][19].
 
@@ -91,7 +89,7 @@ Restart LibreOffice after installation.
 After restarting LibreOffice, you can ensure that the extension and its driver are correctly installed by checking that the `io.github.prrvchr.HyperSQLOOo.Driver` driver is listed in the **Connection Pool**, accessible via the menu: **Tools -> Options -> LibreOffice Base -> Connections**. It is not necessary to enable the connection pool.
 
 If the driver is not listed, the reason for the driver failure can be found in the extension's logging. This log is accessible via the menu: **Tools -> Options -> LibreOffice Base -> Embedded HsqlDB Driver -> Logging Options**.  
-The `HyperSQLLogger` logging must first be enabled, then LibreOffice restarted and the **Connection Pool** checked again to force the driver to load and obtain the error message in the log.
+The `HyperSQLLogger` logging must first be enabled and then LibreOffice restarted to get the error message in the log.
 
 Remember to first update the version of the Java JRE or JDK installed on your computer, this extension need the new version of jdbcDriverOOo that requires **Java version 17 or later** instead of Java 11 previously.
 
@@ -340,8 +338,6 @@ ___
 [14]: <https://prrvchr.github.io/HyperSQLOOo/#how-to-migrate-an-embedded-database>
 [15]: <https://github.com/prrvchr/HyperSQLOOo/>
 [16]: <https://github.com/prrvchr/HyperSQLOOo/issues/new>
-[17]: <https://bugs.documentfoundation.org/show_bug.cgi?id=156471>
-[18]: <https://gerrit.libreoffice.org/c/core/+/154989>
 [19]: <https://prrvchr.github.io/jdbcDriverOOo/README_fr#pr%C3%A9requis>
 [20]: <https://prrvchr.github.io/HyperSQLOOo/#what-has-been-done-for-version-110>
 [21]: <https://prrvchr.github.io/jdbcDriverOOo/img/jdbcDriverOOo.svg#middle>
