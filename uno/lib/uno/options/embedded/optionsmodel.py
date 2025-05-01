@@ -36,9 +36,10 @@ from ..logger import getLogger
 
 from ..unotool import createService
 
+from ..jdbcdriver import g_service
+
 from ..configuration import g_defaultlog
 from ..configuration import g_basename
-from ..configuration import g_service
 
 import traceback
 
@@ -63,7 +64,6 @@ class OptionsModel():
                 version = connection.getMetaData().getDriverVersion()
                 connection.close()
                 print("OptionsModel.getDriverVersion 3 version: %s" % version)
-            driver.dispose()
             print("OptionsModel.getDriverVersion 4")
         except UnoException as e:
             # If the driver is None, the error is already logged

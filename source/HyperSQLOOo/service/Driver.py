@@ -60,32 +60,32 @@ g_ServiceNames = ('io.github.prrvchr.HyperSQLOOo.Driver', 'com.sun.star.sdbc.Dri
 
 class Driver():
     def __new__(cls, ctx, *args, **kwargs):
-        if cls.instance is None:
-            with cls.lock:
-                if cls.instance is None:
+        if cls._instance is None:
+            with cls._lock:
+                if cls._instance is None:
                     logger = getLogger(ctx, g_defaultlog, g_basename)
                     apilevel = getConfiguration(ctx, g_identifier).getByName('ApiLevel')
                     service = g_services[apilevel]
                     try:
                         checkConfiguration(ctx, logger)
                         if apilevel == 'com.sun.star.sdbc':
-                            instance = sdbc.Driver(cls, ctx, logger, service, g_ImplementationName)
+                            instance = sdbc.Driver(ctx, cls._lock, logger, service, g_ImplementationName)
                         else:
-                            instance = sdbcx.Driver(cls, ctx, logger, service, g_ImplementationName)
-                        cls.instance = instance
+                            instance = sdbcx.Driver(ctx, cls._lock, logger, service, g_ImplementationName)
+                        cls._instance = instance
                         logger.logprb(INFO, 'Driver', '__new__', 101, g_ImplementationName, apilevel)
                     except UNOException as e:
                         if cls._logger is None:
                             cls._logger = logger
                         logger.logprb(SEVERE, 'Driver', '__new__', 102, g_ImplementationName, apilevel, e.Message)
                         raise e
-        return cls.instance
+        return cls._instance
 
     # XXX: If the driver fails to load then we keep a reference
     # XXX: to the logger so we can read the error message later
     _logger = None
-    lock = Lock()
-    instance = None
+    _lock = Lock()
+    _instance = None
 
 g_ImplementationHelper.addImplementation(Driver,                          # UNO object class
                                          g_ImplementationName,            # Implementation name
