@@ -84,8 +84,8 @@ class Driver():
     # XXX: If the driver fails to load then we keep a reference
     # XXX: to the logger so we can read the error message later
     _logger = None
-    _lock = Lock()
     _instance = None
+    _lock = Lock()
 
 g_ImplementationHelper.addImplementation(Driver,                          # UNO object class
                                          g_ImplementationName,            # Implementation name
