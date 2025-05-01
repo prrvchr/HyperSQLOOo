@@ -80,14 +80,12 @@ class Driver(unohelper.Base,
         self._implementation = implementation
         self._services = services
         self._logger = logger
-        self._listeners = []
         # FIXME: If we want to add the StorageChangeListener only once,
         # FIXME: we need to be able to retrieve the DocumentHandler (keep a reference)
         self._handlers = []
 
     # XDriver
     def connect(self, url, infos):
-        print("Driver.connect 1 url: %s" % url)
         # XXX: We need to test first if configuration is OK...
         newinfos, document, storage, location = self._getConnectionInfo(infos)
         if storage is None or location is None:
