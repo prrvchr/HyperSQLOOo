@@ -60,13 +60,7 @@ ___
 ## Requirement:
 
 The HyperSQLOOo extension uses the jdbcDriverOOo extension to work.  
-It must therefore meet the [requirement of the jdbcDriverOOo extension][19].
-
-If you are using **LibreOffice on Linux** and **LibreOffice was installed with the package manager**, Your Python packages may be system-provided and outdated. The extension's logging will allow you to check if this is the case. It is accessible via the menu: **Tools -> Options -> LibreOffice Base -> Embedded HsqlD driver -> View log -> System Info** and requires restarting LibreOffice after activation.  
-If outdated packages appear, you can update them with the command:  
-`pip install --upgrade <package-name>`
-
-For more information see: [What has been done for version 1.1.0][20].
+It must therefore meet the [requirement of the jdbcDriverOOo extension][20].
 
 ___
 
@@ -311,7 +305,10 @@ ___
 
 ### What has been done for version 1.2.0:
 
+- Updated the [Python packaging][50] package to version 25.0.
+- Updated the [Python setuptools][51] package to version 75.3.2.
 - Passive registration deployment that allows for much faster installation of extensions and differentiation of registered UNO services from those provided by a Java or Python implementation. This passive registration is provided by the [LOEclipse][41] extension via [PR#152][58] and [PR#157][59].
+- Modified [LOEclipse][41] to support the new `rdb` file format produced by the `unoidl-write` compilation utility. `idl` files have been updated to support both available compilation tools: idlc and unoidl-write.
 - It is now possible to build the oxt file of the HyperSQLOOo extension only with the help of Apache Ant and a copy of the GitHub repository. The [How to build the extension][60] section has been added to the documentation.
 - Any errors occurring while loading the driver will be logged in the extension's log if logging has been previously enabled. This makes it easier to identify installation problems on Windows.
 - Requires the **jdbcDriverOOo extension at least version 1.5.0**.
@@ -338,8 +335,7 @@ ___
 [14]: <https://prrvchr.github.io/HyperSQLOOo/#how-to-migrate-an-embedded-database>
 [15]: <https://github.com/prrvchr/HyperSQLOOo/>
 [16]: <https://github.com/prrvchr/HyperSQLOOo/issues/new>
-[19]: <https://prrvchr.github.io/jdbcDriverOOo/README_fr#pr%C3%A9requis>
-[20]: <https://prrvchr.github.io/HyperSQLOOo/#what-has-been-done-for-version-110>
+[20]: <https://prrvchr.github.io/jdbcDriverOOo/#requirement>
 [21]: <https://prrvchr.github.io/jdbcDriverOOo/img/jdbcDriverOOo.svg#middle>
 [22]: <https://github.com/prrvchr/jdbcDriverOOo/releases/latest/download/jdbcDriverOOo.oxt>
 [23]: <https://img.shields.io/github/v/tag/prrvchr/jdbcDriverOOo?label=latest#right>
