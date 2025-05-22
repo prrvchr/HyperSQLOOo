@@ -158,7 +158,7 @@ ___
 Normalement, l'extension est créée avec Eclipse pour Java et [LOEclipse][41]. Pour contourner Eclipse, j'ai modifié LOEclipse afin de permettre la création de l'extension avec Apache Ant.  
 Pour créer l'extension HyperSQLOOo avec l'aide d'Apache Ant, vous devez:
 - Installer le [SDK Java][42] version 8 ou supérieure.
-- Installer [Apache Ant][43] version 1.9.1 ou supérieure.
+- Installer [Apache Ant][43] version 1.10.0 ou supérieure.
 - Installer [LibreOffice et son SDK][44] version 7.x ou supérieure.
 - Cloner le dépôt [HyperSQLOOo][45] sur GitHub dans un dossier.
 - Depuis ce dossier, accédez au répertoire: `source/HyperSQLOOo/`
