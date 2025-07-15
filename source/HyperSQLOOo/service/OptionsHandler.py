@@ -43,6 +43,9 @@ from hypersql import g_basename
 from hypersql import g_defaultlog
 from hypersql import g_identifier
 
+from hypersql import g_disabled
+from hypersql import g_memory
+
 import traceback
 
 # pythonloader looks for a static g_ImplementationHelper variable
@@ -57,7 +60,6 @@ class OptionsHandler(unohelper.Base,
         self._ctx = ctx
         self._manager = None
         self._logger = getLogger(ctx, g_defaultlog, g_basename)
-        self._url = 'xdbc:hsqldb:mem:dbversion'
 
     # XContainerWindowEventHandler
     def callHandlerMethod(self, window, event, method):
@@ -65,7 +67,7 @@ class OptionsHandler(unohelper.Base,
             handled = False
             if method == 'external_event':
                 if event == 'initialize':
-                    self._manager = OptionsManager(self._ctx, self._logger, window, self._url)
+                    self._manager = OptionsManager(self._ctx, self._logger, window, g_disabled, g_memory)
                     handled = True
                 elif event == 'ok':
                     self._manager.saveSetting()

@@ -49,5 +49,8 @@ g_path = False
 g_driver = ''
 g_shutdown = ''
 
+g_disabled = ()
+g_memory = 'xdbc:hsqldb:mem:dbversion'
+
 # LibreOffice configuration
 g_lover = '5.0'
