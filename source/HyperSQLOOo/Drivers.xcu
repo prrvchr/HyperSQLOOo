@@ -24,7 +24,9 @@
 ║                                                                                    ║
 ╚════════════════════════════════════════════════════════════════════════════════════╝
 -->
+<!DOCTYPE oor:component-data SYSTEM "component-update.dtd">
 <oor:component-data
+  xmlns:install="http://openoffice.org/2004/installation"
   xmlns:oor="http://openoffice.org/2001/registry"
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
   oor:package="org.openoffice.Office.DataAccess"
@@ -122,7 +124,7 @@
                         <value>false</value>
                     </prop>
                 </node>
-                <node oor:name="TablePrivilegesSettings" oor:op="replace">
+                <node oor:name="PrivilegesSettings" oor:op="replace">
                     <prop oor:name="Value" oor:type="oor:string-list">
                         <value oor:separator="|">SELECT|1|INSERT|2|UPDATE|4|DELETE|8|REFERENCES|128</value>
                     </prop>
