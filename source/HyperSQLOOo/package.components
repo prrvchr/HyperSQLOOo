@@ -11,4 +11,10 @@
       <service name="io.github.prrvchr.HyperSQLOOo.OptionsHandler"/>
     </implementation>
   </component>
+  <component loader="com.sun.star.loader.Python" uri="service/Setup.py">
+    <implementation name="io.github.prrvchr.HyperSQLOOo.Setup">
+      <service name="io.github.prrvchr.HyperSQLOOo.Setup"/>
+      <service name="com.sun.star.task.Job"/>
+    </implementation>
+  </component>
 </components>

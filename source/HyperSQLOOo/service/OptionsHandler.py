@@ -1,5 +1,5 @@
 #!
-# -*- coding: utf_8 -*-
+# -*- coding: utf-8 -*-
 
 """
 ╔════════════════════════════════════════════════════════════════════════════════════╗
@@ -41,9 +41,6 @@ from hypersql import getLogger
 
 from hypersql import g_basename
 from hypersql import g_defaultlog
-from hypersql import g_identifier
-
-from hypersql import g_disabled
 from hypersql import g_memory
 
 import traceback
@@ -52,6 +49,7 @@ import traceback
 g_ImplementationHelper = unohelper.ImplementationHelper()
 g_ImplementationName = 'io.github.prrvchr.HyperSQLOOo.OptionsHandler'
 g_ServiceNames = ("io.github.prrvchr.HyperSQLOOo.OptionsHandler", )
+
 
 class OptionsHandler(unohelper.Base,
                      XServiceInfo,
@@ -67,7 +65,7 @@ class OptionsHandler(unohelper.Base,
             handled = False
             if method == 'external_event':
                 if event == 'initialize':
-                    self._manager = OptionsManager(self._ctx, self._logger, window, g_disabled, g_memory)
+                    self._manager = OptionsManager(self._ctx, self._logger, window, g_memory)
                     handled = True
                 elif event == 'ok':
                     self._manager.saveSetting()
@@ -75,13 +73,17 @@ class OptionsHandler(unohelper.Base,
                 elif event == 'back':
                     self._manager.loadSetting()
                     handled = True
+            elif method == 'ShowSetup':
+                self._manager.showSetup()
+                handled = True
             return handled
         except Exception as e:
             print("OptionsHandler.callHandlerMethod() ERROR: %s" % traceback.format_exc())
             self._logger.logprb(SEVERE, 'OptionsHandler', 'callHandlerMethod', 301, e, traceback.format_exc())
 
     def getSupportedMethodNames(self):
-        return ('external_event', )
+        return ('external_event',
+                'ShowSetup')
 
     # XServiceInfo
     def supportsService(self, service):
@@ -92,6 +94,7 @@ class OptionsHandler(unohelper.Base,
 
     def getSupportedServiceNames(self):
         return g_ImplementationHelper.getSupportedServiceNames(g_ImplementationName)
+
 
 g_ImplementationHelper.addImplementation(OptionsHandler,                  # UNO object class
                                          g_ImplementationName,            # Implementation name
