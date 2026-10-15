@@ -34,10 +34,19 @@
   <prop oor:name="ApiLevel" oor:op="fuse">
     <value>2</value>
   </prop>
-  <prop oor:name="CachedRowSet" oor:op="fuse">
+  <prop oor:name="ResultSetType" oor:op="fuse">
     <value>1</value>
+  </prop>
+  <prop oor:name="UseCachedRowSet" oor:op="fuse">
+    <value>true</value>
   </prop>
   <prop oor:name="ShowSystemTable" oor:op="fuse">
     <value>false</value>
+  </prop>
+  <prop oor:name="SetupPosition" oor:op="fuse">
+    <value>-1 -1</value>
+  </prop>
+  <prop oor:name="SetupUpdate" oor:op="fuse">
+    <value>0</value>
   </prop>
 </oor:component-data>

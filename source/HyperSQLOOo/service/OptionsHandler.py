@@ -42,8 +42,6 @@ from hypersql import getLogger
 from hypersql import g_basename
 from hypersql import g_defaultlog
 from hypersql import g_identifier
-
-from hypersql import g_disabled
 from hypersql import g_memory
 
 import traceback
@@ -67,7 +65,7 @@ class OptionsHandler(unohelper.Base,
             handled = False
             if method == 'external_event':
                 if event == 'initialize':
-                    self._manager = OptionsManager(self._ctx, self._logger, window, g_disabled, g_memory)
+                    self._manager = OptionsManager(self._ctx, self._logger, window, g_memory)
                     handled = True
                 elif event == 'ok':
                     self._manager.saveSetting()

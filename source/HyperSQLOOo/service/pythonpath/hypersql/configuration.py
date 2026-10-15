@@ -39,7 +39,7 @@ g_defaultlog = '%sLogger' % g_dbname
 g_errorlog = '%sError' % g_dbname
 
 # DataBase configuration
-g_protocol = 'xdbc:hsqldb:'
+g_protocol = 'juda:hsqldb:'
 g_url = 'sdbc:embedded:hsqldb'
 g_user = 'SA'
 g_options = ';hsqldb.default_table_type=cached;shutdown=true'
@@ -49,8 +49,10 @@ g_path = False
 g_driver = ''
 g_shutdown = ''
 
-g_disabled = ()
-g_memory = 'xdbc:hsqldb:mem:dbversion'
+g_memory = 'juda:hsqldb:mem:dbversion'
 
-# LibreOffice configuration
-g_lover = '5.0'
+# Setup frame and Job name
+g_setup = '%s.Setup' % g_extension
+
+class State:
+    restart = False
