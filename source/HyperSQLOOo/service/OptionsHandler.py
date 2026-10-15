@@ -1,5 +1,5 @@
 #!
-# -*- coding: utf_8 -*-
+# -*- coding: utf-8 -*-
 
 """
 ╔════════════════════════════════════════════════════════════════════════════════════╗
@@ -41,9 +41,6 @@ from hypersql import getLogger
 
 from hypersql import g_basename
 from hypersql import g_defaultlog
-from hypersql import g_identifier
-
-from hypersql import g_disabled
 from hypersql import g_memory
 
 import traceback
@@ -52,6 +49,7 @@ import traceback
 g_ImplementationHelper = unohelper.ImplementationHelper()
 g_ImplementationName = 'io.github.prrvchr.HyperSQLOOo.OptionsHandler'
 g_ServiceNames = ("io.github.prrvchr.HyperSQLOOo.OptionsHandler", )
+
 
 class OptionsHandler(unohelper.Base,
                      XServiceInfo,
@@ -67,7 +65,7 @@ class OptionsHandler(unohelper.Base,
             handled = False
             if method == 'external_event':
                 if event == 'initialize':
-                    self._manager = OptionsManager(self._ctx, self._logger, window, g_disabled, g_memory)
+                    self._manager = OptionsManager(self._ctx, self._logger, window, g_memory)
                     handled = True
                 elif event == 'ok':
                     self._manager.saveSetting()
@@ -92,6 +90,7 @@ class OptionsHandler(unohelper.Base,
 
     def getSupportedServiceNames(self):
         return g_ImplementationHelper.getSupportedServiceNames(g_ImplementationName)
+
 
 g_ImplementationHelper.addImplementation(OptionsHandler,                  # UNO object class
                                          g_ImplementationName,            # Implementation name
