@@ -1,5 +1,5 @@
 #!
-# -*- coding: utf_8 -*-
+# -*- coding: utf-8 -*-
 
 """
 ╔════════════════════════════════════════════════════════════════════════════════════╗
@@ -30,16 +30,15 @@
 # General configuration
 g_catalog = 'hsqldb'
 g_dbname = 'HyperSQL'
-g_extension = '%sOOo' % g_dbname
-g_identifier = 'io.github.prrvchr.%s' % g_extension
-g_service = '%s.Driver' % g_identifier
-g_resource = 'resource'
+g_extension = f'{g_dbname}OOo'
+g_identifier = f'io.github.prrvchr.{g_extension}'
+g_service = f'{g_identifier}.Driver'
 g_basename = 'Driver'
-g_defaultlog = '%sLogger' % g_dbname
-g_errorlog = '%sError' % g_dbname
+g_defaultlog = f'{g_dbname}Logger'
+g_errorlog = f'{g_dbname}Error'
 
 # DataBase configuration
-g_protocol = 'xdbc:hsqldb:'
+g_protocol = 'juda:hsqldb:'
 g_url = 'sdbc:embedded:hsqldb'
 g_user = 'SA'
 g_options = ';hsqldb.default_table_type=cached;shutdown=true'
@@ -49,8 +48,6 @@ g_path = False
 g_driver = ''
 g_shutdown = ''
 
-g_disabled = ()
-g_memory = 'xdbc:hsqldb:mem:dbversion'
+g_memory = 'juda:hsqldb:mem:dbversion'
 
-# LibreOffice configuration
-g_lover = '5.0'
+g_version = '1.4.0'
