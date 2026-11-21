@@ -52,6 +52,14 @@ class OptionsView():
         return self._getSetup()
 
 # OptionsView setter methods
+    def dispose(self):
+        if self._layout:
+            self._layout.dispose()
+            self._layout = None
+        if self._link:
+            self._link.dispose()
+            self._link = None
+
     def refreshView(self, label, url):
         self._setLabel(label, url)
 
