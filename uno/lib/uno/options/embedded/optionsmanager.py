@@ -35,6 +35,9 @@ from .optionshandler import OptionsListener
 
 from .option import OptionManager as Manager
 
+from .setup import SetupHandler
+from .setup import SetupManager
+
 from ..runner import DispatchListener
 
 from ..setup import showSetup
@@ -62,16 +65,18 @@ class OptionsManager():
         self._agent = g_service, g_protocol, g_agent
         self._extensions = getExtensions()
         self._model = OptionsModel(ctx, logger, url)
-        self._view = OptionsView(ctx, window, self._model.getViewData())
-        self._manager = Manager(ctx, self._view.getFrame(), g_defaultlog)
+        self._view = OptionsView(ctx, window)
+        self._manager = Manager(ctx, self._view.getFrame(), self._model.getConfig(), g_defaultlog)
+        self._setup = SetupManager(ctx, self._view.getSetup(), SetupHandler(self), self._model.getConfig())
         window.addEventListener(OptionsListener(self))
-        self._view.getLayout().addLayout(self._manager.getLayout())
+        self._view.getLayout().addLayout(self._manager.getLayout()).addLayout(self._setup.getLayout())
         self._loadView(self.init)
 
     def init(self, state):
         if not self._disposed:
+            self._setup.init()
             self._manager.init(state)
-            self._view.initView(*self._model.getInitData(state))
+            self._view.refreshView(*self._model.getRefreshData(state))
             if state.java:
                 version = self._model.getDriverVersion(self._getConfigApiLevel())
                 self._view.setDriverVersion(version)
@@ -87,10 +92,11 @@ class OptionsManager():
 
 # OptionsManager setter methods
     def showSetup(self):
-        mode = self._view.getSetupMode()
+        mode = self._setup.getSetupMode()
         showSetup(self._ctx, Dispatch=DispatchListener(self), Mode=mode)
 
     def saveSetting(self):
+        self._setup.saveSetting()
         self._model.saveSetting(self._view.getSetupMode())
         if self._manager.saveSetting():
             State.restart = True
@@ -109,6 +115,6 @@ class OptionsManager():
 
 # OptionsManager private setter methods
     def _loadView(self, callback):
-        mode = self._view.getSetupMode()
+        mode = self._setup.getSetupMode()
         setup = SetupCheck(self._ctx, callback, java=self._java, agent=self._agent, python=True, extensions=self._extensions, mode=mode)
         setup.start()

@@ -35,9 +35,8 @@ from ..unotool import SubLayout
 
 
 class OptionsView():
-    def __init__(self, ctx, window, title):
+    def __init__(self, ctx, window):
         self._window = window
-        self._getTitle().Model.Label = title
         self._link = LinkListener(ctx, self._getLabel())
         self._layout = SubLayout(Layout(window, size=Size(279, 225), **self._getLayouts()))
         window.addWindowListener(self._layout)
@@ -49,14 +48,10 @@ class OptionsView():
     def getFrame(self):
         return self._getFrame()
 
-    def getSetupMode(self):
-        return self._getSetupMode().getSelectedItemPos()
+    def getSetup(self):
+        return self._getSetup()
 
 # OptionsView setter methods
-    def initView(self, setup, update, label, url):
-        self._setSetup(setup, update)
-        self.refreshView(label, url)
-
     def refreshView(self, label, url):
         self._setLabel(label, url)
 
@@ -70,19 +65,11 @@ class OptionsView():
 
     def _getHorizontals(self):
         yield self._getFrame()
-        yield self._getTitle()
-        yield self._getSetupMode()
+        yield self._getSetup()
         yield self._getLabel()
 
     def _getTops(self):
-        yield self._getSetup()
         yield self._getVersion()
-
-    def _setSetup(self, setup, update):
-        if update:
-            control = self._getSetupMode()
-            control.Model.Enabled = True
-            control.selectItemPos(setup, True)
 
     def _setLabel(self, label, url):
         self._getLabel().Model.Label = label
@@ -92,17 +79,11 @@ class OptionsView():
     def _getFrame(self):
         return self._window.getControl('FrameControl1')
 
+    def _getSetup(self):
+        return self._window.getControl('FrameControl2')
+
     def _getVersion(self):
         return self._window.getControl('Label2')
 
-    def _getTitle(self):
-        return self._window.getControl('FixedLine1')
-
-    def _getSetupMode(self):
-        return self._window.getControl('ListBox1')
-
-    def _getSetup(self):
-        return self._window.getControl('CommandButton1')
-
     def _getLabel(self):
-        return self._window.getControl('Label4')
+        return self._window.getControl('Label3')
