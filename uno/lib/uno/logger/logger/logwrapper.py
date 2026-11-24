@@ -34,9 +34,10 @@ from .loggerpool import LoggerPool
 from ..unotool import getResourceLocation
 from ..unotool import getStringResourceWithLocation
 
+from ..config.configuration import g_resource
+
 from ..configuration import g_extension
 from ..configuration import g_identifier
-from ..configuration import g_resource
 
 
 def getLogName(name):
@@ -71,7 +72,7 @@ class LogWrapper():
     def isLoggable(self, level):
         return self._logger.isLoggable(level)
 
-    def resolveString(self, resource, /, *args):
+    def resolveString(self, resource, /, *args):  # noqa
         if self._logger.hasEntryForId(resource):
             return self._logger.resolveString(resource, args)
         else:
@@ -100,13 +101,13 @@ class LogWrapper():
     def logp(self, level, clazz, method, message):
         self._logger.logp(level, clazz, method, message)
 
-    def logrb(self, level, resource, /, *args):
+    def logrb(self, level, resource, /, *args):  # noqa
         if self._logger.hasEntryForId(resource):
             self._logger.logrb(level, resource, args)
         else:
             self._logger.log(level, self._getErrorMessage(resource))
 
-    def logprb(self, level, clazz, method, resource, /, *args):
+    def logprb(self, level, clazz, method, resource, /, *args):  # noqa
         if self._logger.hasEntryForId(resource):
             self._logger.logprb(level, clazz, method, resource, args)
         else:
